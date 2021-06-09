@@ -169,7 +169,7 @@ def update_plot(par):
     res_img = res(par)
     ax[1,0].imshow(res_img, vmin=np.percentile(res_img,5), vmax=np.percentile(res_img,95))
     ax[1,0].set_title(f'image-model, $\chi^2_r$:{chi2(par)/(sz[0]*sz[1]-len(par)-1):0.2f}')
-    ang = np.rad2deg(par[3])
+    ang = -np.rad2deg(par[3])
 
     rot1 = scipy.ndimage.rotate(scipy.ndimage.shift(im,(-par[1],-par[0])), ang)
     rot2 = scipy.ndimage.rotate(scipy.ndimage.shift(func(par),(-par[1],-par[0])), ang)
