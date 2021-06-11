@@ -158,6 +158,7 @@ def update_plot(par):
     ax[0,0].plot(xc+par[0], yc+par[1], '+', color='grey')
     ax[0,0].set_title('image')
     ax[0,1].imshow(func(par), vmin=vmin, vmax=vmax)
+    ax[0,1].plot(xc+par[0], yc+par[1], '+', color='grey')
     ax[0,1].set_title('model')
 
 #    ft = np.fft.ifftshift(np.fft.ifft2(func(par)))
@@ -171,9 +172,9 @@ def update_plot(par):
     ax[1,0].set_title(f'image-model, $\chi^2_r$:{chi2(par)/(sz[0]*sz[1]-len(par)-1):0.2f}')
     ang = -np.rad2deg(par[3])
 
-    rot1 = scipy.ndimage.rotate(scipy.ndimage.shift(im,(-par[1],-par[0])), ang)
-    rot2 = scipy.ndimage.rotate(scipy.ndimage.shift(func(par),(-par[1],-par[0])), ang)
-    rot3 = scipy.ndimage.rotate(scipy.ndimage.shift(res(par),(-par[1],-par[0])), ang)
+    rot1 = scipy.ndimage.rotate(scipy.ndimage.shift(im,(-par[1],-par[0])), ang, reshape=False)
+    rot2 = scipy.ndimage.rotate(scipy.ndimage.shift(func(par),(-par[1],-par[0])), ang, reshape=False)
+    rot3 = scipy.ndimage.rotate(scipy.ndimage.shift(res(par),(-par[1],-par[0])), ang, reshape=False)
     line1 = np.median(rot1[:,int(xc)-10:int(xc)+10], axis=1)
     line2 = np.median(rot2[:,int(xc)-10:int(xc)+10], axis=1)
     line3 = np.median(rot3[:,int(xc)-10:int(xc)+10], axis=1)
