@@ -1,6 +1,9 @@
 \documentclass[11pt]{article}
 
-\usepackage{geometry}                % See geometry.pdf to learn the layout options. There are lots.
+\usepackage{natbib}
+\usepackage{hyperref}
+% \usepackage{aasmacros}
+% \usepackage{geometry}                % See geometry.pdf to learn the layout options. There are lots.
 %\geometry{a4paper}                   % ... or a4paper or a5paper or ... 
 %\geometry{landscape}                % Activate for for rotated page geometry
 %\usepackage[parfill]{parskip}    % Activate to begin paragraphs with an empty line rather than an indent
@@ -26,6 +29,13 @@ A finite source size fundamentally changes the double slit experiment. Consider 
 
 While either source would individually produce a set of fringes, together their fringes interfere to produce none, and this difference is the result of the spatial separation of the two sources. That is, the double slit experiment therefore provides a means to infer spatial information about sources by measuring fringe patters. Here we will be concerned with the fringe amplitudes, which are also known as ``visibilities'', but the phases are also important.
 
-The first use of an ``interferometer'' in astronomy was to measure the size of the moons of Jupiter.
+The first use of such an ``interferometer'' in astronomy was to measure the size of the moons of Jupiter \citep{1891PASP....3..274M,1891Natur..45..160M}, and 30 years later the technique was used to measure the diameter of another star \citep{1921ApJ....53..249M}. Interferometry is now a widely used technique in astrophysics, and is normally concerned with measuring the sizes of small objects, or with obtaining images of objects and structures that have relatively small angular scales.
+
+What does ``small'' mean here? As we saw above, when the separation between two point sources is $\lambda/(2b)$, the fringes disappear (the visibility is zero). The angular resolution of an interferometer is therefore defined as $\lambda/(2b)$, where $b$ is the distance between two telescopes, that serve the same purpose as the slits in the double slit experiment. Compare this to Rayleigh's criterion, $1.22 \lambda/D$, where $D$ is the diameter of the aperture or telescope. Now if $D$ and $b$ are similar the resolution of an interferometer and a normal ``single-dish'' telescope is similar. But there is one key difference; the space between the two telescopes of an interferometer can be empty, meaning that it is practically much easier and cheaper to make $b$ large (e.g. kilometers for millimeter wavelengths) than it is to make $D$ large. The largest single-dish telescopes we have are of order tens to hundreds of meters.
+
+Thus, the key thing an interferometer does is allow is to make measurements on small angular scales, without constructing a single-dish telescope that would do so based on Rayleigh's criterion. In this experiment you will use exactly the same methods used in optical interferometry, just on a smaller scale.
+
+\bibliographystyle{aasjournal}
+\bibliography{refs}
 
 \end{document}  
