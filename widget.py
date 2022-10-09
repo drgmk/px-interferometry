@@ -1,3 +1,5 @@
+#!python3
+
 import os
 import sys
 import numpy as np
@@ -32,6 +34,13 @@ r - set rms from box around cursor location in residual image
 m - minimise (walk downhill in chi^2)
 M - minimise with Markov-Chain Monte Carlo (slower)
 S - save parameters to numpy save file (file.fits -> file.npy)
+
+To run this script will likely require installing some python
+modules. Assuming that you don't have the necessary permissions
+to install these in the system, it will be best to use the --user
+option, e.g
+
+`pip install --user astropy`
 '''
 
 # open a file
