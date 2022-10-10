@@ -59,7 +59,7 @@ sz = im.shape
 
 # median filter out hot/cold pixels
 im[np.invert(np.isfinite(im))] == np.median(im)
-im = scipy.ndimage.filters.median_filter(im,3)
+im = scipy.ndimage.median_filter(im,3)
 
 # rebin image down to speed things up, just chop some off if necessary
 sc = 1
@@ -276,6 +276,21 @@ def keypress(event):
 
     if event.key == 'S':
         np.save(paramfile, unsc_par(par))
+
+    if event.key == 'h':
+        print("""
+c - set PSF center at cursor location
+g - set PSF width as cursor distance from center
+b - set background from cursor location
+p - set image peak from cursor location (use brightest fringe)
+t - set image trough from cursor location (use first dark fringe)
+w - set fringe wavelength and angle from cursor distance/angle from center
+f - set phase with peak at cursor
+r - set rms from box around cursor location in residual image
+m - minimise (walk downhill in chi^2)
+M - minimise with Markov-Chain Monte Carlo (slower)
+S - save parameters to numpy save file (file.fits -> file.npy)
+""")
 
     update_plot(par)
 
