@@ -41,6 +41,17 @@ to install these in the system, it will be best to use the --user
 option, e.g
 
 `pip install --user numpy scipy astropy emcee`
+
+If you have problems with the keypress interaction, it may be
+that changing the matplotlib backend helps. Try typing
+
+`export MPLBACKEND=qtagg`
+
+in the termnal before launching the widget, or some of the
+other backends listed here
+https://matplotlib.org/stable/users/explain/backends.html
+If this works, you can make the change permanent by adding
+a line to your matplotlibrc file.
 '''
 
 # open a file
