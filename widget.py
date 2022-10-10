@@ -40,7 +40,7 @@ modules. Assuming that you don't have the necessary permissions
 to install these in the system, it will be best to use the --user
 option, e.g
 
-`pip install --user astropy`
+`pip install --user numpy scipy astropy emcee`
 '''
 
 # open a file
