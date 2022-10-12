@@ -13,7 +13,7 @@
 %\DeclareGraphicsRule{.tif}{png}{.png}{`convert #1 `dirname #1`/`basename #1 .tif`.png}
 
 \title{Optical interferometry}
-\author{Grant Kennedy}
+\author{Staff contact: Grant Kennedy}
 %\date{}                                           % Activate to display a given date or no date
 
 \begin{document}
@@ -37,7 +37,60 @@ Thus, the key thing an interferometer does is allow is to make measurements on s
 
 \section{Theory}
 
-Outline theory. Show visibility for uniform source and binary.
+This experiment is little more than an extension of Young's double slit experiment. The only real difference is that we will be using an extended source that is incoherent. Typically the double slit experiment uses a coherent point source (e.g. a laser). The slits will also be replaced with pairs of holes, so instead of the usual one-dimensional picture, fringes are spread over a two-dimensional plane with an orientation that depends on the orientation of the holes. 
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.8\textwidth]{doc/youngs.png}
+    \caption{Illustration of Young's double slit experiment (\emph{left}), and the resulting intensity image when two point sources are observed (\emph{right}). Credit: \citet{2003RPPh...66..789M}.}
+    \label{fig:youngs}
+\end{figure}
+
+To recap the double slit experiment, Figure \ref{fig:youngs} shows the expected fringe pattern for a point source at infinity and with slits that have a spacing $b$. In interferometry, this separation is commonly called a ``baseline''. We assume that we are using/observing light that has a limited range of wavelengths that is centered on $\lambda$. The fringe pattern then has a spacing of $\lambda/b$; this is the angle in radians between fringe peaks from the plane of the slits to the detector. The fringe pattern intensity $I$ is commonly written as
+\begin{equation}\label{eq:fringepattern}
+    I = 4 I_0 \cos^2 \frac{\delta}{2}
+\end{equation}
+where $I_0$ is the intensity that would have resulted from light passing through a single hole or slit, and where $\delta$ is the phase difference that results from the different path lengths from the slits to a given point on the detector.
+
+Now consider a second source of equal brightness, with an angular separation from the first of $\lambda/(2b)$. The fringes produced by this source will be 180$^\circ$ out of phase compared to the fringes from the first source, so will cancel. Because we are considering an analogy with an astronomical observation, the two sources are expected to be incoherent because their spatial separation will typically be large (e.g. millions of km apart on the surface of a star) and there is no reason to believe there is any laser-like behaviour that synchronises photon phases, so the phases of two photons coming from the two sources will have random phases with respect to each other. Thus, at any point on the detector we can simply add the intensity from the two independent fringe patterns (there is no sustained interference between the two patterns). For the case with the second source separated by $\lambda/(2b)$, the result is therefore no fringes at all, as shown in the right panel of Figure \ref{fig:youngs}. This disappearance of the fringes is how we define the resolution of an interferometer, while for single-dish (normal) telescopes with diameter $D$ it is the Rayleigh criterion of 1.22\,$\lambda/D$, for interferometers it is $\lambda/(2b)$.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.8\textwidth]{doc/coherence.png}
+    \caption{Illustration of how the fringe pattern is altered by a finite range of wavelengths and an extended source size (assuming a baseline of 10\,cm). Each panel shows several of the fringe patterns that are being superimposed, which result in the overall pattern shown as the thicker black line. The top left panel shows the fringe pattern for a monochromatic point source, and the other panels show how the fringe amplitude is reduced. The top right shows the effect for a range of wavelengths in the `K' band (near 2.5\,$\mu$m). The lower left panel shows the effect for an extended source, and the lower right panel the combination of an extended source and range of wavelengths. Credit: \href{https://www.eso.org/sci/facilities/paranal/telescopes/vlti/tuto/tutorial_spatial_interferometry.pdf}{Andreas Glindemann/ESO}}
+    \label{fig:coherence}
+\end{figure}
+
+In intermediate cases where a second source is less separated, e.g. at $\lambda/(4b)$, the fringe patterns do not add up to a constant, but the amplitude of the pattern is still reduced. The same behaviour is typically observed when the source is extended, e.g. a uniform disk such as a stellar surface, since this case can be considered as the summation of a series of point sources. This reduction is illustrated in Figure \ref{fig:coherence}, most importantly in the lower left panel which considers a finite continuous source. A finite range of wavelengths will also reduce the fringe amplitude, though in this experiment we will ignore this effect.
+
+In interferometry we are primarily interested in the amplitude of the fringes formed on our detector. We characterise this amplitude with the ``visibility'', which is defined as
+\begin{equation}
+    V = \frac{I_{\rm max} - I_{\rm min}}{I_{\rm max} + I_{\rm min}} \, .
+\end{equation}
+Looking at Figure \ref{fig:coherence}, we can see that the fringes in the top left panel have $V=1$ (and in the left panel of Figure \ref{fig:youngs}). For resolved sources the visibility is lower, for example in the lower left panel the value is about 0.6. For the right panel in Figure \ref{fig:youngs} the visibility is zero.
+
+In general, the fringes are an indication of how well ``resolved'' a source is. An unresolved source will have strong fringes and a high visibility, but as the source becomes more extended the fringes weaken and the visibility drops. For continuous sources as we will be considering here, which are analogous to the surface of a star for example, when the source is larger than about $\lambda/(2b)$ the visibility drops to near zero. This can be understood as the image on the detector being the superposition of many fringes that have such a wide range of phases that the average is a constant.
+
+Of course, in reality we do not change the source size, we instead change the resolution of our instrument, either by changing the wavelength $\lambda$ or the baseline length $b$. A typical measurement therefore normally consists of making visibility measurements for a range of wavelengths and baseline lengths, and using these to infer spatial information about our source.
+
+Note that as we are only using a pair of baselines, we are really only measuring the source size along an axis parallel with the baseline vector. For sources that are not rotationally symmetric, we can address this by rotating our baselines to a different angle with respect to the source and making more measurements.
+
+\subsection{Visibility functions}
+
+Mathematically, we can write down the expected behaviour of the visibility as a function of baseline and wavelength for a few different source geometries. Some more detail on where these come from is \href{https://www.eso.org/sci/facilities/paranal/telescopes/vlti/tuto/tutorial_interferometry.html}{on this ESO page}.
+
+The visibility for a binary source is perhaps not too surprising, we saw above that $V=1$ when their separation is zero, and $V=0$ when their separation is $\lambda/(2b)$, and $V$ varies sinusoidally in between. For a equal brightness binary with separation $s$, the visibility is
+\begin{equation}
+    V_{\rm binary} = \frac{1 + \cos ( 2 \pi s b / \lambda )}{2} \, .
+\end{equation}
+
+For an extended circular source of diameter $\theta$ as a function of baseline length the visibility is
+\begin{equation}
+    V_{\rm uniform} = \frac{2 J_1(\pi \theta b / \lambda)}{\pi \theta b / \lambda} \, ,
+\end{equation}
+where $J_1$ is a first order Bessel function.
+
+These are the two main visibility functions that you will need for this experiment.
 
 \section{Experimental setup}
 
