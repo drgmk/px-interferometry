@@ -1,6 +1,7 @@
 \documentclass[11pt]{article}
 
 \usepackage{natbib}
+\usepackage{aas_macros}
 \usepackage{hyperref}
 % \usepackage{aasmacros}
 % \usepackage{geometry}                % See geometry.pdf to learn the layout options. There are lots.
@@ -35,6 +36,7 @@ What does ``small'' mean here? As we saw above, when the separation between two 
 
 Thus, the key thing an interferometer does is allow is to make measurements on small angular scales, without constructing a single-dish telescope that would do so based on Rayleigh's criterion. In this experiment you will use exactly the same methods used in optical interferometry, just on a smaller scale.
 
+\clearpage
 \section{Theory}
 
 This experiment is little more than an extension of Young's double slit experiment. The only real difference is that we will be using an extended source that is incoherent. Typically the double slit experiment uses a coherent point source (e.g. a laser). The slits will also be replaced with pairs of holes, so instead of the usual one-dimensional picture, fringes are spread over a two-dimensional plane with an orientation that depends on the orientation of the holes. 
@@ -61,7 +63,7 @@ Now consider a second source of equal brightness, with an angular separation fro
     \label{fig:coherence}
 \end{figure}
 
-In intermediate cases where a second source is less separated, e.g. at $\lambda/(4b)$, the fringe patterns do not add up to a constant, but the amplitude of the pattern is still reduced. The same behaviour is typically observed when the source is extended, e.g. a uniform disk such as a stellar surface, since this case can be considered as the summation of a series of point sources. This reduction is illustrated in Figure \ref{fig:coherence}, most importantly in the lower left panel which considers a finite continuous source. A finite range of wavelengths will also reduce the fringe amplitude, though in this experiment we will ignore this effect.
+In intermediate cases where a second source is less separated, e.g. at $\lambda/(4b)$, the fringe patterns do not add up to a constant, but the amplitude of the pattern is still reduced. The same behaviour is typically observed when the source is extended, e.g. a uniform disk such as a stellar surface, since this case can be considered as the summation of a series of point sources. This reduction in fringe amplitude is illustrated in Figure \ref{fig:coherence}, most importantly in the lower left panel which considers a finite continuous source. A finite range of wavelengths will also reduce the fringe amplitude, though in this experiment we will reduce this effect by using filters to restrict the range of wavelengths.
 
 In interferometry we are primarily interested in the amplitude of the fringes formed on our detector. We characterise this amplitude with the ``visibility'', which is defined as
 \begin{equation}
@@ -92,20 +94,44 @@ where $J_1$ is a first order Bessel function.
 
 These are the two main visibility functions that you will need for this experiment.
 
+\clearpage
 \section{Experimental setup}
 
 This lab has an intentionally simple setup; the goal is to show how one can construct an interferometer from a standard telescope with minor and straightforward modifications. The key pieces of equipment are:
 \begin{itemize}
-    \item telescope, this is mounted to the bench
-    \item CMOS detector and USB cable
-    \item lens cap, this holds the tokens with the pairs of holes (baselines)
-    \item baseline tokens, these have small (0.3\,mm) holes drilled in pairs with a range of separations
-    \item light source
-    \item aperture tokens, these go in front of the light source and are what we observe
-    \item filters, used to change the wavelength of the source
+    \item Telescope, this is mounted to the bench.
+    \item CMOS detector and USB cable.
+    \item Lens cap, this holds the tokens with the pairs of holes (baselines).
+    \item Baseline tokens, these have small (0.3\,mm) holes drilled in pairs with a range of separations.
+    \item Light source.
+    \item Aperture tokens, these go in front of the light source and are what we observe.
+    \item Filters, used to change the wavelength of the source.
+    \item Miscellaneous bits to mount the light source, aperture tokens, and filters.
+    \item ITS computer near the telescope, plug the CMOS into this one.
 \end{itemize}
 
-Setting up the experiment is reasonably simple, the aim being to have the telescope pointed at the light source and aperture. While having the telescope properly focussed will aid the setup, it's not actually critical for observing the fringes. A suggested series of steps to get your first set up fringes is as follows:
+\subsection{Image capture software}\label{sec:software}
+
+The software for this experiment is \href{http://www.firecapture.de/}{\texttt{FireCapture}}; it is an open source code primarily designed for amateur astronomers, and provides a friendly and easy to use interface for viewing images from the detector in real time, and allows saving of images in various formats.
+
+A copy of the software will likely exist on the computer near where the telescope is set up. If not, download the file to somewhere that belongs to you (e.g. \texttt{H://Desktop/Interferometry} under \texttt{This PC}), unzip the file and find the \texttt{FireCapture} application (within a second FireCapture folder) and double click it. It may ask if you want to unzip more files, if so say yes. You will then need to open it again to run the software (and say yes to any queries about running/security). You may need to select the detector at startup, if so, select \texttt{QHY}. You will probably also be prompted to select a folder in which to save data. It would make sense to make another folder, e.g. \texttt{H://Desktop/Interferometry/Data} for this, and if you use \texttt{H} drive, you will have access to this from other ITS machines. If you have problems, e.g. with the software crashing, try deleting the preferences folder and restarting, which should be in \texttt{C://Users/uXXXXXXX/FireCapture}.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=1\textwidth]{doc/fc.png}
+    \caption{Screenshot of the \texttt{firecapture} software running. The detector image is in the main panel, and various controls are in the left column.}
+    \label{fig:fc}
+\end{figure}
+
+You will not need most of the options available in \texttt{FireCapture}. The main one in terms of obtaining images on screen is the exposure time (under ``control''); you will need to experiment, but values of about 1s are likely to be about right. The exposure time will however depend on what value you select for the gain. Higher gain images will require shorter exposures, but will be noisier. You will know the exposure is appropriate when you have a clear image visible on screen, and this image is not saturated (the ``histogram'' panel may help here).
+
+The other important control is how images are saved (under ``capture''); for this you need to specify a directory in which to save images (if you didn't already at startup), a file format (select ``FIT''), and a number of images to save (just one, since you will hit save manually each time you change the baseline token, filter, etc.).
+
+You can optionally save a ``dark frame'' (one of the small buttons between the main image and the left column of controls). For this cover the front of the telescope (putting your hand in front of the baseline token would suffice), and \texttt{FireCapture} will take an image that will be subtracted off subsequent images. The goal is that this dark image will contain any ``hot'' (permanently defective) detector pixels, and by subtracting them these pixels will not be visible in the final images.
+
+\subsection{Setup}
+
+Setting up the experiment is reasonably simple, the aim being to have the telescope pointed at the light source and aperture. While having the telescope properly focused will aid the setup, it's not actually critical for observing the fringes. A suggested series of steps to get your first set up fringes is as follows:
 
 \begin{enumerate}
     \item Plug the light source in to charge. The battery should last for hours, but it's best to turn it off when you're not using it.
@@ -113,31 +139,15 @@ Setting up the experiment is reasonably simple, the aim being to have the telesc
     \item Insert the CMOS detector into the rear of the telescope and (gently) tighten the screws to keep it in place. You may end up rotating the detector later.
     \item Connect the CMOS detector to the computer with the USB cable.
     \item Open the image capture software (see \ref{sec:software}). The detector should be automatically recognised and an image appear on screen. Test whether the detector is working by covering/uncovering the hole in the lens cap.
-    \item Set up the holder for the filters and aperture tokens. Place an aperture token in one of the slots.
-    \item Remove the telescope lens cap and set up the focus and pointing. The telescope is fixed, so you will need to adjust the location of the filter/aperture holder until it appears near the center of the detector image. You will simultaneously need to adjust the focus so you know what you are pointing at. You may find it helpful to hold a large object (e.g. a book) in front of the holder to figure out where you need to point. You should end up with an in focus image of the aperture on the detector.
-    \item Set up the light source behind the aperture, fixing it to the bench with clamps. Point it towards the telescope. The pointing doesn't need to be too precise; you can test whether it's pointing in the right direction by holding your hand in front of the aperture to see if the light is pointing towards the telescope.
+    \item Set up an aperture token at the other end of the lab using the mounting kit.
+    \item Remove the telescope lens cap and set up the focus and pointing. The telescope is fixed, so you will need to adjust the location of the aperture token until it appears near the center of the detector image. You will simultaneously need to adjust the focus so you know what you are pointing at. You may find it helpful to hold a large object (e.g. a book) in front of the token to figure out where you need to point. You should end up with an in focus image of the aperture on the detector.
+    \item Set up the light source behind the aperture, fixing it to the bench with clamps. Point it towards the telescope. The pointing doesn't need to be too precise but they should align reasonably well; you can test whether it's pointing in the right direction by holding your hand in front of the aperture to see if the light is pointing towards the telescope.
     \item Insert one of the baseline tokens into the lens cap. You should now see fringes on the detector with an image similar to Figure \ref{fig:det-img}, though may need to alter the exposure time (around 1\,s should be enough).
 \end{enumerate}
 
 If all of this setup has gone well, you are now ready to start!
 
-\subsection{Image capture software}\label{sec:software}
-
-The software for this experiment is \href{http://www.firecapture.de/}{\texttt{firecapture}}; it is an open source code primarily designed for amateur astronomers, and provides a friendly and easy to use interface for viewing images from the detector in real time, and allows saving of images in various formats. A copy of the software should exist on the computer near where the telescope is set up. This is the computer you will plug the USB cable from the detector into.
-
-\begin{figure}[h]
-    \centering
-    \includegraphics[width=1\textwidth]{doc/fc.png}
-    \caption{Screenshot of the \texttt{firecapture} software running. The deteector image is in the main panel, and various controls are in the left column.}
-    \label{fig:fc}
-\end{figure}
-
-You will not need most of the options available in \texttt{firecapture}. The main one in terms of obtaining images on screen is the exposure time (under ``control''); you will need to experiment, but values of about 1s are likely to be about right. The exposure time will however depend on what value you select for the gain. You will know the exposure is appropriate when you have an image visible on screen, and this image is not saturated (the ``histogram'' panel may help here).
-
-The other important control is how images are saved (under ``capture''); for this you need to specify a directory in which to save images, a file format (select ``FIT''), and a number of images to save (just one, since you will hit save manually each time you change the baseline token, filter, etc.).
-
-You can optionally save a ``dark frame'' (one of the small buttons between the main image and the left column of controls). This involves covering the front of the telescope (putting your hand in front of the baseline token would suffice) and taking an image that will be subtracted off subsequent images. The goal is that this dark image will contain any ``hot'' (permanently defective) detector pixels, and by subtracting them these pixels will not affect the final images.
-
+\clearpage
 \section{Measuring visibilities}\label{sec:meas}
 
 The key measurement in this experiment is of the fringe visibility. In the images this is essentially how strong the fringes are; if their amplitude covers the full range from peak to the background level the visibility is high (i.e. near 1), and if they are barely visible then the visibility is low (i.e. near zero).
@@ -145,7 +155,7 @@ The key measurement in this experiment is of the fringe visibility. In the image
 \begin{figure}[h]
     \centering
     \includegraphics[width=0.8\textwidth]{doc/det-img.png}
-    \caption{Example image. The broad circular envelope is the PSF, on which the fringes are superimposed. The small dots are aretefacts from dust somewhere in the optical path, likely on the detector.}
+    \caption{Example image. The broad circular envelope is the PSF, on which the fringes are superimposed. The small dots are artefacts from dust somewhere in the optical path, likely on the detector.}
     \label{fig:det-img}
 \end{figure}
 
@@ -153,24 +163,63 @@ There are three components that contribute to an image, an example is shown in F
 \begin{itemize}
     \item background; this is contributed by any stray light that reaches the detector, plus any intrinsic level attributed to the detector itself
     \item point spread function (PSF); this is the broad overall shape of the signal on the detector and is approximately Gaussian, and is set by the size of the individual holes in the baseline tokens. Smaller holes yield a larger diffraction pattern, and vice versa.
-    \item fringes; this is the fringe pattern resulting from the pair of holes
+    \item fringes; this is the wavy pattern resulting from the pair of holes
 \end{itemize}
 The goal in making a measurement is to subtract (or otherwise account for) the background, and make a measurement of the fringe visibility that (if possible/necessary) takes the shape of the PSF into account.
 
-The simplest method for obtaining a visibility measurement would be to measure the background level somewhere away from the PSF, take peak and trough measurements for the fringes, subtract the background level from these, and then compute the visibility. A more complex, but more reliable method, is to use the supplied python widget (\texttt{widget.py}); this code models the above components of the detector image to come up with a parameterised fit to the data, from which the visibility can be extracted.
+The simplest method for obtaining a visibility measurement would be to use the curson in \texttt{FireCapture} to measure the background level somewhere away from the PSF, take peak and trough measurements for the fringes, subtract the background level from these, and then compute the visibility. A more complex, but more reliable method, is to use the supplied python widget (\texttt{widget.py}); this code models the above components of the detector image to come up with a parameterised fit to the data, from which the visibility can be extracted.
 
 \subsection{Using \texttt{widget.py}}\label{sec:widget}
 
-This code brings up an interactive window that allows a parameterised fit to a detector image, and which will output the model parameters, including the visibility and baseline angle (with respect to the detector, whose orientation depends on how you insert it into the telescope). The code itself exists on github\footnote{\href{https://github.com/drgmk/px-interferometry}{https://github.com/drgmk/px-interferometry}}, you can download it from here if it is not already on the machine you are using.
+This code brings up an interactive window that allows a parameterised fit to a detector image, and which will output the model parameters, including the visibility and baseline angle (with respect to the detector, whose orientation depends on how you insert it into the telescope). The code itself exists on github\footnote{\href{https://github.com/drgmk/px-interferometry}{https://github.com/drgmk/px-interferometry}}, you can download it from here if it is not already on the machine you are using. If you save it to \texttt{H://Desktop/Interferometry/px-interferometry} things will be a little easier.
 
+To run the python widget, you first need to open a \texttt{python} terminal. BLA BLA 
+
+With the \texttt{python} terminal running, you will need to import and then run the code. To import, do $$\texttt{import widget}$$
+from the \texttt{px-interferometry} folder. To run the widget do
+$$\texttt{widget.fit\_fringes('../Data/FOLDERS/file.FIT',sc=2)}$$
+where you will need to enter the correct path to the file you want to extract the visibility for. The \texttt{sc=2} argument does $2 \times 2$ averaging to make the array for the image smaller so the fitting code runs faster. You could try \texttt{sc=4} or higher, but if you average too much the detail in the image will be lost.
+
+On running the widget a window will pop up with the image (FITS file), a model, an image of the residuals (image-model), and a cut through the center of the image perpendicular to the fringes in the model. An example is shown in Figure \ref{fig:widget}.
+
+\begin{figure}
+    \centering
+    \includegraphics[width=1\textwidth]{widget.png}
+    \caption{Example widget window. The top left panel shows the FITS image that is being fit. The top right shows the current model. The lower left shows the image-model residuals, and the lower right shows a cut through the image that is perpendicular to the model fringes (blue line), and the same cut through the model (orange line). This example shows the initial state, so the model does not fit the image at all well.}
+    \label{fig:widget}
+\end{figure}
+
+The goal is then to improve the fit, which will almost certainly require some interaction. This works by moving the mouse cursor to a location on the image, pressing a key on the keyboard to change some parameter, and repeating until the model is reasonably good. Details regarding keys can be found at \href{https://github.com/drgmk/px-interferometry}{https://github.com/drgmk/px-interferometry} The fit can then be minimised by pressing the \texttt{m} key. The residual plot may never look perfectly smooth, but the more uniform this image appears the better the fit. An example of a good fit is shown in Figure \ref{fig:widget2}. The results can be saved into a \texttt{numpy} save file with \texttt{S}, but the visibility is also shown in the lower right panel.
+
+\begin{figure}
+    \centering
+    \includegraphics[width=1\textwidth]{widget2.png}
+    \caption{Example widget window with a good model fit to the data.}
+    \label{fig:widget2}
+\end{figure}
+
+\clearpage
 \section{The experiment}
 
-There are many possible measurements that could be made with this experimental setup. The two key ones you should do are to i) measure the angular size of a source (i.e. aperture), and to ii) verify the expected visibility variation with baseline for a binary source. Beyond these two possible options are to iii) characterise the shape of a non-rotationally symmetric source, iv) try repeating one of parts i/ii, but using Fourier transforms to extract the visibilities from the data, v) create your own baseline token with more than 2 holes using tin foil and a pin, and use this to take some measurements (e.g. to measure an aperture size and/or shape).
+There are many possible measurements that could be made with this experimental setup. The three key ones you should do are:
+\begin{itemize}
+    \item Estimate the bandwidth of the detector with no filter in place. This means estimating where the fringes become incoherent (e.g. after $n \times \lambda/b$ as in Fig. \ref{fig:coherence}), which then means the difference in wavelength across the band is approximately $\lambda/(2n)$, where $\lambda$ is the mean wavelength of the band. Show that this problem is significantly reduced when the filters are used.
+    \item Measure the angular size of a circular source (i.e. aperture)
+    \item Verify the expected visibility variation with baseline for a binary source. 
+\end{itemize}
+
+Beyond these some possible options are to:
+\begin{itemize}
+    \item Use the above method to characterise the shape of a non-rotationally symmetric source.
+    \item Try repeating one of parts i/ii, but using Fourier transforms to extract the visibilities from the data. There is an option in the widget to compute a Fourier transform of the data and model, and to estimate the power of the peak frequency from the image.
+    \item Create your own baseline token with more than 2 holes using tin foil and a pin, and use this to take some measurements (e.g. to measure an aperture size and/or shape). This would either involve creating your own two-fringe model, or using Fourier transforms.
+\end{itemize}
 
 \subsection{Basic procedure}
 
 The basic procedure for this experiment is to set things up as you desire, verify the setup is working visually using the image on the screen, and to then save that image. These steps are then repeated as necessary to obtain a full set of images, e.g. across several baselines with different filters. The resulting images are then analysed to obtain visibility measurements, and these visibilities are then used in concert with the baseline length and filter wavelength information to obtain a result. This result would typically be a plot of baseline vs. $b/\lambda$, and/or a fit to the relevant theoretical curve to obtain an estimate of the source aperture size.
 
+\clearpage
 \bibliographystyle{aasjournal}
 \bibliography{refs}
 
