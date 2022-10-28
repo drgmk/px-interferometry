@@ -36,10 +36,10 @@ M - minimise with Markov-Chain Monte Carlo (slower)
 S - save parameters to numpy save file (file.fits -> file.npy)
 
 The widget can also be loaded in a python terminal and run as a
-function, e.g.
+function, where the fourier option is also available, e.g.
 
 `import widget`
-`fit_fringes('path/file.fits', sc=2)`
+`fit_fringes('path/file.fits', sc=2, fourier=True)`
 
 To run this script will likely require installing some python
 modules. Assuming that you don't have the necessary permissions
@@ -353,4 +353,4 @@ if __name__ == "__main__":
     if len(sys.argv) > 2:
         sc = int(sys.argv[2])
 
-    fit_fringes(file, sc=sc, fourier=True)
+    fit_fringes(file, sc=sc)
