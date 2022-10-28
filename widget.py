@@ -60,7 +60,7 @@ If this works, you can make the change permanent by adding
 a line to your matplotlibrc file.
 '''
 
-def fit_fringes(file, sc=1):
+def fit_fringes(file, sc=1, fourier=False):
 
     # set output path, get image, and size
     if file is None:
@@ -88,11 +88,6 @@ def fit_fringes(file, sc=1):
     def unsc_par(par):
         x0,y0,sw,st,sp,sm,sv,gw,bg = par
         return [x0*sc,y0*sc,sw*sc,st,sp,sm,sv,gw*sc,bg]
-
-    # maybe we'll use this
-    #ft = np.fft.ifftshift(np.fft.ifft2(im))
-    #aft = np.abs(ft)
-    #ift = np.angle(ft)
 
     # open/set/guess pars now, will alter later
     if os.path.exists(paramfile):
@@ -164,7 +159,10 @@ def fit_fringes(file, sc=1):
         return -0.5*chi2(p)
 
     # Start making the widget
-    fig, ax = plt.subplots(2,2, figsize=(12,9))
+    if fourier:
+        fig, ax = plt.subplots(2,3, figsize=(18,9))
+    else:
+        fig, ax = plt.subplots(2,2, figsize=(12,9))
 
     def update_plot(par):
         '''Function to update plot.'''
@@ -180,11 +178,40 @@ def fit_fringes(file, sc=1):
         ax[0,1].plot(xc+par[0], yc+par[1], '+', color='grey')
         ax[0,1].set_title('model')
 
-    #    ft = np.fft.ifftshift(np.fft.ifft2(func(par)))
-    #    aft = np.abs(ft)
-    #    ax[0,2].imshow(aft[sz[0]//2-30:sz[0]//2+30,sz[1]//2-45:sz[1]//2+45],
-    #                   vmin=np.percentile(aft,1), vmax=np.sort(aft.flatten())[-5])
-    #    ax[0,2].set_title('FT$^{-1}$(model)')
+        if fourier:
+            # get model of just PSF
+            par_tmp = par.copy()
+            par_tmp[6] = 0
+            par_tmp[8] = 0
+            psf = func(par_tmp)
+            
+            # subtract this from data and normalise to peak
+            sub = (im-par[8]) - psf
+            sub = sub / np.max(sub)
+            msub = func(par)-par[8]-psf
+            msub = msub / np.max(msub)
+            
+            ft = np.fft.ifftshift(np.fft.ifft2(sub))
+            aft = np.abs(ft)
+            mft = np.fft.ifftshift(np.fft.ifft2(msub))
+            amft = np.abs(mft)
+            
+#            ax[1,2].imshow(sub,
+#                           vmin=np.percentile(sub,1), vmax=np.percentile(sub,99))
+            ax[1,2].imshow(aft)
+#            [sz[0]//2-30:sz[0]//2+30,sz[1]//2-45:sz[1]//2+45],
+#                           vmin=np.percentile(aft,1), vmax=np.sort(aft.flatten())[-5])
+            ax[1,2].set_title('FT$^{-1}$(data)')
+            
+            ax[0,2].imshow(amft)
+#            [sz[0]//2-30:sz[0]//2+30,sz[1]//2-45:sz[1]//2+45],
+#                           vmin=np.percentile(aft,1), vmax=np.sort(aft.flatten())[-5])
+            ax[0,2].set_title('FT$^{-1}$(model)')
+
+            mxy = np.unravel_index(np.argmax(amft), amft.shape)
+            ftmax = aft[mxy]
+            ax[1,2].plot(mxy[1], mxy[0], '+', label=f'peak:{ftmax:5.3f}')
+            ax[1,2].legend()
 
         res_img = res(par)
         ax[1,0].imshow(res_img, vmin=np.percentile(res_img,5), vmax=np.percentile(res_img,95))
@@ -326,4 +353,4 @@ if __name__ == "__main__":
     if len(sys.argv) > 2:
         sc = int(sys.argv[2])
 
-    fit_fringes(file, sc=sc)
+    fit_fringes(file, sc=sc, fourier=True)
