@@ -29,7 +29,7 @@ b - set background from cursor location
 p - set image peak from cursor location (use brightest fringe)
 t - set image trough from cursor location (use first dark fringe)
 w - set fringe wavelength and angle from cursor distance/angle from center
-f - set phase with peak at cursor
+a - set phase angle with peak at cursor
 r - set rms from box around cursor location in residual image
 m - minimise (walk downhill in chi^2)
 M - minimise with Markov-Chain Monte Carlo (slower)
@@ -288,7 +288,7 @@ def fit_fringes(file, sc=1, fourier=False):
             par[3] = -np.angle(x - x1) + np.pi/2
             par[2] = np.abs(x - x1)
 
-        if event.key == 'f':
+        if event.key == 'a':
             x1 = par[0]+xc + 1j*(par[1]+yc)
             x = event.xdata + 1j*event.ydata
             par[4] = 2 * np.pi * np.abs(x - x1) / par[2]
@@ -296,7 +296,7 @@ def fit_fringes(file, sc=1, fourier=False):
         if event.key == 'm':
             print(f'chi2: {chi2(par)}')
             r = minimize(chi2, par, method='Nelder-Mead',
-                         options={'maxiter':10})
+                         options={'maxiter':20})
             par[:] = r['x']
             print(f'chi2: {chi2(par)}')
 
