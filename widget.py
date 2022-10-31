@@ -60,6 +60,23 @@ If this works, you can make the change permanent by adding
 a line to your matplotlibrc file.
 '''
 
+def centroid(im, x0=0, y0=0):
+    '''Return intensity weighted centroid of an image.'''
+    yy,xx = np.meshgrid(np.arange(im.shape[1]),np.arange(im.shape[0]))
+    xc = np.sum(xx * im) / np.sum(im)
+    yc = np.sum(yy * im) / np.sum(im)
+    cen = round(xc+x0), round(yc+y0)
+    return cen
+
+
+def centroid_sum(im, xy, dxy=1, r=2):
+    '''Return centroided position and sum +/-dxy.'''
+    cut = im[xy[0]-r:xy[0]+r+1, xy[1]-r:xy[1]+r+1]
+    cen = centroid(cut, x0=xy[0]-r, y0=xy[1]-r)
+    tot = np.sum(im[cen[0]-dxy:cen[0]+dxy+1, cen[1]-dxy:cen[1]+dxy+1])
+    return cen, tot
+
+
 def fit_fringes(file, sc=1, fourier=False):
 
     # set output path, get image, and size
@@ -171,12 +188,16 @@ def fit_fringes(file, sc=1, fourier=False):
             a.clear()
         vmax = np.percentile(im,99.9)
         vmin = np.percentile(im,1)
-        ax[0,0].imshow(im, vmin=vmin, vmax=vmax)
+        ax[0,0].imshow(im, origin='lower', vmin=vmin, vmax=vmax)
         ax[0,0].plot(xc+par[0], yc+par[1], '+', color='grey')
         ax[0,0].set_title('image')
-        ax[0,1].imshow(func(par), vmin=vmin, vmax=vmax)
+        ax[0,0].set_xlabel('pixel')
+        ax[0,0].set_ylabel('pixel')
+        ax[0,1].imshow(func(par), origin='lower', vmin=vmin, vmax=vmax)
         ax[0,1].plot(xc+par[0], yc+par[1], '+', color='grey')
         ax[0,1].set_title('model')
+        ax[0,1].set_xlabel('pixel')
+        ax[0,1].set_ylabel('pixel')
 
         if fourier:
             # get model of just PSF
@@ -184,38 +205,54 @@ def fit_fringes(file, sc=1, fourier=False):
             par_tmp[6] = 0
             par_tmp[8] = 0
             psf = func(par_tmp)
-            
-            # subtract this from data and normalise to peak
-            sub = (im-par[8]) - psf
-            sub = sub / np.max(sub)
-            msub = func(par)-par[8]-psf
+
+            # modify data for better FT
+            ok = psf/np.max(psf) > 0.1
+            nok = np.invert(ok)
+            # subtract background
+            sub = im-par[8]
+            msub = func(par)-par[8]
+            # divide data by PSF where PSF > 0
+            sub[ok] = sub[ok] / psf[ok]
+            sub[nok] = 0
+            msub = msub / psf # doing this for model ok
+            # now normalise to peak =1 (using model)
+            sub = sub / np.max(msub)
             msub = msub / np.max(msub)
-            
-            ft = np.fft.ifftshift(np.fft.ifft2(sub))
+
+            ft = np.fft.fftshift(np.fft.fft2(sub))
             aft = np.abs(ft)
-            mft = np.fft.ifftshift(np.fft.ifft2(msub))
+            mft = np.fft.fftshift(np.fft.fft2(func(par)-par[8]-psf))
             amft = np.abs(mft)
             
-#            ax[1,2].imshow(sub,
-#                           vmin=np.percentile(sub,1), vmax=np.percentile(sub,99))
-            ax[1,2].imshow(aft)
-#            [sz[0]//2-30:sz[0]//2+30,sz[1]//2-45:sz[1]//2+45],
-#                           vmin=np.percentile(aft,1), vmax=np.sort(aft.flatten())[-5])
-            ax[1,2].set_title('FT$^{-1}$(data)')
-            
-            ax[0,2].imshow(amft)
-#            [sz[0]//2-30:sz[0]//2+30,sz[1]//2-45:sz[1]//2+45],
-#                           vmin=np.percentile(aft,1), vmax=np.sort(aft.flatten())[-5])
-            ax[0,2].set_title('FT$^{-1}$(model)')
+            # show FT of the flattened data,
+            # colour scale ignores the brightest pixel
+            ax[1,2].imshow(aft, origin='lower',
+                           vmin=np.percentile(aft,1), vmax=np.sort(aft.flatten())[-2])
+            ax[1,2].set_title('FT(data)')
+            ax[1,2].set_xlabel('pixel')
+            ax[1,2].set_ylabel('pixel')
 
+            ax[0,2].imshow(sub, origin='lower',
+                           vmin=np.percentile(sub,1), vmax=np.percentile(sub,99))
+            ax[0,2].set_title('flattened image')
+            ax[0,2].set_xlabel('pixel')
+            ax[0,2].set_ylabel('pixel')
+
+            # get peak in FT from model
             mxy = np.unravel_index(np.argmax(amft), amft.shape)
-            ftmax = aft[mxy]
-            ax[1,2].plot(mxy[1], mxy[0], '+', label=f'peak:{ftmax:5.3f}')
+            mxy, tot = centroid_sum(aft, mxy, dxy=0)
+            ax[1,2].plot(mxy[1], mxy[0], '+', label=f'peak:{tot:5.3f}')
             ax[1,2].legend()
 
+
         res_img = res(par)
-        ax[1,0].imshow(res_img, vmin=np.percentile(res_img,5), vmax=np.percentile(res_img,95))
+        ax[1,0].imshow(res_img, origin='lower',
+                       vmin=np.percentile(res_img,5), vmax=np.percentile(res_img,95))
         ax[1,0].set_title(f'image-model, $\chi^2_r$:{chi2(par)/(sz[0]*sz[1]-len(par)-1):0.2f}')
+        ax[1,0].set_xlabel('pixel')
+        ax[1,0].set_ylabel('pixel')
+
         ang = -np.rad2deg(par[3])
 
         rot1 = scipy.ndimage.rotate(scipy.ndimage.shift(im,(-par[1],-par[0])), ang, reshape=False)
@@ -241,10 +278,6 @@ def fit_fringes(file, sc=1, fourier=False):
         ax[1,1].set_title('line cut')
         ax[1,1].set_xlabel('pixels along baseline direction')
         ax[1,1].set_ylabel('counts')
-
-        for a in ax.flatten()[:3]:
-            a.xaxis.set_visible(False)
-            a.yaxis.set_visible(False)
 
         fig.suptitle(file)
         fig.canvas.draw()
@@ -322,7 +355,7 @@ def fit_fringes(file, sc=1, fourier=False):
     p - set image peak from cursor location (use brightest fringe)
     t - set image trough from cursor location (use first dark fringe)
     w - set fringe wavelength and angle from cursor distance/angle from center
-    f - set phase with peak at cursor
+    a - set phase with peak at cursor
     r - set rms from box around cursor location in residual image
     m - minimise (walk downhill in chi^2)
     M - minimise with Markov-Chain Monte Carlo (slower)
@@ -334,8 +367,8 @@ def fit_fringes(file, sc=1, fourier=False):
     fig.canvas.mpl_connect('key_press_event', keypress)
 
     update_plot(par)
-    fig.subplots_adjust(left=0.025, right=0.975, top=0.95, bottom=0.075,
-                        hspace=0.15, wspace=0.2)
+    fig.subplots_adjust(left=0.05, right=0.99, top=0.925, bottom=0.075,
+                        hspace=0.2, wspace=0.15)
     plt.show()
 
 
@@ -347,10 +380,15 @@ if __name__ == "__main__":
     else:
         exit('\nGive file path as first argument, '
              'rebin factor as optional second (default=1)\n'
-             'e.g.> python widget.py dir/file.fits 2\n')
+             'e.g.> python widget.py dir/file.fits 2\n'
+             'any third argument will turn Fourier on.\n')
 
     sc = 1
     if len(sys.argv) > 2:
         sc = int(sys.argv[2])
 
-    fit_fringes(file, sc=sc)
+    fourier = False
+    if len(sys.argv) > 3:
+        fourier = True
+
+    fit_fringes(file, sc=sc, fourier=fourier)
