@@ -77,6 +77,14 @@ def centroid_sum(im, xy, dxy=1, r=2):
     return cen, tot
 
 
+def zero_pad(im, n):
+    '''Zero pad an array by a factor in each dimension.'''
+    sz = im.shape
+    new = np.zeros((sz[0]+2*n, sz[1]+2*n))
+    new[n+1:n+1+sz[0], n+1:n+1+sz[1]] = im
+    return new
+    
+
 def fit_fringes(file, sc=1, fourier=False):
 
     # set output path, get image, and size
@@ -200,32 +208,25 @@ def fit_fringes(file, sc=1, fourier=False):
         ax[0,1].set_ylabel('pixel')
 
         if fourier:
-            # get model of just PSF
+            # get model without PSF or background
             par_tmp = par.copy()
-            par_tmp[6] = 0
+            par_tmp[7] = 1e9
             par_tmp[8] = 0
-            psf = func(par_tmp)
+            mod = func(par_tmp)
+            mod -= np.mean(mod)
 
-            # modify data for better FT
-            ok = psf/np.max(psf) > 0.1
-            nok = np.invert(ok)
-            # subtract background
-            sub = im-par[8]
-            msub = func(par)-par[8]
-            # divide data by PSF where PSF > 0
-            sub[ok] = sub[ok] / psf[ok]
-            sub[nok] = 0
-            msub = msub / psf # doing this for model ok
-            # now normalise to peak =1 (using model)
-            sub = sub / np.max(msub)
-            msub = msub / np.max(msub)
+            # subtract background from data
+            sub = im - par[8]
 
+            # compute FTs and normalise to peak
             ft = np.fft.fftshift(np.fft.fft2(sub))
-            aft = np.abs(ft)
-            mft = np.fft.fftshift(np.fft.fft2(func(par)-par[8]-psf))
+            aft =  np.abs(ft)
+            aft /= np.max(aft)
+            mft = np.fft.fftshift(np.fft.fft2(mod))
             amft = np.abs(mft)
+            amft /= np.max(amft)
             
-            # show FT of the flattened data,
+            # show FT of the data,
             # colour scale ignores the brightest pixel
             ax[1,2].imshow(aft, origin='lower',
                            vmin=np.percentile(aft,1), vmax=np.sort(aft.flatten())[-2])
@@ -234,17 +235,24 @@ def fit_fringes(file, sc=1, fourier=False):
             ax[1,2].set_ylabel('pixel')
 
             ax[0,2].imshow(sub, origin='lower',
-                           vmin=np.percentile(sub,1), vmax=np.percentile(sub,99))
-            ax[0,2].set_title('flattened image')
+                           vmin=np.percentile(sub,1), vmax=np.percentile(sub,99.5))
+            ax[0,2].set_title('image for FT')
             ax[0,2].set_xlabel('pixel')
             ax[0,2].set_ylabel('pixel')
 
-            # get peak in FT from model
+            # get peak in FT from model and get visibility
             mxy = np.unravel_index(np.argmax(amft), amft.shape)
             mxy, tot = centroid_sum(aft, mxy, dxy=0)
-            ax[1,2].plot(mxy[1], mxy[0], '+', label=f'peak:{tot:5.3f}')
+            vis = 2 * tot # 2 is n_holes, see Tuthill thesis
+            ax[1,2].plot(mxy[1], mxy[0], '+', label=f'vis:{vis:5.3f}')
             ax[1,2].legend()
-
+            
+            # zoom the FT a bit
+            cx = (aft.shape[1]-1) / 2
+            cy = (aft.shape[0]-1) / 2
+            n = 20 #np.max([np.abs(mxy[0]-cy), np.abs(mxy[1]-cx)])
+            ax[1,2].set_xlim(cx-2*n,cx+2*n)
+            ax[1,2].set_ylim(cy-2*n,cy+2*n)
 
         res_img = res(par)
         ax[1,0].imshow(res_img, origin='lower',
