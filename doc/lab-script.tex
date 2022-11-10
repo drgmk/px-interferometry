@@ -56,7 +56,7 @@ where $I_0$ is the intensity that would have resulted from light passing through
 
 Now consider a second source of equal brightness, with an angular separation from the first of $\lambda/(2b)$. The fringes produced by this source will be 180$^\circ$ out of phase compared to the fringes from the first source, so will cancel. Because we are considering an analogy with an astronomical observation, the two sources are expected to be incoherent because their spatial separation will typically be large (e.g. millions of km apart on the surface of a star) and there is no reason to believe there is any laser-like behaviour that synchronises photon phases, so the phases of two photons coming from the two sources will have random phases with respect to each other. Thus, at any point on the detector we can simply add the intensity from the two independent fringe patterns (there is no sustained interference between the two patterns). For the case with the second source separated by $\lambda/(2b)$, the result is therefore no fringes at all, as shown in the right panel of Figure \ref{fig:youngs}. This disappearance of the fringes is how we define the resolution of an interferometer, while for single-dish (normal) telescopes with diameter $D$ it is the Rayleigh criterion of 1.22\,$\lambda/D$, for interferometers it is $\lambda/(2b)$.
 
-\begin{figure}[h]
+\begin{figure}[h!]
     \centering
     \includegraphics[width=0.8\textwidth]{doc/coherence.png}
     \caption{Illustration of how the fringe pattern is altered by a finite range of wavelengths and an extended source size (assuming a baseline of 10\,cm). Each panel shows several of the fringe patterns that are being superimposed, which result in the overall pattern shown as the thicker black line. The top left panel shows the fringe pattern for a monochromatic point source, and the other panels show how the fringe amplitude is reduced. The top right shows the effect for a range of wavelengths in the `K' band (near 2.5\,$\mu$m). The lower left panel shows the effect for an extended source, and the lower right panel the combination of an extended source and range of wavelengths. Credit: \href{https://www.eso.org/sci/facilities/paranal/telescopes/vlti/tuto/tutorial_spatial_interferometry.pdf}{Andreas Glindemann/ESO}}
@@ -86,13 +86,13 @@ The visibility for a binary source is perhaps not too surprising, we saw above t
     V_{\rm binary} = \frac{1 + \cos ( 2 \pi s b / \lambda )}{2} \, .
 \end{equation}
 
-For an extended circular source of diameter $\theta$ as a function of baseline length the visibility is
+For an extended uniform circular source of diameter $\theta$ as a function of baseline length the visibility is
 \begin{equation}
     V_{\rm uniform} = \frac{2 J_1(\pi \theta b / \lambda)}{\pi \theta b / \lambda} \, ,
 \end{equation}
 where $J_1$ is a first order Bessel function.
 
-These are the two main visibility functions that you will need for this experiment.
+These are the two main visibility functions that you will need for this experiment. To visualise these, the independent variable you are controlling is $b/\lambda$, so this should be the x-axis, and visibility is the quantity you are measuring, so this is the y-axis. A plot for the uniform source would therefore have decreasing visibility with $b/\lambda$; as described above this is the expected behaviour as the resolution increases ($\lambda/(2b)$ decreases).
 
 \clearpage
 \section{Experimental setup}
@@ -114,7 +114,13 @@ This lab has an intentionally simple setup; the goal is to show how one can cons
 
 The software for this experiment is \href{http://www.firecapture.de/}{\texttt{FireCapture}}; it is an open source code primarily designed for amateur astronomers, and provides a friendly and easy to use interface for viewing images from the detector in real time, and allows saving of images in various formats.
 
-A copy of the software will likely exist on the computer near where the telescope is set up. If not, download the file to somewhere that belongs to you (e.g. \texttt{H://Desktop/Interferometry} under \texttt{This PC}), unzip the file and find the \texttt{FireCapture} application (within a second FireCapture folder) and double click it. It may ask if you want to unzip more files, if so say yes. You will then need to open it again to run the software (and say yes to any queries about running/security). You may need to select the detector at startup, if so, select \texttt{QHY}. You will probably also be prompted to select a folder in which to save data. It would make sense to make another folder, e.g. \texttt{H://Desktop/Interferometry/Data} for this, and if you use \texttt{H} drive, you will have access to this from other ITS machines. If you have problems, e.g. with the software crashing, try deleting the preferences folder and restarting, which should be in \texttt{C://Users/uXXXXXXX/FireCapture}.
+A copy of the software will likely exist on the computer near where the telescope is set up. If not, download the file to somewhere that belongs to you (e.g. \texttt{H://Interferometry} under \texttt{This PC}), unzip the file and find the \texttt{FireCapture} application (within a second FireCapture folder) and double click it. It may ask if you want to unzip more files, if so say ``extract all'' and go with the suggested location. You will then need to open it again to run the software (and say yes to any queries about running/security).
+
+You will probably be prompted to do some setup when you run \texttt{FireCapture} for the first time. Click the ``first time'' option; for most settings just leave the default, but select a new folder in which to save data. It would make sense to make another folder, e.g. \texttt{H://Interferometry/Data} for this, and if you use \texttt{H} drive, you will have access to this from other ITS machines.
+
+Having run the setup, a preferences file is saved in \texttt{C://Users/uXXXXXXX/FireCapture}. If you have problems, e.g. with the software crashing, try deleting this preferences folder and restarting.
+
+After the setup the software will go to a ``dummy camera'' that shows an image of Jupiter. Quit, and restart, at which point you should be prompted to select a detector, select \texttt{QHY}.
 
 \begin{figure}[h]
     \centering
@@ -123,9 +129,9 @@ A copy of the software will likely exist on the computer near where the telescop
     \label{fig:fc}
 \end{figure}
 
-You will not need most of the options available in \texttt{FireCapture}. The main one in terms of obtaining images on screen is the exposure time (under ``control''); you will need to experiment, but values of about 1s are likely to be about right. The exposure time will however depend on what value you select for the gain. Higher gain images will require shorter exposures, but will be noisier. You will know the exposure is appropriate when you have a clear image visible on screen, and this image is not saturated (the ``histogram'' panel may help here).
+You will not need most of the options available in \texttt{FireCapture}. The main one in terms of obtaining images on screen is the exposure time (under ``control''); you will need to experiment, but values of about 1\,s are likely to be about right. The exposure time will however depend on what value you select for the gain. Higher gain images will require shorter exposures, but will be noisier. You will know the exposure is appropriate when you have a clear image visible on screen, and this image is not saturated (the ``histogram'' panel may help here). There are some options above the image to set how the image is displayed, e.g. zoom, which you may wish to play with.
 
-The other important control is how images are saved (under ``capture''); for this you need to specify a directory in which to save images (if you didn't already at startup), a file format (select ``FIT''), and a number of images to save (just one, since you will hit save manually each time you change the baseline token, filter, etc.).
+The other important control is how images are saved (under ``capture''); for this you need to specify a directory in which to save images (if you didn't already at startup), a file format (select ``FIT''), and a number of images to save unde ``limit'' (just one, since you will hit save manually each time you change the baseline token, filter, etc.).
 
 You can optionally save a ``dark frame'' (one of the small buttons between the main image and the left column of controls). For this cover the front of the telescope (putting your hand in front of the baseline token would suffice), and \texttt{FireCapture} will take an image that will be subtracted off subsequent images. The goal is that this dark image will contain any ``hot'' (permanently defective) detector pixels, and by subtracting them these pixels will not be visible in the final images.
 
@@ -163,61 +169,100 @@ There are three components that contribute to an image, an example is shown in F
 \begin{itemize}
     \item background; this is contributed by any stray light that reaches the detector, plus any intrinsic level attributed to the detector itself
     \item point spread function (PSF); this is the broad overall shape of the signal on the detector and is approximately Gaussian, and is set by the size of the individual holes in the baseline tokens. Smaller holes yield a larger diffraction pattern, and vice versa.
-    \item fringes; this is the wavy pattern resulting from the pair of holes
+    \item fringes; this is the wavy pattern resulting from the pair of holes. Their orientation is set by the orientation of the holes (fringes are perpendicular to a line between the holes), so can be used to quantify the orientation of the baseline token.
 \end{itemize}
 The goal in making a measurement is to subtract (or otherwise account for) the background, and make a measurement of the fringe visibility that (if possible/necessary) takes the shape of the PSF into account.
 
-The simplest method for obtaining a visibility measurement would be to use the curson in \texttt{FireCapture} to measure the background level somewhere away from the PSF, take peak and trough measurements for the fringes, subtract the background level from these, and then compute the visibility. A more complex, but more reliable method, is to use the supplied python widget (\texttt{widget.py}); this code models the above components of the detector image to come up with a parameterised fit to the data, from which the visibility can be extracted.
+The simplest method for obtaining a visibility measurement would be to use the cursor in \texttt{FireCapture} to measure the background level somewhere away from the PSF, take peak and trough measurements for the fringes, subtract the background level from these, and then compute the visibility. A more complex, but more reliable method, is to use the supplied python widget (\texttt{widget.py}); this code models the above components of the detector image to come up with a parameterised fit to the data, from which the visibility can be extracted.
 
 \subsection{Using \texttt{widget.py}}\label{sec:widget}
 
-This code brings up an interactive window that allows a parameterised fit to a detector image, and which will output the model parameters, including the visibility and baseline angle (with respect to the detector, whose orientation depends on how you insert it into the telescope). The code itself exists on github\footnote{\href{https://github.com/drgmk/px-interferometry}{https://github.com/drgmk/px-interferometry}}, you can download it from here if it is not already on the machine you are using. If you save it to \texttt{H://Desktop/Interferometry/px-interferometry} things will be a little easier.
+This code brings up an interactive window that allows a parameterised fit to a detector image, and which will output the model parameters, including the visibility and baseline angle (with respect to the detector, whose orientation depends on how you insert it into the telescope). The code itself exists on github, you can download it from
+\href{https://github.com/drgmk/px-interferometry}{https://github.com/drgmk/px-interferometry} if it is not already on the machine you are using (have a look in \texttt{C:\textbackslash}).
 
-To run the python widget, you first need to open a \texttt{python} terminal. BLA BLA 
+To run the python widget, you first need to open a \texttt{python} terminal with \texttt{WinPython}, specifically the ``Windows PowerShell Prompt''. This will probably not open in the folder you want, so navigate to your data using the \texttt{cd} command. When you are at or near your data, run \texttt{ipython}, which will start a python terminal.
 
-With the \texttt{python} terminal running, you will need to import and then run the code. To import, do $$\texttt{import widget}$$
-from the \texttt{px-interferometry} folder. To run the widget do
-$$\texttt{widget.fit\_fringes('../Data/FOLDERS/file.FIT',sc=2)}$$
-where you will need to enter the correct path to the file you want to extract the visibility for. The \texttt{sc=2} argument does $2 \times 2$ averaging to make the array for the image smaller so the fitting code runs faster. You could try \texttt{sc=4} or higher, but if you average too much the detail in the image will be lost.
+With the \texttt{python} terminal running, you will need to import and then run the code. To import, you need to add the widget location to your path, which if you can do with (adjusting the path as necessary).
+\begin{verbatim}
+    import os, sys
+    sys.path.append(os.path.abspath(`C:/px-interferometry'))
+\end{verbatim}
+You can then import and run the widget with
+\begin{verbatim}
+    import widget
+    widget.fit_fringes(`Data/FOLDERS/file.FIT',sc=2)
+\end{verbatim}
+where you will need to enter the correct path to the file you want to extract the visibility for. The \texttt{sc=2} argument does $2 \times 2$ averaging to make the array for the image smaller so the fitting code runs faster. You could try \texttt{sc=4} or higher, but if you average too much the detail in the image will be lost and the fit will be poor. A suggested approach is to use \texttt{sc=4}, but go to \texttt{sc=2} if the fringes are very close together and the fit is not converging as well as you expect.
+
+Alternatively, you can run the widget from the shell directly, with
+\begin{verbatim}
+    python path/to/widget.py path/to/file.FIT 2
+\end{verbatim}
+The paths you enter will depend on where you run the command from.
 
 On running the widget a window will pop up with the image (FITS file), a model, an image of the residuals (image-model), and a cut through the center of the image perpendicular to the fringes in the model. An example is shown in Figure \ref{fig:widget}.
 
-\begin{figure}
+\begin{figure}[h!]
     \centering
     \includegraphics[width=1\textwidth]{widget.png}
     \caption{Example widget window. The top left panel shows the FITS image that is being fit. The top right shows the current model. The lower left shows the image-model residuals, and the lower right shows a cut through the image that is perpendicular to the model fringes (blue line), and the same cut through the model (orange line). This example shows the initial state, so the model does not fit the image at all well.}
     \label{fig:widget}
 \end{figure}
 
-The goal is then to improve the fit, which will almost certainly require some interaction. This works by moving the mouse cursor to a location on the image, pressing a key on the keyboard to change some parameter, and repeating until the model is reasonably good. Details regarding keys can be found at \href{https://github.com/drgmk/px-interferometry}{https://github.com/drgmk/px-interferometry} The fit can then be minimised by pressing the \texttt{m} key. The residual plot may never look perfectly smooth, but the more uniform this image appears the better the fit. An example of a good fit is shown in Figure \ref{fig:widget2}. The results can be saved into a \texttt{numpy} save file with \texttt{S}, but the visibility is also shown in the lower right panel.
+The goal is then to improve the fit, which will almost certainly require some interaction. This works by moving the mouse cursor to a location on the image, pressing a key on the keyboard to change some parameter, and repeating until the model is reasonably good. Details regarding keys can be found at \href{https://github.com/drgmk/px-interferometry}{https://github.com/drgmk/px-interferometry} The fit can then be minimised (optimised) by pressing the \texttt{m} key. The residual plot may never look perfectly smooth, but the more uniform this image appears the better the fit. An example of a good fit is shown in Figure \ref{fig:widget2}. The results can be saved into a \texttt{numpy} save file with \texttt{S}, but the visibility is also shown as a number in the lower right panel.
 
-\begin{figure}
+\begin{figure}[h]
     \centering
     \includegraphics[width=1\textwidth]{widget2.png}
     \caption{Example widget window with a good model fit to the data.}
     \label{fig:widget2}
 \end{figure}
 
+\subsection{Fourier components}
+
+The images obtained in this experiment are relatively simple, in that they have the three components of background, PSF, and fringes described above. This simplicity makes it possible to obtain information by Fourier transforming the images. We first subtract the background, so there are only two components. The Fourier transform then has only a broad PSF, and the narrower fringes, or thinking in terms of frequencies, some low frequencies that correspond to the PSF, and a single higher frequency that describes the fringes.
+
+\begin{figure}[h]
+    \centering
+   \includegraphics[width=1\textwidth]{widget-fourier.png}
+    \caption{Example widget window with the Fourier option turned on.}
+    \label{fig:widget-f}
+\end{figure}
+
+The result of Fourier transforming an image is shown in Figure \ref{fig:widget-f}. This version of the window can be obtained with the same call to \texttt{widget.py} or \texttt{widget.fit\_fringes()}, but with an extra argument. In the shell case, adding any third argument (e.g. \texttt{f}) will invoke the Fourier panels. In the python terminal, adding \texttt{fourier=True} to \texttt{fit\_fringes()} is needed.
+
+The modified image used in the Fourier transform is shown in the top right panel. If the background is low then this image is identical to the top left one. The lower right panel shows a zoom in of the Fourier transform (the absolute value, here we will not use the phases associated with each frequency). It is an image, because the data are 2d, and the axes are such that the lowest frequencies are represented by pixels at the image center, and more distant pixels are increasingly high frequencies. The highest peak, at the center of the image corresponds to the overall PSF, and the two secondary peaks are the fringes. The orientation of these depends on the angle the fringes are at in the image. The fringes are represented by two peaks because both correspond to the same frequency and orientation.
+
+The peaks for the PSF and fringes in the Fourier transform tell us how much power is in each component, and importantly, the peak for the fringe component is the visibility. The only thing to account for is how strong this peak is relative to the PSF peak, so we first scale the Fourier transform so that the peak in the center for the PSF is equal to 1. Then the visibility is $n_{\rm holes}$ times the peak value (if we added a third hole, the PSF would be brighter, but the original fringe component visibility would not change). Deriving this result is not straightforward \citep[e.g.][section 2.4.3]{2011psi..book.....G}. If we had multiple sets of fringes, we could use a Fourier transform to decompose an image into its Fourier components (i.e. one for each baseline) and measure multiple visibilities at once.
+
+You can explore how the Fourier transform behaves for individual components in the images with one of the notebooks in the \texttt{px-interferometry} package.
+
 \clearpage
 \section{The experiment}
 
 There are many possible measurements that could be made with this experimental setup. The three key ones you should do are:
 \begin{itemize}
-    \item Estimate the bandwidth of the detector with no filter in place. This means estimating where the fringes become incoherent (e.g. after $n \times \lambda/b$ as in Fig. \ref{fig:coherence}), which then means the difference in wavelength across the band is approximately $\lambda/(2n)$, where $\lambda$ is the mean wavelength of the band. Show that this problem is significantly reduced when the filters are used.
-    \item Measure the angular size of a circular source (i.e. aperture)
-    \item Verify the expected visibility variation with baseline for a binary source. 
+    \item Demonstrate the effect of bandwidth on coherence. First, estimate the bandwidth of the detector with no filter in place. This means estimating where the fringes become incoherent (e.g. after $n \times \lambda/b$ as in Fig. \ref{fig:coherence}), which then means the difference in wavelength across the band is approximately $\lambda/(2n)$, where $\lambda$ is the mean wavelength of the band. You will need to choose a baseline token that results in enough fringes to see this effect (the example in Fig. \ref{fig:widget2} has $b$ too small.) Show that this coherence problem is significantly reduced when the filters are used.
+    \item Measure the angular size of a circular source (i.e. aperture). This means taking visibility measurements with multiple baselines and filters to cover enough range in $b/\lambda$ to constrain the source angular size. Because the source is circular the baseline orientation does not matter.
+    \item Verify the expected visibility variation with baseline for a binary source. In this case you will need to ensure that the baseline holes have close to the same orientation of the binary. 
 \end{itemize}
 
 Beyond these some possible options are to:
 \begin{itemize}
-    \item Use the above method to characterise the shape of a non-rotationally symmetric source.
+    \item Use the above method to characterise the shape of a non-rotationally symmetric source. This would involve the same method as for the sources above, but in addition rotating the baseline with respect to the source to measure the size as a function of baseline rotation.
     \item Try repeating one of parts i/ii, but using Fourier transforms to extract the visibilities from the data. There is an option in the widget to compute a Fourier transform of the data and model, and to estimate the power of the peak frequency from the image.
     \item Create your own baseline token with more than 2 holes using tin foil and a pin, and use this to take some measurements (e.g. to measure an aperture size and/or shape). This would either involve creating your own two-fringe model, or using Fourier transforms.
 \end{itemize}
 
 \subsection{Basic procedure}
 
-The basic procedure for this experiment is to set things up as you desire, verify the setup is working visually using the image on the screen, and to then save that image. These steps are then repeated as necessary to obtain a full set of images, e.g. across several baselines with different filters. The resulting images are then analysed to obtain visibility measurements, and these visibilities are then used in concert with the baseline length and filter wavelength information to obtain a result. This result would typically be a plot of baseline vs. $b/\lambda$, and/or a fit to the relevant theoretical curve to obtain an estimate of the source aperture size.
+The basic procedure for this experiment is to set things up as you desire, verify the setup is working visually using the image on the screen, and to then save that image. These steps are then repeated as necessary to obtain a full set of images, e.g. across several baselines with different filters. The resulting images are then analysed to obtain visibility measurements, and these visibilities are then used in concert with the baseline length and filter wavelength information to obtain a result. This result would typically be a plot of baseline vs. $b/\lambda$, and/or a fit to the relevant theoretical curve to obtain an estimate of the source aperture size. An example jupyter notebook for fitting a visibility function to data is included in the \texttt{px-interferometry} package. You will also need to consider how to incorporate uncertainties on your visibilities, one way to estimate these is to take multiple images for a given baseline/filter.
+
+\subsection{Other considerations}
+
+The experimental setup here is simple, so you will get different visibilities from the fringe fitting and Fourier methods, and when fitted to a function neither will result in the theoretical result that the visibility is 1 at the shortest baselines. There are various reasons. For example, we are using a finite bandwidth which means a range of fring frequencies are actually present, so the fringes lose coherence farther from the center, and this will affect the fringe fitting and Fourier methods differently.
+
+This loss of visibility does not affect the results for source size/separation however, so the amplitude can be simply included as a free parameter in the fitting. For a real astronomical observation these losses still occur, so a typical method is to observe a source that is known to be very small (e.g. a distant but bright giant star) and hence should match the theoretical visibility. This data can then be used to calibrate the science observations of a resolved source.
 
 \clearpage
 \bibliographystyle{aasjournal}
