@@ -15,26 +15,28 @@
 
 \title{Optical interferometry}
 \author{Staff contact: Grant Kennedy}
-%\date{}                                           % Activate to display a given date or no date
+\date{}                                           % Activate to display a given date or no date
 
 \begin{document}
 \maketitle
 
+\tableofcontents
+
 \section{Introduction}
 
-You are probably familiar with Young's double slit experiment, where light from a single monochromatic point source (commonly a laser) passes through two slits and forms ``fringes'' on a screen or detector. The spacing of these fringes is $\lambda/b$, where $\lambda$ is the wavelength of the light, and $b$ the distance between the slits. The bright fringes are where the path lengths from the two slits are equal, so the light constructively adds, and the dark fringes are where the paths differ by half of the wavelength of the light, and so cancel.
+You are probably familiar with Young's double slit experiment, where light from a single monochromatic point source (commonly a laser) passes through two slits and forms ``fringes'' on a screen or detector. The spacing of these fringes is $\lambda/b$, where $\lambda$ is the wavelength of the light, and $b$ the distance between the slits. The bright fringes are where the path lengths from the two slits are an integer number of wavelengths, so the light constructively adds, and the dark fringes are where the paths differ by half of the wavelength of the light, and so cancel.
 
 There is a somewhat obvious question to ask of this experiment; what happens if the source is not a point? One reason this is obvious is that sources are never really points, and have some finite size. For example, we can for most purposes consider stars to be point sources because their angular size is very small compared to the resolution of typical telescopes, but given sufficient angular resolution this assumption is not true.
 
-A finite source size fundamentally changes the double slit experiment. Consider a second point source of equal brightness that is incoherent with the first, and that is located at an angle $\lambda/(2b)$ away. The two fringe patterns are $180^\circ$ out of phase so will cancel out\footnote{This is incoherent combination of light, so we average over the random relative phases from the two sources}, leaving a uniformly illuminated detector with half of the peak brightness.
+A finite source size fundamentally changes the double slit experiment as we normally encounter it. Consider a second point source of equal brightness that is incoherent with the first, and that is located at an angle $\lambda/(2b)$ away. The two fringe patterns are $180^\circ$ out of phase so will cancel out\footnote{This is incoherent combination of light, so we average over the random relative phases from the two sources}, leaving a uniformly illuminated detector with half of the peak brightness.
 
-While either source would individually produce a set of fringes, together their fringes interfere to produce none, and this difference is the result of the spatial separation of the two sources. That is, the double slit experiment therefore provides a means to infer spatial information about sources by measuring fringe patters. Here we will be concerned with the fringe amplitudes, which are also known as ``fringe visibilities'' or simply ``visibilities'', but the phases are also important.
+While either source would individually produce a set of fringes, together their fringes add to produce none, and this difference is the result of the spatial separation of the two sources. That is, the double slit experiment therefore provides a means to infer spatial information about sources by measuring fringe patterns. Here we will be concerned with the fringe amplitudes, which are also known as ``fringe visibilities'' or simply ``visibilities''. Thought we will not be concerned with them here, the phases are also important, primarily giving information regarding spatial location (e.g. consider how the fringes in the single source case move as the source is moved to one side; the amplitude remains the same but the phase changes).
 
 The first use of such an ``interferometer'' in astronomy was to measure the size of the moons of Jupiter \citep{1891PASP....3..274M,1891Natur..45..160M}, and 30 years later the technique was used to measure the diameter of another star \citep{1921ApJ....53..249M}. Interferometry is now a widely used technique in astrophysics, and is normally concerned with measuring the sizes of small objects, or with obtaining images of objects and structures that have relatively small angular scales.
 
-What does ``small'' mean here? As we saw above, when the separation between two point sources is $\lambda/(2b)$, the fringes disappear (the visibility is zero). The angular resolution of an interferometer is therefore defined as $\lambda/(2b)$, where $b$ is the distance between two telescopes, that serve the same purpose as the slits in the double slit experiment. Compare this to Rayleigh's criterion, $1.22 \lambda/D$, where $D$ is the diameter of the aperture or telescope. Now if $D$ and $b$ are similar the resolution of an interferometer and a normal ``single-dish'' telescope is similar. But there is one key difference; the space between the two telescopes of an interferometer can be empty, meaning that it is practically much easier and cheaper to make $b$ large (e.g. kilometers for millimeter wavelengths) than it is to make $D$ large. The largest single-dish telescopes we have are of order tens to hundreds of meters.
+What does ``small'' mean here? As we saw above, when the separation between two point sources is $\lambda/(2b)$, the fringes disappear (the visibility is zero). The angular resolution of an interferometer is therefore defined as $\lambda/(2b)$, where $b$ is the distance between two telescopes, that serve the same purpose as the slits in the double slit experiment. Compare this to Rayleigh's criterion, $1.22 \lambda/D$, where $D$ is the diameter of the aperture or telescope. Now if $D$ and $b$ are similar the resolution of an interferometer and a normal ``single-dish'' telescope is similar. But there is one key difference; the space between the two telescopes of an interferometer can be empty, meaning that it is practically much easier and cheaper to make $b$ large (e.g. tens/hundreds of meters for optical wavelengths, and kilometers for millimeter wavelengths) than it is to make $D$ large. The largest single-dish telescopes we have are of order tens (optical) to hundreds (radio) of meters.
 
-Thus, the key thing an interferometer does is allow is to make measurements on small angular scales, without constructing a single-dish telescope that would do so based on Rayleigh's criterion. In this experiment you will use exactly the same methods used in optical interferometry, just on a smaller scale.
+Thus, the key thing an interferometer does is allow us to make measurements on small angular scales, without constructing a single-dish telescope that would do so based on Rayleigh's criterion. In this experiment you will use exactly the same methods used in optical interferometry, just on a smaller scale.
 
 \clearpage
 \section{Theory}
@@ -58,7 +60,7 @@ Now consider a second source of equal brightness, with an angular separation fro
 
 \begin{figure}[h!]
     \centering
-    \includegraphics[width=0.8\textwidth]{doc/coherence.png}
+    \includegraphics[width=1\textwidth]{doc/coherence.png}
     \caption{Illustration of how the fringe pattern is altered by a finite range of wavelengths and an extended source size (assuming a baseline of 10\,cm). Each panel shows several of the fringe patterns that are being superimposed, which result in the overall pattern shown as the thicker black line. The top left panel shows the fringe pattern for a monochromatic point source, and the other panels show how the fringe amplitude is reduced. The top right shows the effect for a range of wavelengths in the `K' band (near 2.5\,$\mu$m). The lower left panel shows the effect for an extended source, and the lower right panel the combination of an extended source and range of wavelengths. Credit: \href{https://www.eso.org/sci/facilities/paranal/telescopes/vlti/tuto/tutorial_spatial_interferometry.pdf}{Andreas Glindemann/ESO}}
     \label{fig:coherence}
 \end{figure}
@@ -69,13 +71,15 @@ In interferometry we are primarily interested in the amplitude of the fringes fo
 \begin{equation}
     V = \frac{I_{\rm max} - I_{\rm min}}{I_{\rm max} + I_{\rm min}} \, .
 \end{equation}
-Looking at Figure \ref{fig:coherence}, we can see that the fringes in the top left panel have $V=1$ (and in the left panel of Figure \ref{fig:youngs}). For resolved sources the visibility is lower, for example in the lower left panel the value is about 0.6. For the right panel in Figure \ref{fig:youngs} the visibility is zero.
+Looking at Figure \ref{fig:coherence}, we can see that the fringes in the top left panel have $V=1$ (and in the left panel of Figure \ref{fig:youngs}). For resolved sources the visibility is lower, for example in the lower left panel the value is about 0.6. For the right panel in Figure \ref{fig:youngs} the visibility is zero. Depending on how we measure it, a finite wavelength range will also lower the visiblity, as can be understood from the top right panel in Figure \ref{fig:coherence}.
 
 In general, the fringes are an indication of how well ``resolved'' a source is. An unresolved source will have strong fringes and a high visibility, but as the source becomes more extended the fringes weaken and the visibility drops. For continuous sources as we will be considering here, which are analogous to the surface of a star for example, when the source is larger than about $\lambda/(2b)$ the visibility drops to near zero. This can be understood as the image on the detector being the superposition of many fringes that have such a wide range of phases that the average is a constant.
 
-Of course, in reality we do not change the source size, we instead change the resolution of our instrument, either by changing the wavelength $\lambda$ or the baseline length $b$. A typical measurement therefore normally consists of making visibility measurements for a range of wavelengths and baseline lengths, and using these to infer spatial information about our source.
+A more quantitative way to understand the origin of the visibility is that it is equal to the integral of the fringes as projected on the sky multiplied by the source. For the binary example with separation $\lambda/2b$, one source is on the peak of the fringe, while the other is on the minimum, so the integral is zero. An extended source, e.g. a star, that spans many fringes will have a low visibility, but one that is smaller than the fringe spacing will have a high visibility.
 
-Note that as we are only using a pair of baselines, we are really only measuring the source size along an axis parallel with the baseline vector. For sources that are not rotationally symmetric, we can address this by rotating our baselines to a different angle with respect to the source and making more measurements.
+Of course, in reality we do not change the source size, we instead change the resolution of our instrument (i.e. the fringe spacing), either by changing the wavelength $\lambda$ or the baseline length $b$. A typical measurement therefore normally consists of making visibility measurements for a range of wavelengths and baseline lengths, and using these to infer spatial information about our source.
+
+Note that as we are only using a pair of baselines, we are really only measuring the source size along an axis parallel with the baseline vector. For sources that are not rotationally symmetric, we can address this by rotating our baselines to a different angle with respect to the source and taking more measurements.
 
 \subsection{Visibility functions}
 
@@ -92,7 +96,7 @@ For an extended uniform circular source of diameter $\theta$ as a function of ba
 \end{equation}
 where $J_1$ is a first order Bessel function.
 
-These are the two main visibility functions that you will need for this experiment. To visualise these, the independent variable you are controlling is $b/\lambda$, so this should be the x-axis, and visibility is the quantity you are measuring, so this is the y-axis. A plot for the uniform source would therefore have decreasing visibility with $b/\lambda$; as described above this is the expected behaviour as the resolution increases ($\lambda/(2b)$ decreases).
+The latter is the visibility function that you will need for this experiment. To visualise either, the independent variable you are controlling is $b/\lambda$, so this should be the x-axis, and visibility is the quantity you are measuring, so this is the y-axis. A plot for the uniform source would therefore have decreasing visibility with $b/\lambda$; as described above this is the expected behaviour as the resolution increases ($\lambda/(2b)$ decreases).
 
 \clearpage
 \section{Experimental setup}
@@ -100,14 +104,14 @@ These are the two main visibility functions that you will need for this experime
 This lab has an intentionally simple setup; the goal is to show how one can construct an interferometer from a standard telescope with minor and straightforward modifications. The key pieces of equipment are:
 \begin{itemize}
     \item Telescope, this is mounted to the bench.
-    \item CMOS detector and USB cable.
+    \item CMOS detector and USB cable. Some information is \href{https://www.qhyccd.com/qhy5l-ii-planetary-guiding-camera/}{here}.
     \item Lens cap, this holds the tokens with the pairs of holes (baselines).
     \item Baseline tokens, these have small (0.3\,mm) holes drilled in pairs with a range of separations.
-    \item Light source.
+    \item Light source..
     \item Aperture tokens, these go in front of the light source and are what we observe.
-    \item Filters, used to change the wavelength of the source.
+    \item Filters, used to change the wavelength of the source. You may take the mean wavelengths of these to be 448, 530, and 638\,nm for B, G, and R respectively. More detailed information is \href{https://www.firstlightoptics.com/rgb-filters-filter-sets/zwo-2-lrgb-filter-set.html}{here}.
     \item Miscellaneous bits to mount the light source, aperture tokens, and filters.
-    \item ITS computer near the telescope, plug the CMOS into this one.
+    \item An ITS computer near the telescope, plug the CMOS into this one.
 \end{itemize}
 
 \subsection{Image capture software}\label{sec:software}
@@ -116,7 +120,7 @@ The software for this experiment is \href{http://www.firecapture.de/}{\texttt{Fi
 
 A copy of the software will likely exist on the computer near where the telescope is set up. If not, download the file to somewhere that belongs to you (e.g. \texttt{H://Interferometry} under \texttt{This PC}), unzip the file and find the \texttt{FireCapture} application (within a second FireCapture folder) and double click it. It may ask if you want to unzip more files, if so say ``extract all'' and go with the suggested location. You will then need to open it again to run the software (and say yes to any queries about running/security).
 
-You will probably be prompted to do some setup when you run \texttt{FireCapture} for the first time. Click the ``first time'' option; for most settings just leave the default, but select a new folder in which to save data. It would make sense to make another folder, e.g. \texttt{H://Interferometry/Data} for this, and if you use \texttt{H} drive, you will have access to this from other ITS machines.
+You will probably be prompted to do some setup when you run \texttt{FireCapture} for the first time. Click the ``first time'' option; for most settings just leave the default, but select a new folder in which to save data on the ``capture'' options page. It would make sense to make another folder, e.g. \texttt{H://Interferometry/Data} for this, and if you use \texttt{H} drive, you will have access to this from other ITS machines.
 
 Having run the setup, a preferences file is saved in \texttt{C://Users/uXXXXXXX/FireCapture}. If you have problems, e.g. with the software crashing, try deleting this preferences folder and restarting.
 
@@ -129,7 +133,7 @@ After the setup the software will go to a ``dummy camera'' that shows an image o
     \label{fig:fc}
 \end{figure}
 
-You will not need most of the options available in \texttt{FireCapture}. The main one in terms of obtaining images on screen is the exposure time (under ``control''); you will need to experiment, but values of about 1\,s are likely to be about right. The exposure time will however depend on what value you select for the gain. Higher gain images will require shorter exposures, but will be noisier. You will know the exposure is appropriate when you have a clear image visible on screen, and this image is not saturated (the ``histogram'' panel may help here). There are some options above the image to set how the image is displayed, e.g. zoom, which you may wish to play with.
+You will not need most of the options available in \texttt{FireCapture}. The main one in terms of obtaining images on screen is the exposure time (under ``control''); you will need to experiment, but values of about 1\,s are likely to be about right. The exposure time will however depend on what value you select for the gain. Higher gain images will require shorter exposures, but will be noisier. You will know the exposure is appropriate when you have a clear image visible on screen, and this image is not saturated (the ``histogram'' panel may help here). There are some options above the image to set how the image is displayed, e.g. zoom, which you may wish to play with. In particular, the field of view may not initially be maximal; this can be changed by selecting ``Max'' rather than ``ROI'' (which is a definable sub-section of the detector).
 
 The other important control is how images are saved (under ``capture''); for this you need to specify a directory in which to save images (if you didn't already at startup), a file format (select ``FIT''), and a number of images to save unde ``limit'' (just one, since you will hit save manually each time you change the baseline token, filter, etc.).
 
@@ -144,11 +148,11 @@ Setting up the experiment is reasonably simple, the aim being to have the telesc
     \item Ensure the telescope is in place with the lens cap on (no tokens needed yet).
     \item Insert the CMOS detector into the rear of the telescope and (gently) tighten the screws to keep it in place. You may end up rotating the detector later.
     \item Connect the CMOS detector to the computer with the USB cable.
-    \item Open the image capture software (see \ref{sec:software}). The detector should be automatically recognised and an image appear on screen. Test whether the detector is working by covering/uncovering the hole in the lens cap.
+    \item Open the image capture software (see \ref{sec:software}). The detector should be automatically recognised and an image appear on screen. Test whether the detector is working by removing/replacing the lens cap.
     \item Set up an aperture token at the other end of the lab using the mounting kit.
     \item Remove the telescope lens cap and set up the focus and pointing. The telescope is fixed, so you will need to adjust the location of the aperture token until it appears near the center of the detector image. You will simultaneously need to adjust the focus so you know what you are pointing at. You may find it helpful to hold a large object (e.g. a book) in front of the token to figure out where you need to point. You should end up with an in focus image of the aperture on the detector.
-    \item Set up the light source behind the aperture, fixing it to the bench with clamps. Point it towards the telescope. The pointing doesn't need to be too precise but they should align reasonably well; you can test whether it's pointing in the right direction by holding your hand in front of the aperture to see if the light is pointing towards the telescope.
-    \item Insert one of the baseline tokens into the lens cap. You should now see fringes on the detector with an image similar to Figure \ref{fig:det-img}, though may need to alter the exposure time (around 1\,s should be enough).
+    \item Set up the light source behind the aperture, fixing it to the bench with clamps. Point it towards the telescope. The pointing doesn't need to be too precise but the source and aperture should align reasonably well; you can test whether the source is pointing in the right direction by holding your hand in front of the aperture to see if the light is pointing towards the telescope. You can check the alignment by decreasing the exposure time enough to see the source, and verify the the aperture is illuminated uniformly. Non-uniform illumination can result in unexpected results because the source size is not actually the size of the aperture.
+    \item Insert one of the baseline tokens into the lens cap, preferably one of the shorter baselines. You should now see fringes on the detector with an image similar to Figure \ref{fig:det-img}, though may need to alter the exposure time (around 1\,s should be enough, though this will depend on gain and the source brightness setting).
 \end{enumerate}
 
 If all of this setup has gone well, you are now ready to start!
@@ -173,14 +177,26 @@ There are three components that contribute to an image, an example is shown in F
 \end{itemize}
 The goal in making a measurement is to subtract (or otherwise account for) the background, and make a measurement of the fringe visibility that (if possible/necessary) takes the shape of the PSF into account.
 
-The simplest method for obtaining a visibility measurement would be to use the cursor in \texttt{FireCapture} to measure the background level somewhere away from the PSF, take peak and trough measurements for the fringes, subtract the background level from these, and then compute the visibility. A more complex, but more reliable method, is to use the supplied python widget (\texttt{widget.py}); this code models the above components of the detector image to come up with a parameterised fit to the data, from which the visibility can be extracted.
+The simplest method for obtaining a visibility measurement would be to use the cursor in \texttt{FireCapture} to measure the background level somewhere away from the PSF, take peak and trough measurements for the fringes, subtract the background level from these, and then compute the visibility.
+
+A more complex, but more reliable method, is to use the supplied python widget (\texttt{widget.py}); this code models the above components of the detector image to come up with a parameterised fit to the data, from which the visibility can be extracted. It can also make a visibility measurement using a Fourier transform.
+
+There is no ``correct'' method here, and each method has its own problems. The image model does not account for the finite bandwidth, so fits poorly at longer baselines where the coherence is lower farther from the central fringes. This can be accounted for somewhat by ensuring the fit residuals look best near the peak. The Fourier method is typically less reliable and influenced by various factors, e.g. noisy images, image size (see Fourier example notebook). You should experiment, for example making measurements with all three methods and comparing the results.
 
 \subsection{Using \texttt{widget.py}}\label{sec:widget}
 
 This code brings up an interactive window that allows a parameterised fit to a detector image, and which will output the model parameters, including the visibility and baseline angle (with respect to the detector, whose orientation depends on how you insert it into the telescope). The code itself exists on github, you can download it from
 \href{https://github.com/drgmk/px-interferometry}{https://github.com/drgmk/px-interferometry} if it is not already on the machine you are using (have a look in \texttt{C:\textbackslash}).
 
-To run the python widget, you first need to open a \texttt{python} terminal with \texttt{WinPython}, specifically the ``Windows PowerShell Prompt''. This will probably not open in the folder you want, so navigate to your data using the \texttt{cd} command. When you are at or near your data, run \texttt{ipython}, which will start a python terminal.
+To run the python widget you can use either a system or python terminal. You can launch both of these from the \texttt{WinPython} install, which should be in \texttt{C:\textbackslash}. If you have issues, e.g. with python module errors, the solution is probably related to the \texttt{WinPython} version.
+
+To run the widget from the shell directly, use
+\begin{verbatim}
+    python path/to/widget.py path/to/file.FIT 2
+\end{verbatim}
+The paths you enter will depend on where you run the command from.  The final argument (here 2) does $2 \times 2$ averaging to make the array for the image smaller so the fitting code runs faster. You could try 4 or higher, but if you average too much the detail in the image will be lost and the fit will be poor. A suggested approach is to use 4, but go to 2 if the fringes are very close together and the fit is not converging as well as you expect.
+
+For the system option, you first need to open a terminal, specifically the \texttt{WinPython PowerShell Prompt}. This will probably not open in the folder you want, so navigate to your data using the \texttt{cd} command. When you are at or near your data, run \texttt{ipython}, which will start a python terminal.
 
 With the \texttt{python} terminal running, you will need to import and then run the code. To import, you need to add the widget location to your path, which if you can do with (adjusting the path as necessary).
 \begin{verbatim}
@@ -192,15 +208,9 @@ You can then import and run the widget with
     import widget
     widget.fit_fringes(`Data/FOLDERS/file.FIT',sc=2)
 \end{verbatim}
-where you will need to enter the correct path to the file you want to extract the visibility for. The \texttt{sc=2} argument does $2 \times 2$ averaging to make the array for the image smaller so the fitting code runs faster. You could try \texttt{sc=4} or higher, but if you average too much the detail in the image will be lost and the fit will be poor. A suggested approach is to use \texttt{sc=4}, but go to \texttt{sc=2} if the fringes are very close together and the fit is not converging as well as you expect.
+where you will need to enter the correct path to the file you want to extract the visibility for. The option \texttt{sc=2} is the same as the final argument described above.
 
-Alternatively, you can run the widget from the shell directly, with
-\begin{verbatim}
-    python path/to/widget.py path/to/file.FIT 2
-\end{verbatim}
-The paths you enter will depend on where you run the command from.
-
-On running the widget a window will pop up with the image (FITS file), a model, an image of the residuals (image-model), and a cut through the center of the image perpendicular to the fringes in the model. An example is shown in Figure \ref{fig:widget}.
+On running the widget a window will pop up with the image (FITS file), a model, an image of the residuals (image-model), and a cut through the center of the image perpendicular to the fringes in the model. An example is shown in Figure \ref{fig:widget}. The code will make some attempt to estimate the model parameters.
 
 \begin{figure}[h!]
     \centering
@@ -240,18 +250,18 @@ You can explore how the Fourier transform behaves for individual components in t
 \clearpage
 \section{The experiment}
 
-There are many possible measurements that could be made with this experimental setup. The three key ones you should do are:
+There are many possible measurements that could be made with this experimental setup. The two key ones you should do are:
 \begin{itemize}
-    \item Demonstrate the effect of bandwidth on coherence. First, estimate the bandwidth of the detector with no filter in place. This means estimating where the fringes become incoherent (e.g. after $n \times \lambda/b$ as in Fig. \ref{fig:coherence}), which then means the difference in wavelength across the band is approximately $\lambda/(2n)$, where $\lambda$ is the mean wavelength of the band. You will need to choose a baseline token that results in enough fringes to see this effect (the example in Fig. \ref{fig:widget2} has $b$ too small.) Show that this coherence problem is significantly reduced when the filters are used.
-    \item Measure the angular size of a circular source (i.e. aperture). This means taking visibility measurements with multiple baselines and filters to cover enough range in $b/\lambda$ to constrain the source angular size. Because the source is circular the baseline orientation does not matter.
-    \item Verify the expected visibility variation with baseline for a binary source. In this case you will need to ensure that the baseline holes have close to the same orientation of the binary. 
+    \item Demonstrate the effect of bandwidth on coherence. First, estimate the bandwidth of the detector with no filter in place. This means estimating where the fringes become incoherent (e.g. after $n \times \lambda/b$ as in Fig. \ref{fig:coherence}), which then means the difference in wavelength across the band is approximately $\lambda/(2n)$, where $\lambda$ is the mean wavelength of the band. You can derive this result from $(n-1/4)\lambda_1/b = (n+1/4)\lambda_2/b$. You will need to choose a baseline token that results in enough fringes to see this effect, but still has a significant visibility (the example in Fig. \ref{fig:widget2} has $b$ too small.) Show that this coherence problem is significantly reduced when the filters are used.
+    \item Measure the angular size of a circular source (i.e. aperture). This means taking visibility measurements with multiple baselines and filters to cover enough range in $b/\lambda$ to constrain the source angular size. Because the source is circular the baseline orientation does not matter. You will need to consider how to estimate uncertainties, and almost certainly need to take multiple sets of measurements and experiment with variables such as exposure time to get reliable results.
+    % \item Verify the expected visibility variation with baseline for a binary source. A binary source that is too wide will be resolved out on even the shortest baselines, so a closer binary source is better. In this part you will need to ensure that the baseline holes have close to the same orientation as the binary. 
 \end{itemize}
 
 Beyond these some possible options are to:
 \begin{itemize}
     \item Use the above method to characterise the shape of a non-rotationally symmetric source. This would involve the same method as for the sources above, but in addition rotating the baseline with respect to the source to measure the size as a function of baseline rotation.
-    \item Try repeating one of parts i/ii, but using Fourier transforms to extract the visibilities from the data. There is an option in the widget to compute a Fourier transform of the data and model, and to estimate the power of the peak frequency from the image.
-    \item Create your own baseline token with more than 2 holes using tin foil and a pin, and use this to take some measurements (e.g. to measure an aperture size and/or shape). This would either involve creating your own two-fringe model, or using Fourier transforms.
+    \item Try repeating one of parts i/ii, but using Fourier transforms to extract the visibilities from the data. There is an option in the widget to compute a Fourier transform of the data and model, and to estimate the power of the peak frequency from the image. Compare your results from the image-fitting and Fourier methods, if one seems much worse, can it be improved? (e.g. by increasing the exposure time to obtain less noisy images, or by padding the images before the Fourier transform).
+    \item Use the three-hole baseline token to take some measurements (e.g. to measure an aperture size and/or shape). This would involve using Fourier transforms as simultaneously fitting multiple fringes will be difficult.
 \end{itemize}
 
 \subsection{Basic procedure}
@@ -260,9 +270,9 @@ The basic procedure for this experiment is to set things up as you desire, verif
 
 \subsection{Other considerations}
 
-The experimental setup here is simple, so you will get different visibilities from the fringe fitting and Fourier methods, and when fitted to a function neither will result in the theoretical result that the visibility is 1 at the shortest baselines. There are various reasons. For example, we are using a finite bandwidth which means a range of fring frequencies are actually present, so the fringes lose coherence farther from the center, and this will affect the fringe fitting and Fourier methods differently.
+The experimental setup here is simple, so you will get different visibilities from the fringe fitting and Fourier methods, and when fitted to a function neither will generally result in the theoretical result that the visibility is 1 at the shortest baselines. There are various reasons. For example, we are using a finite bandwidth which means a range of fringe frequencies are actually present, so the fringes lose coherence farther from the center, and this will affect the fringe fitting and Fourier methods differently.
 
-This loss of visibility does not affect the results for source size/separation however, so the amplitude can be simply included as a free parameter in the fitting. For a real astronomical observation these losses still occur, so a typical method is to observe a source that is known to be very small (e.g. a distant but bright giant star) and hence should match the theoretical visibility. This data can then be used to calibrate the science observations of a resolved source.
+This loss of visibility does not affect the results for source size/separation however, so the amplitude can be simply included as a free parameter in the fitting. For a real astronomical observation these losses still occur, so a typical method is to observe a source that is known to be very small (e.g. a distant but bright giant star) and hence should match the theoretical visibility. This data can then be used to calibrate the science observations of a resolved source. Where your results differ from what is expected, you should consider and discuss possible reasons.
 
 \clearpage
 \bibliographystyle{aasjournal}
