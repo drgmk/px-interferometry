@@ -77,6 +77,56 @@ def centroid_sum(im, xy, dxy=1, r=2):
     return cen, tot
 
 
+def vis_ft(im):
+    '''Return visibility, wavelength, and orientation from image.'''
+    sz = im.shape
+    ft = np.fft.fftshift(np.fft.fft2(im))
+    aft = np.abs(ft)
+    aft /= np.max(aft)
+    c = 3
+    aft[sz[0]//2-c:sz[0]//2+c+1, sz[1]//2-c:sz[1]//2+c+1] = 0
+    mxy = np.unravel_index(np.argmax(aft), aft.shape)
+    mxy, vis = centroid_sum(aft, mxy, dxy=0)
+    vis = 2 * vis # 2 is n_holes, see Tuthill thesis
+    x = mxy[1] - (aft.shape[1]-1) / 2
+    y = mxy[0] - (aft.shape[0]-1) / 2
+    ang = np.arctan2(y, x) + np.pi/2
+    wav = sz[0] / np.sqrt(x*x + y*y)
+    print(mxy,vis,ang,wav)
+    return mxy, vis, ang, wav
+
+
+def estimate_par(im):
+    '''Automatic parameter estimation.'''
+    sz = im.shape
+    xc = sz[1]/2 + 0.5
+    yc = sz[0]/2 + 0.5
+
+    # peak smoothed pixel as center
+    sm = scipy.ndimage.gaussian_filter(im, sz[0]//10)
+    pk = np.argmax(sm)
+    x0 = np.unravel_index(pk, im.shape)[1] - xc - 0.0001
+    y0 = np.unravel_index(pk, im.shape)[0] - yc - 0.0001
+    
+    # find orientation and wavelength
+    mxy, vis, st, sw = vis_ft(im)
+
+    bg = np.percentile(im, 5)
+    peak = np.percentile(im, 99) - bg
+    trough = np.percentile(im, 90) - bg
+
+    sp = 0
+    sm = (peak+trough)/2
+    sv = (peak-trough)/2 / sm
+    gw = 60
+
+    rms = 1
+    pt = [peak, trough, rms]
+
+    par = [x0,y0,sw,st,sp,sm,sv,gw,bg]
+    return par, pt
+
+
 def zero_pad(im, n):
     '''Zero pad an array by a factor in each dimension.'''
     sz = im.shape
@@ -105,6 +155,13 @@ def fit_fringes(file, sc=1, fourier=False):
     sh = shape[0],im.shape[0]//shape[0],shape[1],im.shape[1]//shape[1]
     im = im.reshape(sh).mean(-1).mean(1)
 
+    # size/pixel arrays
+    sz = im.shape
+    xc = sz[1]/2 + 0.5
+    yc = sz[0]/2 + 0.5
+    x = np.arange(sz[1]) - xc
+    y = np.arange(sz[0]) - yc
+
     # account for rebinning effect on parameters
     def sc_par(par):
         x0,y0,sw,st,sp,sm,sv,gw,bg = par
@@ -121,31 +178,8 @@ def fit_fringes(file, sc=1, fourier=False):
               par[8]+par[5]*(-par[6]+1),
               1]
     else:
-        bg = np.percentile(im, 5)
-
-        peak = np.percentile(im, 99) - bg
-        trough = np.percentile(im, 80) - bg
-
-        x0 = 0.1
-        y0 = 0.1
-        sw = 10
-        st = 0
-        sp = 0
-        sm = (peak+trough)/2
-        sv = (peak-trough)/2 / sm
-        gw = 20
-
-        rms = 1
-        pt = [peak, trough, rms]
-
-        par = [x0,y0,sw,st,sp,sm,sv,gw,bg]
-
-    # size/pixel arrays
-    sz = im.shape
-    xc = sz[1]/2 + 0.5
-    yc = sz[0]/2 + 0.5
-    x = np.arange(sz[1]) - xc
-    y = np.arange(sz[0]) - yc
+        par, pt = estimate_par(im)
+        par[7] /= sc
 
     def func(p):
         '''Return a model of the image
@@ -154,7 +188,7 @@ def fit_fringes(file, sc=1, fourier=False):
         x0 - x offset from image center
         y0 - y offset from image center
         sw - wavelength of fringe pattern in pixels
-        st - angle from up of fringe pattern (baseline vector)
+        st - acw angle from up of fringe pattern (baseline vector)
         sp - phase of fringe pattern
         sm - average flux of fringe pattern (minus background)
         sv - visibility of fringe pattern
@@ -168,7 +202,7 @@ def fit_fringes(file, sc=1, fourier=False):
         r = np.sqrt( xx**2 + yy**2 )
     #    psf = 1 * np.exp(-0.5 * (r/p[7])**2)
         psf = ( 2 * scipy.special.jv(1, r/p[7]) / (r/p[7]) )**2
-        s2 = p[5]*( p[6]*np.cos(2*np.pi*(xx*np.sin(p[3]) + yy*np.cos(p[3]))/p[2] - p[4]) + 1 )
+        s2 = p[5]*( p[6]*np.cos(2*np.pi*(xx*np.sin(-p[3]) + yy*np.cos(-p[3]))/p[2] - p[4]) + 1 )
         return p[8] + s2 * psf
 
     def res(p):
@@ -225,7 +259,10 @@ def fit_fringes(file, sc=1, fourier=False):
             mft = np.fft.fftshift(np.fft.fft2(mod))
             amft = np.abs(mft)
             amft /= np.max(amft)
-            
+            mft2 = np.fft.fftshift(np.fft.fft2(func(par) - par[8]))
+            amft2 = np.abs(mft2)
+            amft2 /= np.max(amft2)
+
             # show FT of the data,
             # colour scale ignores the brightest pixel
             ax[1,2].imshow(aft, origin='lower',
@@ -242,9 +279,11 @@ def fit_fringes(file, sc=1, fourier=False):
 
             # get peak in FT from model and get visibility
             mxy = np.unravel_index(np.argmax(amft), amft.shape)
+            vis_mod = amft2[mxy] * 2
             mxy, tot = centroid_sum(aft, mxy, dxy=0)
-            vis = 2 * tot # 2 is n_holes, see Tuthill thesis
-            ax[1,2].plot(mxy[1], mxy[0], '+', label=f'vis:{vis:5.3f}')
+            vis = tot * 2
+#            mxy, vis, ang, wav = vis_ft(im)
+            ax[1,2].plot(mxy[1], mxy[0], '+', label=f'vis:{vis:5.3f}\n(model:{vis_mod:5.3f})')
             ax[1,2].legend()
             
             # zoom the FT a bit
@@ -261,7 +300,7 @@ def fit_fringes(file, sc=1, fourier=False):
         ax[1,0].set_xlabel('pixel')
         ax[1,0].set_ylabel('pixel')
 
-        ang = -np.rad2deg(par[3])
+        ang = np.rad2deg(par[3])
 
         rot1 = scipy.ndimage.rotate(scipy.ndimage.shift(im,(-par[1],-par[0])), ang, reshape=False)
         rot2 = scipy.ndimage.rotate(scipy.ndimage.shift(func(par),(-par[1],-par[0])), ang, reshape=False)
@@ -292,11 +331,23 @@ def fit_fringes(file, sc=1, fourier=False):
 
     def keypress(event):
         '''Deal with keyboard input.'''
+        if event.key == 'A':
+            # intended for automatic parameter estimation
+
+            # peak smoothed pixel as center
+            sm = scipy.ndimage.gaussian_filter(im, 40)
+            pk = np.argmax(sm)
+            par[0] = np.unravel_index(pk, im.shape)[1] - xc - 0.0001
+            par[1] = np.unravel_index(pk, im.shape)[0] - yc - 0.0001
+            
+            # find orientation and wavelength
+            mxy, vis, par[3], par[2] = vis_ft(im)
+
         if event.key == 'c':
             par[0:2] = event.xdata-xc, event.ydata-yc
 
         if event.key == 'g':
-            par[7] = np.sqrt( (event.xdata-xc)**2 + (event.ydata-yc)**2 )
+            par[7] = np.sqrt( (event.xdata-par[0]-xc)**2 + (event.ydata-par[1]-yc)**2 )
 
         if event.key == 'p':
             data = im[int(event.ydata)-1:int(event.ydata)+2,
@@ -326,7 +377,7 @@ def fit_fringes(file, sc=1, fourier=False):
         if event.key == 'w':
             x1 = par[0]+xc + 1j*(par[1]+yc)
             x = event.xdata + 1j*event.ydata
-            par[3] = -np.angle(x - x1) + np.pi/2
+            par[3] = np.angle(x - x1) + np.pi/2
             par[2] = np.abs(x - x1)
 
         if event.key == 'a':
