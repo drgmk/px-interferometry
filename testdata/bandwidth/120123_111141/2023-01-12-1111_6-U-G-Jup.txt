@@ -1,0 +1,50 @@
+FireCapture v2.7.10 Settings
+------------------------------------
+Observer=Unknown
+Location=Unknown_City
+Scope=Unknown_Scope
+Camera=QHY5II-M
+Filter=G
+Profile=Jupiter
+Diameter=37.96"
+Magnitude=-2.30
+CMI=42.6° CMII=275.7° CMIII=235.0°  (during mid of capture)
+Filename=2023-01-12-1111_6-U-G-Jup.zip
+Date=120123
+Start=111141.546
+Mid=111142.089
+End=111142.633
+Start(UT)=111141.546
+Mid(UT)=111142.089
+End(UT)=111142.633
+Duration=1.087s
+Date_format=ddMMyy
+Time_format=HHmmss
+LT=UT 
+Frames captured=1
+FPS (avg.)=0
+File type=FITS
+Binning=2x2
+Bit depth=8bit
+Data=Mono
+ROI=640x512
+ROI(Offset)=0x0
+Shutter=2.00s
+Gain=72 (72%)
+Brightness=0
+Contrast=0
+HighSpeed=off
+LowNoise=off
+USBTraffic=30
+Histogramm(min)=32
+Histogramm(max)=235
+Histogramm=92%
+Noise(avg.deviation)=n/a
+eADU=n/a
+AutoAlign=false
+PreFilter=none
+Limit=1 Frames
+Dark=QHY5II-M_640x512__8bit_Exp=5.00ms_Gain=53_Frames=10_2023-12-01_110040.dark
+
+---------------Timestamps at start of exposure --------------------
+Frame 1:	120123 111140.631
