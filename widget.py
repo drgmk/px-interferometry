@@ -29,6 +29,8 @@ b - set background from cursor location
 p - set image peak from cursor location (use brightest fringe)
 t - set image trough from cursor location (use first dark fringe)
 w - set fringe wavelength and angle from cursor distance/angle from center
+left/right - rotate angle by 1deg in either direction
+up/down - increase/decrease fringe wavelength
 a - set phase angle with peak at cursor
 r - set rms from box around cursor location in residual image
 m - minimise (walk downhill in chi^2)
@@ -197,11 +199,13 @@ def fit_fringes(file, sc=1, fourier=False):
 
         x0, y0, sw, st, sp, sm, sv, gw, bg
         0,  1,  2,  3,  4,  5,  6,  7,  8
+        
+        Numpy exp for Gaussian PSF is ~10x faster than scipy Bessell.
         '''
         xx, yy = np.meshgrid(x-p[0], y-p[1])
         r = np.sqrt( xx**2 + yy**2 )
-    #    psf = 1 * np.exp(-0.5 * (r/p[7])**2)
-        psf = ( 2 * scipy.special.jv(1, r/p[7]) / (r/p[7]) )**2
+        psf = 1 * np.exp(-0.5 * (r/p[7])**2)
+#        psf = ( 2 * scipy.special.jv(1, r/p[7]) / (r/p[7]) )**2
         s2 = p[5]*( p[6]*np.cos(2*np.pi*(xx*np.sin(-p[3]) + yy*np.cos(-p[3]))/p[2] - p[4]) + 1 )
         return p[8] + s2 * psf
 
@@ -380,6 +384,18 @@ def fit_fringes(file, sc=1, fourier=False):
             par[3] = np.angle(x - x1) + np.pi/2
             par[2] = np.abs(x - x1)
 
+        if event.key == 'left':
+            par[3] = par[3] + np.deg2rad(1)
+
+        if event.key == 'right':
+            par[3] = par[3] - np.deg2rad(1)
+
+        if event.key == 'up':
+            par[2] = par[2] + 1
+
+        if event.key == 'down':
+            par[2] = par[2] - 1
+
         if event.key == 'a':
             x1 = par[0]+xc + 1j*(par[1]+yc)
             x = event.xdata + 1j*event.ydata
@@ -414,6 +430,8 @@ def fit_fringes(file, sc=1, fourier=False):
     p - set image peak from cursor location (use brightest fringe)
     t - set image trough from cursor location (use first dark fringe)
     w - set fringe wavelength and angle from cursor distance/angle from center
+    left/right - rotate angle by 1deg in either direction
+    up/down - increase/decrease fringe wavelength
     a - set phase with peak at cursor
     r - set rms from box around cursor location in residual image
     m - minimise (walk downhill in chi^2)
