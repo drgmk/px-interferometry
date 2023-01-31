@@ -62,6 +62,8 @@ If this works, you can make the change permanent by adding
 a line to your matplotlibrc file.
 '''
 
+vis_save = 0 # to be filled later
+
 def centroid(im, x0=0, y0=0):
     '''Return intensity weighted centroid of an image.'''
     yy,xx = np.meshgrid(np.arange(im.shape[1]),np.arange(im.shape[0]))
@@ -130,7 +132,9 @@ def estimate_par(im):
 
 
 def zero_pad(im, n):
-    '''Zero pad an array by a factor in each dimension.'''
+    '''Zero pad an array by twice an amount in each dimension.'''
+    if n == 0:
+        return im
     sz = im.shape
     new = np.zeros((sz[0]+2*n, sz[1]+2*n))
     new[n+1:n+1+sz[0], n+1:n+1+sz[1]] = im
@@ -183,6 +187,22 @@ def fit_fringes(file, sc=1, fourier=False):
         par, pt = estimate_par(im)
         par[7] /= sc
 
+
+    def fringes(p, xx, yy, dw=0, nw=5):
+        '''Function to make fringes, optional bandwidth.'''
+        if dw == 0:
+            return p[5]*( p[6]*np.cos(2*np.pi*(xx*np.sin(-p[3]) + \
+                                               yy*np.cos(-p[3]))/p[2] - p[4]) + 1 )
+
+        else:
+            im = np.zeros_like(xx)
+            ds = np.linspace(1-dw, 1+dw, nw)
+            for d in ds:
+                im += p[5]*( p[6]*np.cos(2*np.pi*(xx*np.sin(-p[3]) + \
+                                               yy*np.cos(-p[3]))/p[2]/d - p[4]) + 1 )
+
+            return im/nw
+
     def func(p):
         '''Return a model of the image
 
@@ -204,9 +224,11 @@ def fit_fringes(file, sc=1, fourier=False):
         '''
         xx, yy = np.meshgrid(x-p[0], y-p[1])
         r = np.sqrt( xx**2 + yy**2 )
-        psf = 1 * np.exp(-0.5 * (r/p[7])**2)
+        
+        psf = 1 * np.exp(-0.5 * (r/p[7]/1.3)**2) # factor 1.3 to make equiv. to Bessell
 #        psf = ( 2 * scipy.special.jv(1, r/p[7]) / (r/p[7]) )**2
-        s2 = p[5]*( p[6]*np.cos(2*np.pi*(xx*np.sin(-p[3]) + yy*np.cos(-p[3]))/p[2] - p[4]) + 1 )
+        
+        s2 = fringes(p, xx, yy, dw=0.05) # 0.05 is an estimate, could be a parameter
         return p[8] + s2 * psf
 
     def res(p):
@@ -252,9 +274,16 @@ def fit_fringes(file, sc=1, fourier=False):
             par_tmp[8] = 0
             mod = func(par_tmp)
             mod -= np.mean(mod)
-
+            mod2 = func(par) - par[8]
+            
             # subtract background from data
             sub = im - par[8]
+
+            # zero pad images, this will change the FT a bit
+            pad = 0
+            sub = zero_pad(sub, pad)
+            mod = zero_pad(mod, pad)
+            mod2 = zero_pad(mod2, pad)
 
             # compute FTs and normalise to peak
             ft = np.fft.fftshift(np.fft.fft2(sub))
@@ -263,7 +292,7 @@ def fit_fringes(file, sc=1, fourier=False):
             mft = np.fft.fftshift(np.fft.fft2(mod))
             amft = np.abs(mft)
             amft /= np.max(amft)
-            mft2 = np.fft.fftshift(np.fft.fft2(func(par) - par[8]))
+            mft2 = np.fft.fftshift(np.fft.fft2(mod2))
             amft2 = np.abs(mft2)
             amft2 /= np.max(amft2)
 
@@ -283,9 +312,12 @@ def fit_fringes(file, sc=1, fourier=False):
 
             # get peak in FT from model and get visibility
             mxy = np.unravel_index(np.argmax(amft), amft.shape)
+            mxy = mxy[0], mxy[1]
             vis_mod = amft2[mxy] * 2
             mxy, tot = centroid_sum(aft, mxy, dxy=0)
             vis = tot * 2
+            global vis_save
+            vis_save = vis.copy()
 #            mxy, vis, ang, wav = vis_ft(im)
             ax[1,2].plot(mxy[1], mxy[0], '+', label=f'vis:{vis:5.3f}\n(model:{vis_mod:5.3f})')
             ax[1,2].legend()
@@ -293,7 +325,7 @@ def fit_fringes(file, sc=1, fourier=False):
             # zoom the FT a bit
             cx = (aft.shape[1]-1) / 2
             cy = (aft.shape[0]-1) / 2
-            n = 20 #np.max([np.abs(mxy[0]-cy), np.abs(mxy[1]-cx)])
+            n = 30 #np.max([np.abs(mxy[0]-cy), np.abs(mxy[1]-cx)])
             ax[1,2].set_xlim(cx-2*n,cx+2*n)
             ax[1,2].set_ylim(cy-2*n,cy+2*n)
 
@@ -421,6 +453,9 @@ def fit_fringes(file, sc=1, fourier=False):
 
         if event.key == 'S':
             np.save(paramfile, unsc_par(par))
+            if fourier:
+                global vis_save
+                np.save(paramfile.replace('-params','-FTparams'), vis_save)
 
         if event.key == 'h':
             print("""
