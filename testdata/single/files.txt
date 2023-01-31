@@ -1,0 +1,15 @@
+4 b b1-b.FIT
+4 r b1-g.FIT
+4 g b1-r.FIT
+1.9 b b2-b.FIT
+1.9 g b2-g.FIT
+1.9 r b2-r.FIT
+1 b b3-b.FIT
+1 g b3-g.FIT
+1 r b3-r.FIT
+0.7 b b5-b.FIT
+0.7 g b5-g.FIT
+0.7 r b5-r.FIT
+3 b b6-b.FIT
+3 g b6-g.FIT
+3 r b6-r.FIT
