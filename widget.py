@@ -356,7 +356,7 @@ def fit_fringes(file, sc=1, fourier=False):
         ax[1,1].set_xlim(0,len(line1))
         ax[1,1].text(len(line1)/2, par[8]/2, f'V={par[6]:0.2f}',
                      horizontalalignment='center')
-        ax[1,1].text(len(line1)/2, par[8]/2-12, '$\\theta$={:0.0f}'.format(np.rad2deg(par[3])),
+        ax[1,1].text(len(line1)/2, par[8]/2-12, '$\\phi$={:0.0f}'.format(np.rad2deg(par[3])),
                      horizontalalignment='center')
         ax[1,1].set_title('line cut')
         ax[1,1].set_xlabel('pixels along baseline direction')
