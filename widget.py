@@ -116,13 +116,13 @@ def estimate_par(im):
     mxy, vis, st, sw = vis_ft(im)
 
     bg = np.percentile(im, 5)
-    peak = np.percentile(im, 99) - bg
-    trough = np.percentile(im, 90) - bg
+    peak = np.percentile(im, 99.9) - bg
+    trough = np.percentile(im, 95) - bg
 
     sp = 0
     sm = (peak+trough)/2
     sv = (peak-trough)/2 / sm
-    gw = 60
+    gw = 110
 
     rms = 1
     pt = [peak, trough, rms]
