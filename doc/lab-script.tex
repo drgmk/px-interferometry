@@ -116,10 +116,10 @@ This lab has an intentionally simple setup; the goal is to show how one can cons
     \item Telescope, this is mounted to the bench and can be flipped up or down. Down is probably easier, but check the path across the lab is clear.
     \item CMOS detector and USB cable. Some information is \href{https://www.qhyccd.com/qhy5l-ii-planetary-guiding-camera/}{here}.
     \item Lens cap, this holds the tokens with the pairs of holes (baselines).
-    \item Baseline tokens, these have small (0.3\,mm) holes drilled in pairs with a range of separations. These should be labelled, and the spacings are 0.6, 1, 2, 3, and 4\,mm.
+    \item Baseline tokens, these have small (0.3\,mm) holes drilled in pairs with a range of separations. These should be labelled, and the spacings are 0.6, 1, 2, 3, and 4\,mm. There is also a 3-hole token, with holes at 0.5 and 1\,mm separation at right angles (so the third baseline is $\sqrt{0.5^2 + 1^2}$\,mm).
     \item Light source. This is currently a bike light which has several brightness settings. While it is very bright, the battery does not last forever, so best turn it off when you are not using it.
-    \item Aperture tokens, these go in front of the light source and are what we observe. There are several sizes and shapes.
-    \item Filters, used to change the wavelength of the source. You may take the mean wavelengths of these to be 448, 530, and 638\,nm for B, G, and R respectively. More detailed information is \href{https://www.firstlightoptics.com/rgb-filters-filter-sets/zwo-2-lrgb-filter-set.html}{here}.
+    \item Aperture tokens, these go in front of the light source and are what we observe. There are several sizes and shapes, which you can verify with vernier calipers or otherwise. The most useful will be a 2\,mm diameter hole, and the `Saturn' which has a 4\,mm hole and two 2\,mm holes (outer size $4 \times 6$\,mm).
+    \item Filters, used to change the wavelength of the source. You may take the mean wavelengths of these to be 448, 530, and 638\,nm for B, G, and R respectively. More detailed information on the filter response is \href{https://www.firstlightoptics.com/rgb-filters-filter-sets/zwo-2-lrgb-filter-set.html}{here}.
     \item Miscellaneous fittings to mount the light source, aperture tokens, and filters.
     \item An ITS computer near the telescope, plug the CMOS into this one.
 \end{itemize}
@@ -130,7 +130,7 @@ There are a few pieces of python code, \texttt{widget.py} and some jupyter noteb
 
 Extracting visibilities from your data with \texttt{widget.py} is outlined below in section \ref{sec:widget}.
 
-To run a notebook, open a `WinPython Powershell Prompt', change directory to \texttt{H:} with \texttt{cd H:}, and run \texttt{jupyter notebook}. A browser window should open, with which you can navigate to the notebooks.
+To run a notebook, open a `WinPython Powershell Prompt' from the interferometry-specific \texttt{WinPython} install in \texttt{C:}, change directory to \texttt{H:} with \texttt{cd H:}, and run \texttt{jupyter notebook}. A browser window should open, with which you can navigate to the notebooks.
 
 \subsection{Image capture software}\label{sec:software}
 
@@ -159,9 +159,9 @@ The other important control is how images are saved (under ``capture''); for thi
 
 You can optionally save a ``dark frame'' (one of the small buttons between the main image and the left column of controls). For this cover the front of the telescope (putting your hand in front of the baseline token would suffice), and \texttt{FireCapture} will take an image that will be subtracted off subsequent images. The goal is that this dark image will contain any ``hot'' (permanently defective) detector pixels and other detector artefacts, and by subtracting them these pixels will not be visible in the final images. Ideally your dark frame will have the same settings as the images it is being subtracted from, as different settings (gain in particular) will result in different artefacts.
 
-\subsection{Setup}
+\subsection{Setup}\label{sec:setup}
 
-Setting up the experiment is reasonably simple, the aim being to have the telescope pointed at the light source and aperture. Photos of the setup at either end are in the Appendix. While having the telescope properly focused will aid the setup, it's not actually critical for observing the fringes. A suggested series of steps to get your first set up fringes is as follows:
+Setting up the experiment is reasonably simple but takes some finesse, the aim being to have the telescope pointed at the aperture and the light source carefully aligned behind it. Photos of the setup at either end are in the Appendix. While having the telescope properly focused will aid the setup, it's not actually critical for observing the fringes. A suggested series of steps to get your first set up fringes is as follows:
 
 \begin{enumerate}
     \item Plug the light source in to charge. The battery should last for a few hours, so it's best to turn it off and charge it when you're not using it.
@@ -173,7 +173,7 @@ Setting up the experiment is reasonably simple, the aim being to have the telesc
     \item Remove the telescope lens cap and set up the focus and pointing. The telescope is fixed, so you will need to adjust the location of the light until it appears near the center of the detector image. You will simultaneously need to adjust the exposure time and focus so you know what you are pointing at. If you think the pointing is a long way off, you may find it helpful to hold a large object (e.g. a book) in front of the token to figure out where you need to point. You should end up with an in focus image of the aperture near the center of the detector.
     \item Now set up the aperture token with further mounting kit, ensuring the the surface normal of the token is pointing towards the telescope. You may find it helpful to note where in the image the center of the light is in \texttt{FireCapture}, and to then place the center of the aperture at this pixel.
     \item You will later find it useful to orient the detector correctly, e.g. by placing a piece of paper near the source with an upwards pointing arrow on it, and rotating the detector so that the image on screen matches it. The orientation does not matter for rotationally symmetric sources.
-    \item You can further check the aperture/source alignment by decreasing the exposure time enough to see the source when it is on, and verify that the source is centered behind the aperture and that the aperture is illuminated uniformly. Non-uniform illumination can result in unexpected results because the source size is not actually the size of the aperture.
+    \item You can further check the aperture/source alignment by decreasing the exposure time enough to see the source when it is on, and verify that the source is centered behind the aperture and that the aperture is illuminated uniformly. The light looks somewhat like a bullseye that can be seen through the aperture token, which will help align things. You can also put the lens cap on the telescope (no baseline token) and insert a filter to decrease the flux enough to image the aperture without saturation. Non-uniform illumination can result in unexpected results because the source size is not actually the size of the aperture.
     \item Insert one of the baseline tokens into the lens cap, preferably one of the shorter baselines. You should now see fringes on the detector with an image similar to Figure \ref{fig:det-img}, though may need to alter the exposure time (around 1\,s should be enough, though this will depend on gain and the source brightness setting). The fringes do not need to be perfectly centered; as long as the visible PSF is within the image the results will be OK.
 \end{enumerate}
 
@@ -210,7 +210,7 @@ There is no ``correct'' method here, and each method has its own problems. The i
 This code brings up an interactive window that allows a parameterised fit to a detector image, and which will output the model parameters, including the visibility and baseline angle (with respect to the detector, whose orientation depends on how you insert it into the telescope). The code itself exists on github, you can download it from
 \href{https://github.com/drgmk/px-interferometry}{https://github.com/drgmk/px-interferometry}.
 
-To run the python widget you can use either a system or python terminal. You can launch both of these from the \texttt{WinPython} install, which should be in \texttt{C://}. If you have issues, e.g. with python module errors, the solution is probably related to the \texttt{WinPython} version and you should try a different \texttt{WinPython} (if one exists). Otherwise, a new version may need to be downloaded.
+To run the python widget you can use either a system or python terminal (see \ref{sec:widget_ipython} for the latter). You can launch both of these from the interferometry-specific \texttt{WinPython} install, which should be in \texttt{C:}. If you have issues, e.g. with python module errors, the solution is probably related to the \texttt{WinPython} version and you should try a different \texttt{WinPython} (if one exists). Otherwise, a new version may need to be downloaded.
 
 To run the widget from the shell directly, use something like (shortened here for clarity)
 \begin{verbatim}
@@ -219,20 +219,6 @@ To run the widget from the shell directly, use something like (shortened here fo
 The paths you enter will depend on where you run the command from, where you put \texttt{widget.py}, and where you save the data. A useful way to type these commands out is to use `tab completion'; start typing the path and hit the TAB key, which will fill out the rest of that part of the path (assuming it exists). You can make things easier by changing directory (e.g. \texttt{cd H:\textbackslash Interdata}) so that you don't need to type out as much each time the filename is different.
 
 The final argument (here 2) does $2 \times 2$ averaging to make the array for the image smaller so the fitting code runs faster. You could try 4 or higher, but if you average too much the detail in the image will be lost and the fit will be poor. A suggested approach is to use 4, but go to 2 if the fringes are very close together and the fit is not converging as well as you expect.
-
-For the python terminal option, you first need to open a terminal, specifically the \texttt{WinPython PowerShell Prompt}. This will probably not open in the folder you want, so navigate to your data using the \texttt{cd} command. When you are at or near your data, run \texttt{ipython}, which will start a python terminal.
-
-With the \texttt{python} terminal running, you will need to import and then run the code. To import, you need to add the widget location to your path, which if you can do with (adjusting the path as necessary).
-\begin{verbatim}
-    import os, sys
-    sys.path.append(os.path.abspath(`C:/px-interferometry'))
-\end{verbatim}
-You can then import and run the widget with
-\begin{verbatim}
-    import widget
-    widget.fit_fringes(`Data/FOLDERS/file.FIT',sc=2)
-\end{verbatim}
-where you will need to enter the correct path to the file you want to extract the visibility for. The option \texttt{sc=2} is the same as the final argument described above.
 
 On running the widget a window will pop up with the image (FITS file), a model, an image of the residuals (image-model), and a cut through the center of the image perpendicular to the fringes in the model. An example is shown in Figure \ref{fig:widget}. The code will make an initial attempt to estimate the model parameters.
 
@@ -252,7 +238,7 @@ The goal is then to improve the fit, which will almost certainly require some in
     \label{fig:widget2}
 \end{figure}
 
-\subsection{Fourier components}
+\subsection{Fourier components}\label{sec:fourier}
 
 The images obtained in this experiment are relatively simple, in that they have the three components of background, PSF, and fringes described above. This simplicity makes it possible to obtain information by Fourier transforming the images. We first subtract the background, so there are only two components. The Fourier transform then has only a broad PSF, and the narrower fringes, or thinking in terms of frequencies, some low frequencies that correspond to the PSF, and a single higher frequency that describes the fringes.
 
@@ -269,7 +255,7 @@ The modified image used in the Fourier transform is shown in the top right panel
 
 The peaks for the PSF and fringes in the Fourier transform tell us how much power is in each component, and importantly, the peak for the fringe component is the visibility. The only thing to account for is how strong this peak is relative to the PSF peak, so we first scale the Fourier transform so that the peak in the center for the PSF is equal to 1. Then the visibility is $n_{\rm holes}$ times the peak value (if we added a third hole, the PSF would be brighter, but the original fringe component visibility would not change). Deriving this result is not straightforward \citep[e.g.][section 2.4.3]{2011psi..book.....G}. If we had multiple sets of fringes, we could use a Fourier transform to decompose an image into its Fourier components (i.e. one for each baseline) and measure multiple visibilities at once.
 
-It is not straightforward to automatically identify the secondary Fourier peak, particularly at low visibilities, so \texttt{widget.py} uses the model to identify the appropriate pixel. This therefore requires a good fit to the fringes (which you will be aiming for anyway), or that you manually find the secondary peak using the cursor.
+It is not straightforward to automatically identify the secondary Fourier peak, particularly at low visibilities, so \texttt{widget.py} uses the model to identify the appropriate pixel. This therefore requires a good fit to the fringes (which you will be aiming for anyway), or that you manually find the secondary peak using the cursor. If you hit `S' when using \texttt{widget.py} with the Fourier option, a file with the Fourier-based visibility will also be saved.
 
 You can explore how the Fourier transform behaves for individual components in the images with one of the notebooks in the \texttt{px-interferometry} package.
 
@@ -281,26 +267,28 @@ Practically, visibility measurements with the Fourier method are more susceptibl
 There are many possible measurements that could be made with this experimental setup. The two key ones you should do are:
 \begin{itemize}
     \item Demonstrate the effect of bandwidth on coherence. First, estimate the bandwidth of the detector with no filter in place. This means estimating where the fringes become incoherent (e.g. after $n \times \lambda/b$ as in Fig. \ref{fig:coherence}), which then means the ratio of bandwdith to mean wavelength is approximately $\lambda/(2n)$, where $\lambda$ is the mean wavelength of the band. You can derive this result from $(n-1/4)\lambda_1/b = (n+1/4)\lambda_2/b$. You will need to choose a baseline token that results in enough fringes to see this effect, but still has a significant visibility (the example in Fig. \ref{fig:widget2} has $b$ too small.) Show that this coherence problem is significantly reduced when the filters are used.
-    \item Measure the angular size of a circular source (i.e. aperture). This means taking visibility measurements with multiple baselines and filters to cover enough range in $b/\lambda$ to constrain the source angular size. Because the source is circular the baseline orientation does not matter. You will need to consider how to estimate uncertainties, and almost certainly need to take multiple sets of measurements and experiment with variables such as exposure time to get reliable results.
+    \item Measure the angular size of a circular source (i.e. 2mm aperture token). This means taking visibility measurements with multiple baselines and filters to cover enough range in $b/\lambda$ to constrain the source angular size. Because the source is circular the baseline orientation does not matter. You will need to consider how to estimate uncertainties (see `visibilities' notebook an empirical method), and almost certainly need to take multiple sets of measurements and experiment with variables such as exposure time to get reliable results. If you use the Fourier option when fitting the fringes and save the results with `S', you will automatically have the Fourier visibilities for the next part below.
     % \item Verify the expected visibility variation with baseline for a binary source. A binary source that is too wide will be resolved out on even the shortest baselines, so a closer binary source is better. In this part you will need to ensure that the baseline holes have close to the same orientation as the binary. 
 \end{itemize}
 
 Beyond these some possible options are to:
 \begin{itemize}
+    \item Try repeating the source size measurement, but using visibilities from the Fourier transform (see section \ref{sec:fourier}). Compare your results from the image-fitting and Fourier methods, if one seems much worse, can it be improved? (e.g. by increasing the exposure time to obtain less noisy images, or by padding the images before the Fourier transform).
+    \item Use the three-hole baseline token to take some measurements for the 2mm source. This would involve using Fourier transforms as simultaneously fitting multiple fringes will be difficult. See `3\_hole' notebook for some guidance and an example.
     \item Use the above method to characterise the shape of a non-rotationally symmetric source. This would involve the same method as for the sources above, but in addition rotating the baseline with respect to the source to measure the size as a function of baseline rotation.
-    \item Try repeating the source size measurement, but using Fourier transforms to extract the visibilities from the data. There is an option in the widget to compute a Fourier transform of the data and model, and to estimate the power of the peak frequency from the image (note that the image fit must be good enough for \texttt{widget.py} to identify the correct pixel in the FT). Compare your results from the image-fitting and Fourier methods, if one seems much worse, can it be improved? (e.g. by increasing the exposure time to obtain less noisy images, or by padding the images before the Fourier transform).
-    \item Use the three-hole baseline token to take some measurements (e.g. to measure an aperture size and/or shape). This would involve using Fourier transforms as simultaneously fitting multiple fringes will be difficult.
 \end{itemize}
 
 \subsection{Basic procedure}
 
-The basic procedure for this experiment is to set things up as you desire, verify the setup is working visually using the image on the screen, and to then save that image. These steps are then repeated as necessary to obtain a full set of images, e.g. across several baselines with different filters. The resulting images are then analysed to obtain visibility measurements, and these visibilities are then used in concert with the baseline length and filter wavelength information to obtain a result.
+The basic procedure for this experiment is to set things up as you desire, verify the setup is working visually using the image on the screen, and to then save that image. Take particular care with the setup, especially uniform illumination of the aperture, as this is the most likely source of unexpected results. These steps are then repeated as necessary to obtain a full set of images, e.g. across several baselines with different filters. The resulting images are then analysed to obtain visibility measurements, and these visibilities are then used in concert with the baseline length and filter wavelength information to obtain a result.
+
+In doing all this you will need to keep track of files, what each was for, etc.. Saving files in separate folders for each part of the experiment will help, and of course keeping some records in text files (e.g. see below) and a log book will be essential for your report.
 
 Practically, you may find it expedient to work as a team, with one person changing filters at the source end, one person changing baseline tokens and operating \texttt{FireCapture} to save files in some systematic way, and one person fitting saved images to extract visibilities on another computer (one person can be logged into multiple computers, allowing the second person to access the newly saved files in \texttt{H:}).
 
-This result would typically be a plot of visibility vs. $b/\lambda$, and a fit to the relevant theoretical curve to obtain an estimate of the source aperture size. An example jupyter notebook for fitting a visibility function to data is included in the \texttt{px-interferometry} package. This notebook also shows how one can take a series of measurements in a systematic sequence, and then restore the saved fitting results to get the values for the plot in an automated way.
+The result would typically be a plot of visibility vs. $b/\lambda$, and a fit to the relevant theoretical curve to obtain an estimate of the source aperture size (i.e. similar to Fig. \ref{fig:uniformvis}). An example jupyter notebook for fitting a visibility function to data is included in the \texttt{px-interferometry} package. This notebook also shows how one can log the baselines, filters, and corresponding files in a text file, and then restore the saved fitting results to get the values for the plot in an automated way.
 
-You will also need to consider how to incorporate uncertainties on your visibilities. Doing this properly is definitely non-trivial, among other things it would involve observing a very small source to test the setup, since in that case we know the visibility is one. For your purposes here, one way to estimate uncertainties is to take multiple images for a given baseline/filter.
+You will also need to consider how to incorporate uncertainties on your visibilities. Doing this properly is definitely non-trivial, among other things it would involve observing a very small source to calibrate the setup, since in that case we would know theoretically that the visibility should be 1 even if we measure a smaller value. For your purposes here, one way to estimate uncertainties is to take multiple images for a given baseline/filter, another is to empirically see how the data differ from the best fit model (see notebook for an example).
 
 \subsection{Other considerations}
 
@@ -335,6 +323,28 @@ This loss of visibility does not affect the results for source size/separation h
 \end{figure}
 
 \clearpage
+
+\section{Software extras}
+
+\subsection{\texttt{widget.py} in an ipython terminal}
+
+To run \texttt{widget.py} in a python terminal, you first need to open a terminal, specifically the \texttt{WinPython PowerShell Prompt}. This will probably not open in the folder you want, so navigate to your data using the \texttt{cd} command. When you are at or near your data, run \texttt{ipython}, which will start a python terminal.
+
+With the \texttt{python} terminal running, you will need to import and then run the code. To import, you need to add the widget location to your path, which if you can do with (adjusting the path as necessary).
+\begin{verbatim}
+    import os, sys
+    sys.path.append(os.path.abspath(`C:/px-interferometry'))
+\end{verbatim}
+You can then import and run the widget with
+\begin{verbatim}
+    import widget
+    widget.fit_fringes(`Data/FOLDERS/file.FIT',sc=2)
+\end{verbatim}
+where you will need to enter the correct path to the file you want to extract the visibility for. The option \texttt{sc=2} is the same as the final argument described above.
+
+
+\clearpage
+
 \bibliographystyle{aasjournal}
 \bibliography{refs}
 
