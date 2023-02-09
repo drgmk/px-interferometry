@@ -173,7 +173,7 @@ Setting up the experiment is reasonably simple but takes some finesse, the aim b
     \item Remove the telescope lens cap and set up the focus and pointing. The telescope is fixed, so you will need to adjust the location of the light until it appears near the center of the detector image. You will simultaneously need to adjust the exposure time and focus so you know what you are pointing at. If you think the pointing is a long way off, you may find it helpful to hold a large object (e.g. a book) in front of the token to figure out where you need to point. You should end up with an in focus image of the light source near the center of the detector.
     \item You may find it useful to orient the detector correctly, e.g. by placing a piece of paper near the source with an upwards pointing arrow on it, and rotating the detector so that the image on screen matches it. The orientation does not matter for rotationally symmetric sources.
     \item Now set up the aperture token with further mounting kit, ensuring the the surface normal of the token is pointing towards the telescope. You may find it helpful to note where in the image the center of the light is in \texttt{FireCapture}, and to then place the center of the aperture at this pixel.
-    \item You can further check the aperture/source alignment by decreasing the exposure time enough to see the source when it is on, and verify that the source is centered behind the aperture and that the aperture is illuminated uniformly. Non-uniform illumination can result in unexpected results because the source size is not actually the size of the aperture, so this step is very important! The light looks somewhat like a bullseye that can be seen through the aperture token, which will help align things. You can also put the lens cap on the telescope with no baseline token and insert a filter (you may even need two filters) to decrease the flux enough to image the aperture without saturation.
+    \item You can further check the aperture/source alignment by decreasing the exposure time enough to see the source when it is on, and verify that the source is centered behind the aperture and that the aperture is illuminated uniformly. Some examples are shown in Figure \ref{fig:img_setup}. Non-uniform illumination can result in unexpected results because the source size is not actually the size of the aperture, so this step is very important! The light looks somewhat like a bullseye that can be seen through the aperture token, which will help align things. You can also put the lens cap on the telescope with no baseline token and insert a filter (probably two filters) to decrease the flux enough to image the aperture without saturation.
     \item Insert one of the baseline tokens into the lens cap, preferably one of the shorter baselines. You should now see fringes on the detector with an image similar to Figure \ref{fig:det-img}, though may need to alter the exposure time. Around 1\,s should be enough, though this will depend on gain and the source brightness setting. The fringes do not need to be perfectly centered on the detector; as long as the visible PSF is within the image the results will be OK.
 \end{enumerate}
 
@@ -316,6 +316,17 @@ You will also need to consider how to incorporate uncertainties on your visibili
     \caption{Light source, aperture, and filter setup. The filter and aperture token holder is at the left, and a clamp on the right hold the light source.}
     \label{fig:source}
 \end{figure}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.49\textwidth]{doc/source1.png}
+    \includegraphics[width=0.49\textwidth]{doc/source2.png}
+    \includegraphics[width=0.49\textwidth]{doc/source3.png}
+    \includegraphics[width=0.49\textwidth]{doc/source4.png}
+    \caption{Example setup images. The top left is the light source, top right is light source on an misaligned with the aperture (note how the `bullseye' is offset from the aperture hole), bottom left is aligned with the token, and bottom right is with two filters to verify that the aperture is uniformly illuminated in a non-saturated image.}
+    \label{fig:img_setup}
+\end{figure}
+
 
 \clearpage
 
