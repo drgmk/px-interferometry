@@ -83,7 +83,7 @@ Note that as we are mostly only using a pair of baselines, we are really only me
 
 \subsection{Visibility functions}
 
-Mathematically, we can write down the expected behaviour of the visibility as a function of baseline and wavelength for a few different source geometries. Some more detail on where these come from is given in \citet[][e.g. Fig 2.13]{2011psi..book.....G}.
+Mathematically, we can write down the expected behaviour of the visibility as a function of baseline and wavelength for a few different source geometries. Some more detail on where these come from is given in \citet[][e.g. Fig 2.13]{2011psi..book.....G}. Mathematically, the connection between the sky and the visibilities is the ``\href{https://en.wikipedia.org/wiki/Van_Cittert%E2%80%93Zernike_theorem}{van Cittert-Zernike Theorem}'', which states that the Fourier transform of the intensity distribution function of a distant, incoherent source is equal to its complex visibility. With the measurements in this lab, we are sampling the visibility at specific spatial frequencies (i.e. at points in the FT of the sky image that correspond to specific $b/\lambda$).
 
 The visibility for a binary source is perhaps not too surprising, we saw above that $V=1$ when their separation is zero, and $V=0$ when their separation is $\lambda/(2b)$, and $V$ varies sinusoidally in between. For a equal brightness binary with separation $s$, the visibility is
 \begin{equation}
@@ -91,10 +91,10 @@ The visibility for a binary source is perhaps not too surprising, we saw above t
 \end{equation}
 
 For an extended uniform circular source of diameter $\theta$ as a function of baseline length the visibility is
-\begin{equation}
+\begin{equation}\label{eq:uniform}
     V_{\rm uniform} =  \left\vert \frac{2 J_1(\pi \theta b / \lambda)}{\pi \theta b / \lambda} \right\vert \, ,
 \end{equation}
-where $J_1$ is a first order Bessel function. We must take the absolute value because here we are not concerned with the phases (i.e. a negative visibility corresponds to a 180$^\circ$ difference in phase compared to a positive one).
+where $J_1$ is a first order Bessel function. We must take the absolute value because here we are not concerned with the phases (i.e. a negative visibility corresponds to a 180$^\circ$ difference in phase compared to a positive one). Connecting this result to the van Cittert-Zernike theorem, recall that the Fourier transform of a 1d top hat function is $\sin(x)/x$; equation \ref{eq:uniform} is simply the same result in 2d.
 
 \begin{figure}
     \centering
@@ -106,6 +106,22 @@ where $J_1$ is a first order Bessel function. We must take the absolute value be
 The latter is the visibility function that you will need for this experiment. To visualise either, the independent variable you are controlling is $b/\lambda$, so this should be the x-axis, and visibility is the quantity you are measuring, so this is the y-axis. As described above the uniform source therefore has decreasing visibility with increasing $b/\lambda$.
 
 An example visibility curve for a uniform source is shown in Figure \ref{fig:uniformvis}. The y-axis plots the absolute value, as we only measure visibility in this experiment as a positive value (squared visibility is also commonly used). This plot is for a 2\,mm diameter source at 7\,m, which is similar to what you will use for this experiment. Likewise, the baselines are similar to this experiment, e.g. a 1\,mm baseline at 500\,nm is $b/\lambda=2000$.
+
+\clearpage
+\section{The real world}
+
+There are two main connections to the real world of interferometry, but conceptually everything is exactly the same as this experiment. The first is the case where each pair of holes is two telescopes, an example is the \href{https://en.wikipedia.org/wiki/CHARA_array}{CHARA} array on Mt Wilson in California. This facility is a series of individual telescopes, whose light is brought together on an optical bench and interfered. The baselines are of order tens of meters, so the angular resolution is better than even the largest optical single-mirror telescopes.
+% Compared to this experiment there are many complications, for example to properly interfere the light from pairs of telescopes the different path lengths from each telescope must be accounted for, for which there is a large temperature-controlled room with delay lines.
+CHARA has measured the diameter and shape of \href{https://www.chara.gsu.edu/science-highlights/rapid-rotators}{rotationally flattened stars} \citep[e.g.][]{2011ApJ...732...68C}, analogous to the part of this experiment that uses the ``Saturn'' source.
+
+\begin{figure}
+    \centering
+    \includegraphics{doc/NIRISS_AMI.png}
+    \caption{A prototype of the non-redundant mask on JWST. Credit: \href{https://jwst-docs.stsci.edu/jwst-near-infrared-imager-and-slitless-spectrograph/niriss-observing-modes/niriss-aperture-masking-interferometry}{JWST}.}
+    \label{fig:ami}
+\end{figure}
+
+Another analogue of this lab experiment is even more closely related, called ``aperture masking''. In this case, an optical element with a series of holes (the ``mask'') is placed in the optical path. The light passes through these holes and interferes, creating a fringe pattern that can be interpreted with a Fourier transform. That is, with this lab you are doing aperture masking, with the only difference being that the masks used for astrophysics have a greater number of holes and the telescopes are bigger. One example is the \href{https://jwst-docs.stsci.edu/jwst-near-infrared-imager-and-slitless-spectrograph/niriss-observing-modes/niriss-aperture-masking-interferometry}{James Webb Space Telescope}, for which one of the instruments uses aperture masking. An example mask is shown in Figure \ref{fig:ami}. This mask is ``non-redundant'', meaning that no two of the 42 baselines are the same.
 
 \clearpage
 \section{Experimental setup}
@@ -126,7 +142,7 @@ This lab has an intentionally simple setup; the goal is to show how one can cons
 
 \subsection{Python code}
 
-There are a few pieces of python code, \texttt{widget.py} and some jupyter notebooks, to use in this experiment, all of which are in the \href{https://github.com/drgmk/px-interferometry}{https://github.com/drgmk/px-interferometry} package on GitHub. Download this into your \texttt{H:} drive (`Download ZIP' under `Code' link) and unzip there, since you will modify at least one of the notebooks by entering your own data.
+There are a few pieces of python code, \texttt{widget.py} and some jupyter notebooks, to use in this experiment, all of which are in the \href{https://github.com/drgmk/px-interferometry}{https://github.com/drgmk/px-interferometry} package on GitHub. Download this into your \texttt{H:} drive (`Download ZIP' under `Code' link) and unzip it there, since you will modify at least one of the notebooks by entering your own data. It may be useful to make an \texttt{interferometry} folder in which you put the python package and your data.
 
 Extracting visibilities from your data with \texttt{widget.py} is outlined below in section \ref{sec:widget}.
 
@@ -212,11 +228,11 @@ This code brings up an interactive window that allows a parameterised fit to a d
 
 To run the python widget you can use either a system or python terminal (see \ref{sec:widget_ipython} for the latter). You can launch both of these from the interferometry-specific \texttt{WinPython} install, which should be in \texttt{C:}. If you have issues, e.g. with python module errors, the solution is probably related to the \texttt{WinPython} version and you should try a different \texttt{WinPython} (if one exists). Otherwise, a new version may need to be downloaded.
 
-To run the widget from the shell directly, use something like (shortened here for clarity)
+To run the widget from the shell directly, open the \texttt{WinPython PowerShell Prompt} from \texttt{C:}, there should be a \texttt{WinPython} install with a name like \texttt{WinPython-for-interferometry} (the default one is missing packages and will not work). You can make things easier by then changing directory (e.g. \texttt{cd H:\textbackslash Interdata}) so that you are executing the code somewhere close to the data. To run the widget use something like (assuming here you are in the \texttt{px-interferometry} folder, and there is a data folder one level up)
 \begin{verbatim}
-    python H:\px-interf\widget.py H:\InterData\filename.FIT 2
+    python widget.py ../data/filename.FIT 2
 \end{verbatim}
-The paths you enter will depend on where you run the command from, where you put \texttt{widget.py}, and where you save the data. A useful way to type these commands out is to use `tab completion'; start typing the path and hit the TAB key, which will fill out the rest of that part of the path (assuming it exists). You can make things easier by changing directory (e.g. \texttt{cd H:\textbackslash Interdata}) so that you don't need to type out as much each time the filename is different.
+The paths you enter will depend on where you run the command from, where you put \texttt{widget.py}, and where you save the data. A useful way to type these commands out is to use `tab completion'; start typing the path and hit the TAB key, which will fill out the rest of that part of the path (assuming it exists).
 
 The final argument (here 2) does $2 \times 2$ averaging to make the array for the image smaller so the fitting code runs faster. You could try 4 or higher, but if you average too much the detail in the image will be lost and the fit will be poor. A suggested approach is to use 4, but go to 2 if the fringes are very close together and the fit is not converging as well as you expect.
 
@@ -348,7 +364,15 @@ You can then import and run the widget with
 \end{verbatim}
 where you will need to enter the correct path to the file you want to extract the visibility for. The option \texttt{sc=2} is the same as the final argument described above.
 
+\clearpage
+
 \section{Troubleshooting}
+
+\subsection{General}
+
+\begin{itemize}
+    \item Non-circular PSF: if you find that images are hard to fit and the PSF looks non-circular, it may be that the baseline token has some dust or other obscuration in one of both of the holes. This can be fixed by blowing, or (gently) pushing a pin or drillbit through the hole to clear it.
+\end{itemize}
 
 \subsection{Software}
 
