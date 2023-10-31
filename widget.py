@@ -141,7 +141,8 @@ def zero_pad(im, n):
     return new
     
 
-def fit_fringes(file, sc=1, fourier=False):
+def fit_fringes(file, sc=1, fourier=False,
+                bessell=False, figsize=(12, 9)):
 
     # set output path, get image, and size
     if file is None:
@@ -224,10 +225,12 @@ def fit_fringes(file, sc=1, fourier=False):
         '''
         xx, yy = np.meshgrid(x-p[0], y-p[1])
         r = np.sqrt( xx**2 + yy**2 )
-        
-        psf = 1 * np.exp(-0.5 * (r/p[7]/1.3)**2) # factor 1.3 to make equiv. to Bessell
-#        psf = ( 2 * scipy.special.jv(1, r/p[7]) / (r/p[7]) )**2
-        
+
+        if bessell:
+           psf = ( 2 * scipy.special.jv(1, r/p[7]) / (r/p[7]) )**2
+        else:
+            psf = 1 * np.exp(-0.5 * (r/p[7]/1.3)**2)  # factor 1.3 to make equiv. to Bessell
+
         s2 = fringes(p, xx, yy, dw=0.05) # 0.05 is an estimate, could be a parameter
         return p[8] + s2 * psf
 
@@ -245,9 +248,9 @@ def fit_fringes(file, sc=1, fourier=False):
 
     # Start making the widget
     if fourier:
-        fig, ax = plt.subplots(2,3, figsize=(18,9))
+        fig, ax = plt.subplots(2,3, figsize=(figsize[0]*1.5, figsize[1]))
     else:
-        fig, ax = plt.subplots(2,2, figsize=(12,9))
+        fig, ax = plt.subplots(2,2, figsize=figsize)
 
     def update_plot(par):
         '''Function to update plot.'''
