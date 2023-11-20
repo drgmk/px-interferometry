@@ -2,9 +2,9 @@
 
 import os
 import sys
+import argparse
 import numpy as np
 import matplotlib.pyplot as plt
-import matplotlib.patches
 from scipy.optimize import minimize
 import scipy.ndimage
 import scipy.special
@@ -302,7 +302,7 @@ def fit_fringes(file, sc=1, fourier=False,
             # show FT of the data,
             # colour scale ignores the brightest pixel
             ax[1,2].imshow(aft, origin='lower',
-                           vmin=np.percentile(aft,1), vmax=np.sort(aft.flatten())[-2])
+                           vmin=np.percentile(aft,1), vmax=np.sort(aft.flatten())[-4])
             ax[1,2].set_title('FT(data)')
             ax[1,2].set_xlabel('pixel')
             ax[1,2].set_ylabel('pixel')
@@ -489,21 +489,15 @@ def fit_fringes(file, sc=1, fourier=False,
 
 if __name__ == "__main__":
 
-    # open a file
-    if len(sys.argv) > 1:
-        file = sys.argv[1]
-    else:
-        exit('\nGive file path as first argument, '
-             'rebin factor as optional second (default=1)\n'
-             'e.g.> python widget.py dir/file.fits 2\n'
-             'any third argument will turn Fourier on.\n')
+    parser = argparse.ArgumentParser(description='widget.py')
+    parser.add_argument(dest='fits', metavar='image.fits', nargs=1,
+                        help='FITS image of fringes')
+    parser.add_argument('-n', dest='sc', metavar='2', default=2, type=int,
+                        help='binning factor')
+    parser.add_argument('-f', dest='fourier', action='store_true',
+                        help="show Fourier transform")
+    parser.add_argument('-b', dest='bessell', action='store_true',
+                        help="use Bessell function for PSF")
+    args = parser.parse_args()
 
-    sc = 1
-    if len(sys.argv) > 2:
-        sc = int(sys.argv[2])
-
-    fourier = False
-    if len(sys.argv) > 3:
-        fourier = True
-
-    fit_fringes(file, sc=sc, fourier=fourier)
+    fit_fringes(args.fits[0], sc=args.sc, fourier=args.fourier, bessell=args.bessell)
