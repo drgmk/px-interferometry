@@ -302,7 +302,7 @@ def fit_fringes(file, sc=1, fourier=False,
             # show FT of the data,
             # colour scale ignores the brightest pixel
             ax[1,2].imshow(aft, origin='lower',
-                           vmin=np.percentile(aft,1), vmax=np.sort(aft.flatten())[-4])
+                           vmin=np.percentile(aft,1), vmax=np.sort(aft.flatten())[-2])
             ax[1,2].set_title('FT(data)')
             ax[1,2].set_xlabel('pixel')
             ax[1,2].set_ylabel('pixel')
@@ -490,14 +490,14 @@ def fit_fringes(file, sc=1, fourier=False,
 if __name__ == "__main__":
 
     parser = argparse.ArgumentParser(description='widget.py')
-    parser.add_argument(dest='fits', metavar='image.fits', nargs=1,
+    parser.add_argument(dest='fits', metavar='image.fits',
                         help='FITS image of fringes')
-    parser.add_argument('-n', dest='sc', metavar='2', default=2, type=int,
+    parser.add_argument('-n', dest='sc', metavar='binning', default=2, type=int,
                         help='binning factor')
+    parser.add_argument('-b', dest='bes', action='store_true',
+                        help="use Bessell for PDF")
     parser.add_argument('-f', dest='fourier', action='store_true',
                         help="show Fourier transform")
-    parser.add_argument('-b', dest='bessell', action='store_true',
-                        help="use Bessell function for PSF")
     args = parser.parse_args()
 
-    fit_fringes(args.fits[0], sc=args.sc, fourier=args.fourier, bessell=args.bessell)
+    fit_fringes(args.fits, sc=args.sc, bessell=args.bes, fourier=args.fourier)
