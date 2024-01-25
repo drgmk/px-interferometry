@@ -173,27 +173,27 @@ This lab has an intentionally simple setup; the goal is to show how one can cons
     \item Aperture tokens, these go in front of the light source and are what we observe. The main one for this experiment has a single 2\,mm diameter hole. There is also `Saturn' which has a 4\,mm hole and two 2\,mm holes (outer size $4 \times 6$\,mm).
     \item Filters, used to change the wavelength of the source. You may take the mean wavelengths of these to be 448, 530, and 638\,nm for B, G, and R respectively. More detailed information on the filter response is \href{https://www.firstlightoptics.com/rgb-filters-filter-sets/zwo-2-lrgb-filter-set.html}{here}.
     \item Miscellaneous fittings to mount the light source, aperture tokens, and filters.
-    \item An ITS computer near the telescope, plug the CMOS into this one.
+    \item An ITS (lab) computer near the telescope, plug the CMOS into this one.
 \end{itemize}
 
 \subsection{Python code}
 
 There are a few pieces of python code, \texttt{widget.py} and some jupyter notebooks, to use in this experiment, all of which are on \href{https://github.com/drgmk/px-interferometry}{GitHub}.
 
-You can either use these in Notable (link on Moodle page), or on the ITS machines in the lab.
+You can either use these in Noteable (link on Moodle page), or on the ITS machines in the lab.
 \begin{itemize}
-    \item Using the lab machines for \texttt{widget.py} is probably easier, as it doesn't require uploading your data to Notable.
-    \item Using Notable to run the jupyter notebooks is probably the best option, since you are either entering numbers, or only uploading one or two images.
+    \item Using the lab ITS machines for \texttt{widget.py} will be easier, as it doesn't require uploading your data to Noteable.
+    \item Using Noteable to run the jupyter notebooks is probably the best option, since you are either entering numbers, or only uploading one or two images.
 \end{itemize}
-To use \texttt{widget.py} on the ITS machines, download it into your \texttt{H:} drive (download link on \href{https://github.com/drgmk/px-interferometry/blob/main/widget.py}{this page}). You may find it useful to make some folders in which you put the code and use to organise your data. Extracting visibilities from your data with \texttt{widget.py} is outlined below in section \ref{sec:widget}.
+To use \texttt{widget.py} on the lab ITS machines, download it into your \texttt{H:} drive (download link on \href{https://github.com/drgmk/px-interferometry/blob/main/widget.py}{this page}). You may find it useful to make some folders in which you put the code and use to organise your data. Extracting visibilities from your data with \texttt{widget.py} is outlined below in section \ref{sec:widget}.
 
-To run a jupyter notebook on the ITS machines, open a `WinPython Powershell Prompt' from the interferometry-specific \texttt{WinPython} install in \texttt{C:}, change directory to \texttt{H:} with \texttt{cd H:}, and run \texttt{jupyter notebook}. A browser window should open, with which you can navigate to the notebooks.
+To run a jupyter notebook on the lab ITS machines, open a `WinPython Powershell Prompt' from the interferometry-specific \texttt{WinPython} install in \texttt{C:}, change directory to \texttt{H:} with \texttt{cd H:}, and run \texttt{jupyter notebook}. A browser window should open, with which you can navigate to the downloaded notebooks.
 
 \subsection{Image capture software}\label{sec:software}
 
 The software for this experiment is \href{http://www.firecapture.de/}{\texttt{FireCapture}}; it is an open source code primarily designed for amateur astronomers, and provides a friendly and easy to use interface for viewing images from the detector in real time, and allows saving of images in various formats.
 
-A copy of the software should exist in \texttt{C:} on the computer near where the telescope is set up. To run it, find your way down the file heirarchy to the \texttt{FireCapture} application and double-click to run it. You will probably be prompted to do some setup when you run \texttt{FireCapture} for the first time. Click the ``first time'' option; for most settings just leave the default, but select a new folder in which to save data on the ``capture'' options page. It would make sense to make another folder, e.g. \texttt{H://Interferometry/Data} for this, and if you use \texttt{H://} drive, you will have access to this from other ITS machines.
+A copy of the software should exist in \texttt{C:} on the computer near where the telescope is set up. To run it, find your way down the file heirarchy to the \texttt{FireCapture} application and double-click to run it. You will probably be prompted to do some setup when you run \texttt{FireCapture} for the first time. Click the ``first time'' option; for most settings just leave the default, but select a new folder in which to save data on the ``capture'' options page. It would make sense to make another folder, e.g. \texttt{H://Interferometry/Data} for this, and if you use \texttt{H://} drive, you will have access to this from any other ITS machine.
 
 A preferences file is saved in \texttt{C://Users/uXXXXXXX/FireCapture}. If you have problems, e.g. with the software crashing, try deleting this preferences folder and restarting \texttt{FireCapture}.
 
@@ -220,20 +220,22 @@ You can optionally save a ``dark frame'' (one of the small buttons between the m
 
 \subsection{Setup}\label{sec:setup}
 
-Setting up the experiment is reasonably simple but takes some finesse, the aim being to have the telescope pointed at the aperture and the light source carefully aligned behind it. Photos of the setup at either end of the lab are in the Appendix. While having the telescope properly focused will aid the setup, it's not actually critical for observing the fringes. A suggested series of steps to get your first set up fringes is as follows:
+Setting up the experiment is reasonably simple but takes some finesse, the aim being to have the telescope pointed at the aperture and the light source carefully aligned behind it. You will may find the setup quite difficult the first time, but typically the second time is many times faster!
+
+Photos of the setup at either end of the lab are in the Appendix. While having the telescope properly focused will aid the setup, it's not actually critical for observing the fringes. A suggested series of steps to get your first set up fringes is as follows:
 
 \begin{enumerate}
     % \item Plug the light source in to charge. The battery should last for a few hours, so it's best to turn it off and charge it when you're not using it.
     \item Ensure the telescope is in place (no tokens needed yet).
     \item Insert the CMOS detector into the rear of the telescope and (gently) tighten the screws to keep it in place.
     \item Connect the CMOS detector to the computer with the USB cable.
-    \item Open the image capture software (see \ref{sec:software}). The detector should be automatically recognised (click ``QHY'' if not) and an image appear on screen. Test whether the detector is working by waving your hand in front of the telescope to vary the amount of light coming in.
-    \item Set up the light source at the other end of the lab using the mounting kit (see example image in the Appendix). Aiming the light at the telescope is not particularly critical, but better alignment will give a more uniform surface brightness.
+    \item Open the image capture software (see \ref{sec:software}). The detector should be automatically recognised (click ``QHY'' if not) and an image appear on screen. Test whether the detector is working by waving your hand in front of the telescope to vary the amount of light coming in. Check that ``Max'' rather then ``ROI'' is selected in Image box of \texttt{FireCapture} so you are seeing the entire detector.
+    \item Set up the light source at the other end of the lab using the mounting kit (see example image in the Appendix). Aiming the light at the telescope is not particularly critical, but better alignment will give a more uniform surface brightness. It is easier to do these steps with the light off.
     \item Remove the telescope lens cap and set up the focus and pointing. The telescope is fixed, so you will need to adjust the location of the light until it appears near the center of the detector image. You will simultaneously need to adjust the exposure time and focus so you know what you are pointing at. If you think the pointing is a long way off, you may find it helpful to hold a large object (e.g. a book) in front of the token to figure out where you need to point. You should end up with an in focus image of the light source near the center of the detector.
     \item You may find it useful to orient the detector correctly, e.g. by placing a piece of paper near the source with an upwards pointing arrow on it, and rotating the detector so that the image on screen matches it. The orientation does not matter for rotationally symmetric sources.
-    \item Check the light source has a reasonably uniform surface brightness. You can test this by turning the light on and taking very short exposure images (perhaps with a filter to avoid saturation), and moving the source to get a reasonably uniformly bright disc.
+    % \item Check the light source has a reasonably uniform surface brightness. You can test this by turning the light on and taking very short exposure images (perhaps with a filter to avoid saturation), and moving the source to get a reasonably uniformly bright disc.
     \item Now set up the aperture token with further mounting kit, ensuring the the surface normal of the token is pointing towards the telescope. You may find it helpful to note where in the image the center of the light is in \texttt{FireCapture} with the mouse cursor, and to then place the center of the aperture at this pixel.
-    \item You can further check the aperture/source alignment by decreasing the exposure time enough to see the source when it is on, and verify that the source is centered behind the aperture and that the aperture is illuminated uniformly. Some examples are shown in Figure \ref{fig:img_setup}. Non-uniform illumination can result in unexpected results because the source size is not actually the size of the aperture, so this step is very important! You can  put the lens cap on the telescope with no baseline token and insert a filter (probably two filters) to decrease the flux enough to image the aperture without saturation.
+    \item You can further check the aperture/source alignment by turning the light on and decreasing the exposure time enough to see the source without too much saturation, and verify that the source is centered behind the aperture and that the aperture is illuminated uniformly. Some examples are shown in Figure \ref{fig:img_setup}. Non-uniform illumination can result in unexpected results because the source size is not actually the size of the aperture, so this step is very important! You can  put the lens cap on the telescope with no baseline token to decrease the flux enough to image the aperture without saturation.
     \item Insert one of the baseline tokens into the lens cap, preferably one of the shorter baselines. You should now see fringes on the detector with an image similar to Figure \ref{fig:det-img}, though may need to alter the exposure time. A few seconds should be enough, though this will depend on gain and the light source. The fringes do not need to be perfectly centered on the detector; as long as the visible PSF is within the image the results will be OK.
 \end{enumerate}
 
@@ -427,7 +429,7 @@ where you will need to enter the correct path to the file you want to extract th
 \begin{itemize}
     \item To install software in \texttt{C:} on the lab computers one needs to create a new folder and put the software in there. This gets around permission issues. Each machine near a telescope should have \texttt{FireCapture} and \texttt{WinPython} installed.
 
-    \item The default \texttt{WinPython} that appears in \texttt{C:} does not have the necessary packages (i.e. astropy, emcee). If necessary download a new one from \href{https://winpython.github.io/}{https://winpython.github.io/}, where it is easiest to follow the GitHub link, scroll to the bottom of the page, and download a version with a name like \texttt{WinPython64-X}.
+    \item The default \texttt{WinPython} that appears in \texttt{C:} does not have the necessary packages (i.e. astropy, emcee). If necessary download a new one from \href{https://winpython.github.io/}{https://winpython.github.io/}. For the most recent release, click the Github download link (not a beta release), scroll to the bottom of the page, and download a version with a name like \texttt{WinPython64-X} (not a beta release indicated by a `b').
 
     \item To use \texttt{FireCapture} with the CMOS detector, the drivers need to be installed. These can be found in Software Center.
 \end{itemize}
