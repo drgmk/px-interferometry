@@ -3,15 +3,16 @@ Third year Warwick Physics interferometry lab.
 
 The lab script can be viewed [here](https://www.overleaf.com/read/dftrzzvfxsmb).
 
-Analyse images with `python widget.py path/to/file.fits -n 2`
+Analyse images with `python widget.py [-h] [-n bins] [-b] [-f] path/to/image.fits`
 
-The `-n 2` argument is how much the input image is binned. 
+The `-n` argument is how much the input image is binned. 
 More binning makes the code run faster, but too much binning can lose information.
 Other options are to use a Bessell function for the PSF (`-b`),
 and to show panels for the Fourier transform of the image (`-f`).
+To get help include `-h`.
 
-Upon running, a plot window appears, interact by moving mouse to appropriate point
-in image window (except rms) and hit a key.
+Upon running, a plot window appears, interact by moving mouse to an appropriate point
+in one of the upper image windows and hit a key.
 
 - c - set PSF center at cursor location
 - g - set PSF width as cursor distance from center
