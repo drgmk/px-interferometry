@@ -42,12 +42,13 @@ The goal of this experiment is to illustrate the main concepts of interferometry
     \item Visibility, and how it relates to wavelength, baseline, and source size.
     \item How observations can infer spatial information about a source.
 \end{itemize}
+Showing that you understand these ideas in your report is recommended!
 }
 }
 
 \section{Introduction}
 
-One of the most famous physics experiments is Young's double slit experiment\footnote{For an introduction, \href{https://en.wikipedia.org/wiki/Double-slit_experiment}{Wikipedia} and \href{https://www.youtube.com/watch?v=A9tKncAdlHQ}{YouTube} are good places to start.}, where light from a single monochromatic point source passes through two slits and forms ``fringes'' on a screen or detector. The spacing of these fringes is $\lambda/b$, where $\lambda$ is the wavelength of the light, and $b$ the distance between the slits. The bright fringes are where the path lengths from the two slits to the screen are both an integer number of wavelengths, so the light constructively adds, and the dark fringes are where the paths differ by half of the wavelength of the light, and so cancel. This experiment has several \href{https://en.wikipedia.org/wiki/Double-slit_experiment}{remarkable properties}; it still works when photons are sent through one at a time, and also works for particles such as electrons.
+One of the most famous physics experiments is Young's double slit experiment\footnote{For an introduction, \href{https://en.wikipedia.org/wiki/Double-slit_experiment}{Wikipedia} and \href{https://www.youtube.com/watch?v=A9tKncAdlHQ}{YouTube} are good places to start.}, where light from a single monochromatic point source passes through two slits and forms ``fringes'' on a screen or detector. The spacing of these fringes is $\lambda/b$, where $\lambda$ is the wavelength of the light, and $b$ the distance between the slits. The bright fringes are where the difference in path lengths from the two slits to the screen is an integer number of wavelengths, so the light constructively adds, and the dark fringes are where the paths differ by half of the wavelength of the light, and so cancel. This experiment has several \href{https://en.wikipedia.org/wiki/Double-slit_experiment}{remarkable properties}; it still works when photons are sent through one at a time, and also works for particles such as electrons.
 
 There is an important question to ask of this experiment; what happens if the source is not a point? One reason to ask this question is that real sources are never really points, and have some finite size. For example, in the context of astronomy, while we can for most purposes consider stars to be point sources because their angular size is very small compared to the resolution of typical telescopes, given sufficient angular resolution this assumption is not true.
 
@@ -59,16 +60,18 @@ While either source would individually produce a set of fringes, together their 
 
 The first use of such an ``interferometer'' in astronomy was to measure the size of the moons of Jupiter \citep{1891PASP....3..274M,1891Natur..45..160M}, and 30 years later the technique was used to measure the diameter of another star \citep{1921ApJ....53..249M}. Interferometry is now a widely used technique in astrophysics, and is normally concerned with measuring the sizes of small objects, or with obtaining images of objects and structures that have relatively small angular scales.
 
-What does ``small'' mean here? As we saw above, when the separation between two point sources is $\lambda/(2b)$, the fringes disappear (the visibility is zero). The angular resolution of an interferometer is therefore defined as $\lambda/(2b)$, where $b$ is the distance between two telescopes, that serve the same purpose as the slits in the double slit experiment. Compare this to Rayleigh's criterion, $1.22 \lambda/D$, where $D$ is the diameter of the aperture or telescope. Now if $D$ and $b$ are similar the resolution of an interferometer and a normal ``single-dish'' telescope is similar. But there is one key difference; the space between the two telescopes of an interferometer can be empty, meaning that it is practically much easier and cheaper to make $b$ large (e.g. tens/hundreds of meters for optical wavelengths, and kilometers for millimeter wavelengths) than it is to make $D$ large. The largest single-dish telescopes we have are of order tens (optical) to hundreds (radio) of meters.
+% What does ``small'' mean here? As we saw above, when the separation between two point sources is $\lambda/(2b)$, the fringes disappear (the visibility is zero). The angular resolution of an interferometer is therefore defined as $\lambda/(2b)$, where $b$ is the distance between two telescopes, that serve the same purpose as the slits in the double slit experiment. Compare this to Rayleigh's criterion, $1.22 \lambda/D$, where $D$ is the diameter of the aperture or telescope. Now if $D$ and $b$ are similar the resolution of an interferometer and a normal ``single-dish'' telescope is similar. But there is one key difference; the space between the two telescopes of an interferometer can be empty, meaning that it is practically much easier and cheaper to make $b$ large (e.g. tens/hundreds of meters for optical wavelengths, and kilometers for millimeter wavelengths) than it is to make $D$ large. The largest single-dish telescopes we have are of order tens (optical) to hundreds (radio) of meters.
 
-Thus, the key thing an interferometer does is allow us to make measurements on small angular scales, without constructing a single-dish telescope that would do so based on Rayleigh's criterion. In this experiment you will use exactly the same methods used in optical interferometry, just on a smaller scale.
+The key thing an interferometer does is allow us to make measurements on small angular scales, without constructing a single-dish telescope that would do so based on Rayleigh's criterion. In this experiment you will use exactly the same methods used in optical interferometry, just on a smaller scale.
 
-The image on the front page shows a real-world example of an ``aperture mask'', as used by the \href{https://jwst-docs.stsci.edu/jwst-near-infrared-imager-and-slitless-spectrograph/niriss-observing-modes/niriss-aperture-masking-interferometry}{James Webb Space Telescope}. This has seven holes, but works exactly the same as 21 individual double-slit experiments done simultaneously.
+As an example, the image on the front page shows a real-world example of an ``aperture mask'', as used by the \href{https://jwst-docs.stsci.edu/jwst-near-infrared-imager-and-slitless-spectrograph/niriss-observing-modes/niriss-aperture-masking-interferometry}{James Webb Space Telescope}. This has seven holes, but works exactly the same as 21 individual double-slit experiments done simultaneously.
+
+The remainder of this document covers the background theory in a bit more detail (\S \ref{sec:theory}), followed by a quick connection with the real world of interferometry in \S \ref{sec:realworld}. The experimental setup is then described (\S \ref{sec:exp_setup}), and how to measure and model visibilities in sections \ref{sec:meas} and \ref{sec:models}. What you should actually attempt to measure during the lab sessions, and some suggested practical ways to work, are given in section \ref{sec:exp}.
 
 \clearpage
-\section{Theory}
+\section{Theory}\label{sec:theory}
 
-This experiment is little more than an extension of Young's double slit experiment. The only real difference is that we will be using an extended source that is incoherent. Typically the double slit experiment uses a coherent point source (e.g. a laser). Here the slits will also be replaced with pairs of holes, so instead of the usual one-dimensional picture, fringes are spread over a two-dimensional plane with an orientation that depends on the orientation of the holes. 
+As outlined above, this experiment is little more than an extension of Young's double slit experiment. The only real difference is that we will be using an extended source that is incoherent. Typically the double slit experiment uses a coherent point source (e.g. a laser). Here the slits will also be replaced with pairs of holes, so instead of the usual one-dimensional picture, fringes are spread over a two-dimensional plane with an orientation that depends on the orientation of the holes. 
 
 \begin{figure}[h]
     \centering
@@ -77,7 +80,7 @@ This experiment is little more than an extension of Young's double slit experime
     \label{fig:youngs}
 \end{figure}
 
-To recap the double slit experiment, Figure \ref{fig:youngs} shows the expected fringe pattern for a point source at infinity and with slits that have a spacing $b$. In interferometry, this separation is commonly called a ``baseline''. We assume that we are observing light that has a limited range of wavelengths $\Delta \lambda$ that is centered on the mean wavelength $\lambda$. The fringe pattern then has a spacing of $\lambda/b$; this is the angle in radians between fringe peaks from the plane of the slits to the detector. The fringe pattern intensity $I$ is commonly written as
+To recap the double slit experiment more formally, Figure \ref{fig:youngs} shows the expected fringe pattern for a point source at infinity and with slits that have a spacing $b$. In interferometry, this separation is commonly called a ``baseline''. We assume that we are observing light that has a limited range of wavelengths $\Delta \lambda$ that is centered on the mean wavelength $\lambda$. The fringe pattern then has a spacing of $\lambda/b$; this is the angle in radians between fringe peaks from the plane of the slits to the detector. The fringe pattern intensity $I$ is commonly written as
 \begin{equation}\label{eq:fringepattern}
     I = 4 I_0 \cos^2 \frac{\delta}{2}
 \end{equation}
@@ -144,7 +147,7 @@ Equation (\ref{eq:uniform}) is the visibility function that you will need for th
 An example visibility curve for a uniform source is shown in Figure \ref{fig:uniformvis}. The y-axis plots the absolute value, as we only measure visibility in this experiment as a positive value (squared visibility is also commonly used). This plot is for a 2\,mm diameter source at 7\,m, which is similar to what you will use for this experiment. Likewise, the baselines are similar to this experiment, e.g. a 1\,mm baseline at 500\,nm is $b/\lambda=2000$.
 
 \clearpage
-\section{The real world}
+\section{The real world}\label{sec:realworld}
 
 There are two main connections to the real world of interferometry, but conceptually everything is exactly the same as this experiment. The first is the case where each pair of holes is two telescopes, an example is the \href{https://en.wikipedia.org/wiki/CHARA_array}{CHARA} array on Mt Wilson in California. This facility is a series of individual telescopes, whose light is brought together on an optical bench and interfered. The baselines are of order tens of meters, so the angular resolution is better than even the largest optical single-mirror telescopes.
 % Compared to this experiment there are many complications, for example to properly interfere the light from pairs of telescopes the different path lengths from each telescope must be accounted for, for which there is a large temperature-controlled room with delay lines.
@@ -157,10 +160,10 @@ CHARA has measured the diameter and shape of \href{https://www.chara.gsu.edu/sci
     \label{fig:ami}
 \end{figure}
 
-Another analogue of this lab experiment is even more closely related, called ``aperture masking''. In this case, an optical element with a series of holes (the ``mask'') is placed in the optical path. The light passes through these holes and interferes, creating a fringe pattern that can be interpreted with a Fourier transform. That is, with this lab you are doing aperture masking, with the only difference being that the masks used for astrophysics have a greater number of holes and the telescopes are bigger. One example is the \href{https://jwst-docs.stsci.edu/jwst-near-infrared-imager-and-slitless-spectrograph/niriss-observing-modes/niriss-aperture-masking-interferometry}{James Webb Space Telescope}, for which one of the instruments uses aperture masking. An example mask is shown in Figure \ref{fig:ami}. This mask is ``non-redundant'', meaning that no two of the 21 baselines are the same.
+Another analogue of this lab experiment is even more closely related, called ``aperture masking''. In this case, an optical element with a number of holes (the ``mask'') is placed in the optical path. The light passes through these holes and interferes, creating a fringe pattern that can be interpreted with a Fourier transform. That is, with this lab you are doing aperture masking, with the only difference being that the masks used for astrophysics have a greater number of holes and the telescopes are bigger. One example is the \href{https://jwst-docs.stsci.edu/jwst-near-infrared-imager-and-slitless-spectrograph/niriss-observing-modes/niriss-aperture-masking-interferometry}{James Webb Space Telescope}, for which one of the instruments uses aperture masking. An example mask is shown in Figure \ref{fig:ami}. This mask is ``non-redundant'', meaning that no two of the 21 baselines are the same.
 
 \clearpage
-\section{Experimental setup}
+\section{Experimental setup}\label{sec:exp_setup}
 
 This lab has an intentionally simple setup; the goal is to show how one can construct an interferometer from a standard telescope with minor and straightforward modifications. You will also use some software that is outlined below. Some parts are a bit fiddly, this is also intentional; real experiments do require some precision from the scientists! The key physical pieces of equipment are (see the Appendix for some photos):
 \begin{itemize}
@@ -175,19 +178,6 @@ This lab has an intentionally simple setup; the goal is to show how one can cons
     \item Miscellaneous fittings to mount the light source, aperture tokens, and filters.
     \item An ITS (lab) computer near the telescope, plug the CMOS into this one.
 \end{itemize}
-
-\subsection{Python code}
-
-There are a few pieces of python code, \texttt{widget.py} and some jupyter notebooks, to use in this experiment, all of which are on \href{https://github.com/drgmk/px-interferometry}{GitHub}.
-
-You can either use these in Noteable (link on Moodle page), or on the ITS machines in the lab.
-\begin{itemize}
-    \item Using the lab ITS machines for \texttt{widget.py} will be easier, as it doesn't require uploading your data to Noteable.
-    \item Using Noteable to run the jupyter notebooks is probably the best option, since you are either entering numbers, or only uploading one or two images.
-\end{itemize}
-To use \texttt{widget.py} on the lab ITS machines, download it into your \texttt{H:} drive (download link on \href{https://github.com/drgmk/px-interferometry/blob/main/widget.py}{this page}). You may find it useful to make some folders in which you put the code and use to organise your data. Extracting visibilities from your data with \texttt{widget.py} is outlined below in section \ref{sec:widget}.
-
-To run a jupyter notebook on the lab ITS machines, open a `WinPython Powershell Prompt' from the interferometry-specific \texttt{WinPython} install in \texttt{C:}, change directory to \texttt{H:} with \texttt{cd H:}, and run \texttt{jupyter notebook}. A browser window should open, with which you can navigate to the downloaded notebooks.
 
 \subsection{Image capture software}\label{sec:software}
 
@@ -206,7 +196,7 @@ After the setup the software will go to a ``dummy camera'' that shows an image o
     \label{fig:fc}
 \end{figure}
 
-You will not need most of the options available in \texttt{FireCapture}. The main one in terms of obtaining images on screen is the exposure time (under ``control''); you will need to experiment, but values of about 1\,s are likely to be about right. You will need to alter the range that the exposure slider covers with the `X - Y ms' button to access a wide range of exposure times, or enter numbers by hand. The exposure time needed will however depend on what value you select for the gain. Higher gain images will require shorter exposures so be convenient when setting up, but will be noisier and introduce other artefacts, so it is better to take longer exposures at lower gain for measurements (but some gain is OK, you should not need exposures longer than around ten seconds). You will know the exposure is appropriate when you have a clear image visible on screen that is not too noisy, and this image is not saturated (the ``histogram'' panel may help here).
+You will not need most of the options available in \texttt{FireCapture}. The main one in terms of obtaining images on screen is the exposure time (under ``control''); you will need to experiment, but values of about 1\,s are likely to be about right. You will need to alter the range that the exposure slider covers with the `X - Y ms' button to access a wide range of exposure times, or enter numbers by hand. The exposure time needed will however depend on what value you select for the gain. Higher gain images will require shorter exposures so be convenient when setting up, but will be noisier and introduce other artefacts, so it is better to take longer exposures at lower gain for measurements. Some gain is OK, you should not ever need exposures longer than a few seconds, and if the images don't have obvious artefacts that change with gain level (e.g. stripes) then the gain level is likely OK. You will know the exposure is appropriate when you have a clear image visible on screen that is not too noisy, and this image is not saturated (the ``histogram'' panel may help here).
 
 You can see the values returned by the detector by moving the mouse over the image and looking at the `Pixel' number in the histogram panel. These are digital units from the detector that go up to 255, which you can take to be proportional to the flux (e.g. in W\,m$^{-2}$). You should aim to have the peak somewhere below 255 so the image is not saturated, peak counts anywhere above 150-200 are likely to result in a good image.
 
@@ -215,6 +205,10 @@ There are some options above the image to set how the image is displayed, e.g. z
 The other important control is how images are saved (under ``capture''); for this you need to specify a directory in which to save images (if you didn't already at startup), a file format (select ``FIT''), and a number of frames to save under ``limit'' (just one, since you will hit save manually each time you change the baseline token, filter, etc.). You can turn off the default behaviour that files are saved in their own subfolders by opening the `settings' window and un-ticking `Auto-create subfolders'.
 
 You can optionally save a ``dark frame'' (one of the small buttons between the main image and the left column of controls). For this cover the front of the telescope (putting your hand in front of the baseline token would suffice), and \texttt{FireCapture} will take an image that will be subtracted off subsequent images. The goal is that this dark image will contain any ``hot'' (permanently defective) detector pixels and other detector artefacts, and by subtracting them these pixels will not be visible in the final images. Ideally your dark frame will have the same settings as the images it is being subtracted from, as different settings (gain in particular) will result in different artefacts.
+
+\subsection{Python code}
+
+There are a few pieces of python code, \texttt{widget.py} and some jupyter notebooks, to use in this experiment, all of which are on \href{https://github.com/drgmk/px-interferometry}{GitHub}. These are described later.
 
 \clearpage
 
@@ -230,13 +224,14 @@ Photos of the setup at either end of the lab are in the Appendix. While having t
     \item Insert the CMOS detector into the rear of the telescope and (gently) tighten the screws to keep it in place.
     \item Connect the CMOS detector to the computer with the USB cable.
     \item Open the image capture software (see \ref{sec:software}). The detector should be automatically recognised (click ``QHY'' if not) and an image appear on screen. Test whether the detector is working by waving your hand in front of the telescope to vary the amount of light coming in. Check that ``Max'' rather then ``ROI'' is selected in Image box of \texttt{FireCapture} so you are seeing the entire detector.
-    \item Set up the light source at the other end of the lab using the mounting kit (see example image in the Appendix). Aiming the light at the telescope is not particularly critical, but better alignment will give a more uniform surface brightness. It is easier to do these steps with the light off.
+    \item Set up the light source at the other end of the lab using the mounting kit (see example image in the Appendix). Aiming the light at the telescope is not particularly critical, but better alignment will give a more uniform surface brightness. It is easier to do these steps with the light off initially, but then turn it on and play with the LED orientation until the surface brightness is fairly uniform (you will need short exposures, low gain, and the lens cap on to avoid saturating the detector).
     \item Remove the telescope lens cap and set up the focus and pointing. The telescope is fixed, so you will need to adjust the location of the light until it appears near the center of the detector image. You will simultaneously need to adjust the exposure time and focus so you know what you are pointing at. If you think the pointing is a long way off, you may find it helpful to hold a large object (e.g. a book) in front of the token to figure out where you need to point. You should end up with an in focus image of the light source near the center of the detector.
     \item You may find it useful to orient the detector correctly, e.g. by placing a piece of paper near the source with an upwards pointing arrow on it, and rotating the detector so that the image on screen matches it. The orientation does not matter for rotationally symmetric sources.
     % \item Check the light source has a reasonably uniform surface brightness. You can test this by turning the light on and taking very short exposure images (perhaps with a filter to avoid saturation), and moving the source to get a reasonably uniformly bright disc.
     \item Now set up the aperture token with further mounting kit, ensuring the the surface normal of the token is pointing towards the telescope. You may find it helpful to note where in the image the center of the light is in \texttt{FireCapture} with the mouse cursor, and to then place the center of the aperture at this pixel.
     \item You can further check the aperture/source alignment by turning the light on and decreasing the exposure time enough to see the source without too much saturation, and verify that the source is centered behind the aperture and that the aperture is illuminated uniformly. Some examples are shown in Figure \ref{fig:img_setup}. Non-uniform illumination can result in unexpected results because the source size is not actually the size of the aperture, so this step is very important! You can  put the lens cap on the telescope with no baseline token to decrease the flux enough to image the aperture without saturation.
     \item Insert one of the baseline tokens into the lens cap, preferably one of the shorter baselines. You should now see fringes on the detector with an image similar to Figure \ref{fig:det-img}, though may need to alter the exposure time. A few seconds should be enough, though this will depend on gain and the light source. The fringes do not need to be perfectly centered on the detector; as long as the visible PSF is within the image the results will be OK.
+    \item Finally, you can sanity check your setup by trying several different baseline tokens. Figure \ref{fig:uniformvis} shows an example visibility curve for parameters that are similar to the 2\,mm aperture; you can test whether you are likely to get a sensible aperture diameter by doing a quick visibility estimate for a few baselines/filters (i.e. $b/\lambda$) using the on-screen cursor to measure peak/trough counts.
 \end{enumerate}
 
 If all of this setup has gone well, you are now ready to start!
@@ -325,9 +320,13 @@ You can explore how the Fourier transform behaves for individual components in t
 
 Practically, visibility measurements with the Fourier method are more susceptible to low quality data, e.g. if the signal to noise ratio is low background image artefacts can influence the results (e.g. striping at high detector gain). Longer exposures with lower gain should yield better results. 
 
+\section{Fitting models to visibilities}\label{sec:models}
+
+Given a set of visibilities for a range of baselines and filters, a model (e.g. equation \ref{eq:uniform}) can be fit and a source diameter determined. An example jupyter notebook, which can be run using Noteable (link on moodle page), will guide you through this. For running jupyter notebooks on the lab ITS machines, see section \ref{sec:jupyter_its}, though this is not recommended since uploading images is tedious.
+
 \clearpage
 
-\section{The experiment}
+\section{The experiment}\label{sec:exp}
 
 There are many possible measurements that could be made with this experimental setup. The two key ones you should do are:
 \begin{itemize}
@@ -341,18 +340,20 @@ Beyond these some possible options are to:
 \begin{itemize}
     \item Try repeating the source size measurement, but using visibilities from the Fourier transform (see section \ref{sec:fourier}). Compare your results from the image-fitting and Fourier methods, if one seems much worse, why?
     \item Use the three-hole baseline token to take some measurements for the 2mm source. This would involve using Fourier transforms as simultaneously fitting multiple fringes will be difficult. See `3\_hole' notebook for some guidance and an example. Once set up this part can be fairly quick, so try again for another source.
-    \item Use the above method to characterise the shape of a non-rotationally symmetric source. This would involve the same method as for the sources above, but in addition rotating the baseline with respect to the source to measure the size as a function of baseline rotation. The `Saturn' source is slightly larger than the LED in the light source, so diffusing the light behind the aperture with the lens cap case will help.
+    \item Use the above method to characterise the shape of a non-rotationally symmetric source. This would involve the same method as for the sources above, but in addition rotating the baseline with respect to the source to measure the size as a function of baseline rotation. The `Saturn' source is slightly larger than the LED in the light source, so diffusing the light behind the aperture with the lens cap case will help. You may need to be inventive in how you hold the case in place. It's also likely that the USB-mounted LED is not bright enough; the demonstrator can supply the bike light if necessary, which is much brighter.
 \end{itemize}
 
 \subsection{Basic procedure}
 
-The basic procedure for this experiment is to set things up as you desire and verify the setup is working visually using the image on the screen. Always take particular care with the setup, especially uniform illumination of the aperture, as this is the most likely source of unexpected results. Images are then saved for some baseline and filter combinations to cover enough $b/\lambda$ space (i.e. as in Fig \ref{fig:uniformvis}). The resulting images are then analysed to obtain visibility measurements, and these visibilities are then used in concert with the baseline length and filter wavelength information to obtain a result.
+The basic procedure for this experiment is to set things up as you desire and verify the setup is working visually using the image on the screen. Always take particular care with the setup, \textbf{especially uniform illumination of the aperture}, as this is the most common source of unexpected results (typically a smaller than expected aperture diameter). As noted above in section \ref{sec:setup}, sanity checking your visibilities in real time for a few baselines is worthwhile.
 
-In doing all this you will need to keep track of files, what each was for, etc.. Saving files in separate folders for each part of the experiment will help, and of course keeping some records in text files (e.g. see below) and a log book will be essential for your report.
+Images are then saved for some baseline and filter combinations to cover enough $b/\lambda$ space. The resulting images are then analysed with \texttt{widget.py} to obtain visibility measurements, and these visibilities are then used in concert with the baseline length and filter wavelength information to obtain a source diameter.
 
-Practically, you may find it expedient to work as a team, with one person changing filters at the source end, one person changing baseline tokens and operating \texttt{FireCapture} to save files in some systematic way, and one person fitting saved images to extract visibilities on another computer (one person can be logged into multiple computers, allowing the second person to access the newly saved files in \texttt{H:}).
+In doing all this you will need to keep track of files, what each was for, etc.. Saving files in separate folders for each part of the experiment will help, and of course keeping some records in a log book will be essential for your report.
 
-The result would typically be a plot of visibility vs. $b/\lambda$, and a fit to the relevant theoretical curve to obtain an estimate of the source aperture size (i.e. similar to Fig. \ref{fig:uniformvis}). An example jupyter notebook for fitting a visibility function to data is included in the \texttt{px-interferometry} package. This notebook also shows how one can log the baselines, filters, and corresponding files in a text file, and then restore the saved fitting results to get the values for the plot in an automated way.
+Practically, you may find it expedient to work as a team, with one person changing filters at the source end, one person changing baseline tokens and operating \texttt{FireCapture} to save files in some systematic way, and one person fitting saved images to extract visibilities on another computer (one person can be logged into multiple computers, allowing the second person to access the newly saved files in \texttt{H:} from another lab machine).
+
+The result would typically be a plot of visibility vs. $b/\lambda$, and a fit to the relevant theoretical curve to obtain an estimate of the source aperture size (i.e. similar to Fig. \ref{fig:uniformvis}). An example jupyter notebook for fitting a visibility function to data is included in Noteable, and in the \texttt{px-interferometry} package.
 
 You will also need to consider how to incorporate uncertainties on your visibilities. Doing this properly is definitely non-trivial, among other things it would involve observing a very small source to calibrate the setup, since in that case we would know theoretically that the visibility should be 1 even if we measure a smaller value. For your purposes here, one way to estimate uncertainties is to take multiple images for a given baseline/filter, another is to empirically see how the data differ as an ensemble from the best fit model (see notebook for an example).
 
@@ -413,6 +414,10 @@ You can then import and run the widget with
     widget.fit_fringes(`Data/FOLDERS/file.FIT',sc=2)
 \end{verbatim}
 where you will need to enter the correct path to the file you want to extract the visibility for. The option \texttt{sc=2} is the same as the final argument described above.
+
+\subsection{Jupyter notebook on lab ITS machines}\label{sec:jupyter_its}
+
+To run a jupyter notebook on the lab ITS machines, open a `WinPython Powershell Prompt' from the interferometry-specific \texttt{WinPython} install in \texttt{C:}, change directory to \texttt{H:} with \texttt{cd H:}, and run \texttt{jupyter notebook}. A browser window should open, with which you can navigate to the downloaded notebooks.
 
 \clearpage
 
