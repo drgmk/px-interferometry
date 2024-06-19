@@ -1,7 +1,6 @@
 #!python3
 
 import os
-import sys
 import argparse
 import numpy as np
 import matplotlib.pyplot as plt
@@ -152,9 +151,9 @@ def fit_fringes(file, sc=1, fourier=False,
     im = fits.getdata(file)
     sz = im.shape
 
-    # median filter out hot/cold pixels
-    im[np.invert(np.isfinite(im))] == np.median(im)
-    im = scipy.ndimage.median_filter(im,3)
+    # filter out hot/cold pixels (not really necessary)
+    im[np.invert(np.isfinite(im))] = np.median(im)
+    # im = scipy.ndimage.median_filter(im,3)
 
     # rebin image down to speed things up, just chop some off if necessary
     im = im[:sc*(sz[0]//sc),:sc*(sz[1]//sc)]
@@ -335,7 +334,7 @@ def fit_fringes(file, sc=1, fourier=False,
         res_img = res(par)
         ax[1,0].imshow(res_img, origin='lower',
                        vmin=np.percentile(res_img,5), vmax=np.percentile(res_img,95))
-        ax[1,0].set_title(f'image-model, $\chi^2_r$:{chi2(par)/(sz[0]*sz[1]-len(par)-1):0.2f}')
+        ax[1,0].set_title(f'image-model, $\\chi^2_r$:{chi2(par)/(sz[0]*sz[1]-len(par)-1):0.2f}')
         ax[1,0].set_xlabel('pixel')
         ax[1,0].set_ylabel('pixel')
 

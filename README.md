@@ -27,3 +27,11 @@ in one of the upper image windows and hit a key.
 - m - minimise (walk downhill in chi^2)
 - M - minimise with Markov-Chain Monte Carlo (slower)
 - S - save parameters to numpy save file (file.fits -> file.npy)
+
+### conda install
+
+Install a conda env to run this with
+
+`conda create -n pxlab -c conda-forge python matplotlib scipy numpy astropy emcee tqdm jupyter`
+
+(for an M1/2 Mac add `CONDA_SUBDIR=osx-arm64` before `conda` and things will run a lot faster)
