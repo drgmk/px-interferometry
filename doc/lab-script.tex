@@ -50,19 +50,20 @@ Showing that you understand these ideas in your report is recommended!
 
 One of the most famous physics experiments is Young's double slit experiment\footnote{For an introduction, \href{https://en.wikipedia.org/wiki/Double-slit_experiment}{Wikipedia} and \href{https://www.youtube.com/watch?v=A9tKncAdlHQ}{YouTube} are good places to start.}, where light from a single monochromatic point source passes through two slits and forms ``fringes'' on a screen or detector. The spacing of these fringes is $\lambda/b$, where $\lambda$ is the wavelength of the light, and $b$ the distance between the slits. The bright fringes are where the difference in path lengths from the two slits to the screen is an integer number of wavelengths, so the light constructively adds, and the dark fringes are where the paths differ by half of the wavelength of the light, and so cancel. This experiment has several \href{https://en.wikipedia.org/wiki/Double-slit_experiment}{remarkable properties}; it still works when photons are sent through one at a time, and also works for particles such as electrons.
 
-There is an important question to ask of this experiment; what happens if the source is not a point? One reason to ask this question is that real sources are never really points, and have some finite size. For example, in the context of astronomy, while we can for most purposes consider stars to be point sources because their angular size is very small compared to the resolution of typical telescopes, given sufficient angular resolution this assumption is not true.
+There is an important question to ask of this experiment; what happens if the source is not a point? One reason to ask this question is that real sources are never really points. For example, in the context of astronomy, while we can for most purposes consider stars to be point sources, given sufficient angular resolution this assumption is not true.
 
-A finite source size fundamentally changes the double slit experiment as we normally encounter it. The simplest way to envisage an extended source is to add a second point source of equal brightness that is incoherent with the first. If we add this source at an angle $\lambda/(2b)$ away from the first, the two fringe patterns are $180^\circ$ out of phase so will cancel, leaving a uniformly illuminated detector with half of the peak brightness.
+A finite source size fundamentally changes the way that we think about the double slit experiment. The simplest way to envisage an extended source is to add a second point source of equal brightness that is incoherent with the first. If we add this source at an angle $\lambda/(2b)$ away from the first, the two fringe patterns are $180^\circ$ out of phase so will cancel, leaving a uniformly illuminated detector with half of the peak brightness.
 
 \clearpage
 
-While either source would individually produce a set of fringes, together their fringes add to produce none, and this difference is the result of the spatial separation of the two sources. \textbf{That is, the double slit experiment therefore provides a means to infer spatial information about sources by measuring fringe patterns.} Here we will be concerned with the fringe amplitudes, which are also known as ``fringe visibilities'' or simply ``visibilities''. Though we will not be concerned with them here, the phases are also important, primarily giving information regarding spatial location (e.g. consider how the fringes in the single source case move as the source is moved to one side; the amplitude remains the same but the phase changes).
+While either source would individually produce a set of fringes, together their fringes add to produce none, and this difference is the result of the spatial separation of the two sources. \textbf{That is, the double slit experiment therefore provides a means to infer spatial information about sources by measuring fringe patterns.}
+% Here we will be concerned with the fringe amplitudes, which are also known as ``fringe visibilities'' or simply ``visibilities''. Though we will not be concerned with them here, the phases are also important, primarily giving information regarding spatial location (e.g. consider how the fringes in the single source case move as the source is moved to one side; the amplitude remains the same but the phase changes).
 
 The first use of such an ``interferometer'' in astronomy was to measure the size of the moons of Jupiter \citep{1891PASP....3..274M,1891Natur..45..160M}, and 30 years later the technique was used to measure the diameter of another star \citep{1921ApJ....53..249M}. Interferometry is now a widely used technique in astrophysics, and is normally concerned with measuring the sizes of small objects, or with obtaining images of objects and structures that have relatively small angular scales.
 
 % What does ``small'' mean here? As we saw above, when the separation between two point sources is $\lambda/(2b)$, the fringes disappear (the visibility is zero). The angular resolution of an interferometer is therefore defined as $\lambda/(2b)$, where $b$ is the distance between two telescopes, that serve the same purpose as the slits in the double slit experiment. Compare this to Rayleigh's criterion, $1.22 \lambda/D$, where $D$ is the diameter of the aperture or telescope. Now if $D$ and $b$ are similar the resolution of an interferometer and a normal ``single-dish'' telescope is similar. But there is one key difference; the space between the two telescopes of an interferometer can be empty, meaning that it is practically much easier and cheaper to make $b$ large (e.g. tens/hundreds of meters for optical wavelengths, and kilometers for millimeter wavelengths) than it is to make $D$ large. The largest single-dish telescopes we have are of order tens (optical) to hundreds (radio) of meters.
 
-The key thing an interferometer does is allow us to make measurements on small angular scales, without constructing a single-dish telescope that would do so based on Rayleigh's criterion. In this experiment you will use exactly the same methods used in optical interferometry, just on a smaller scale.
+% The key thing an interferometer does is allow us to make measurements on small angular scales, without constructing a single-dish telescope that would do so based on Rayleigh's criterion. In this experiment you will use exactly the same methods used in optical interferometry, just on a smaller scale.
 
 As an example, the image on the front page shows a real-world example of an ``aperture mask'', as used by the \href{https://jwst-docs.stsci.edu/jwst-near-infrared-imager-and-slitless-spectrograph/niriss-observing-modes/niriss-aperture-masking-interferometry}{James Webb Space Telescope}. This has seven holes, but works exactly the same as 21 individual double-slit experiments done simultaneously.
 
@@ -86,7 +87,7 @@ To recap the double slit experiment more formally, Figure \ref{fig:youngs} shows
 \end{equation}
 where $I_0$ is the intensity that would have resulted from light passing through a single hole or slit, and where $\delta$ is the phase difference that results from the different path lengths from the slits to a given point on the detector.
 
-Now consider a second source of equal brightness, with an angular separation from the first of $\lambda/(2b)$. The fringes produced by this source will be 180$^\circ$ out of phase compared to the fringes from the first source, so will cancel. Because we are considering an analogy with an astronomical observation, the two sources are expected to be incoherent because their spatial separation will typically be large (e.g. thousands of km apart on the surface of a star) and there is no reason to believe there is any laser-like behaviour that synchronises photon phases, so the phases of two photons coming from the two sources will have random phases with respect to each other. Thus, at any point on the detector we can simply add the intensity from the two independent fringe patterns (there is no sustained interference between the two patterns). For the case with the second source separated by $\lambda/(2b)$, the result is therefore no fringes at all, as shown in the right panel of Figure \ref{fig:youngs}. This disappearance of the fringes is how we define the resolution of an interferometer, while for single-dish (normal) telescopes with diameter $D$ it is the Rayleigh criterion of 1.22\,$\lambda/D$, for interferometers it is $\lambda/(2b)$.
+Now consider a second source of equal brightness, with an angular separation from the first of $\lambda/(2b)$. The fringes produced by this source will be 180$^\circ$ out of phase compared to the fringes from the first source, so will cancel. Because we are considering an analogy with an astronomical observation, the two sources are expected to be incoherent because their spatial separation will typically be large (e.g. thousands of km apart on the surface of a star) and there is no reason to believe there is any laser-like behaviour that synchronises photon phases, so the phases of two photons coming from the two sources will have random phases with respect to each other. Thus, at any point on the detector we can simply add the intensity from the two independent fringe patterns (there is no sustained interference between the two patterns). For the case with the second source separated by $\lambda/(2b)$, the result is therefore no fringes at all, as shown in the right panel of Figure \ref{fig:youngs}. This disappearance of the fringes is how we define the resolution of an interferometer; for single-dish (normal) telescopes with diameter $D$ it is the Rayleigh criterion of 1.22\,$\lambda/D$, for interferometers it is $\lambda/(2b)$.
 
 \begin{figure}[h!]
     \centering
@@ -97,34 +98,36 @@ Now consider a second source of equal brightness, with an angular separation fro
 
 In intermediate cases where a second source is less separated, e.g. at $\lambda/(4b)$, the fringe patterns do not add up to a constant, but the amplitude of the pattern is still reduced. The same behaviour is typically observed when the source is extended, e.g. a uniform disk such as a stellar surface, since this case can be considered as the summation of a series of point sources. This reduction in fringe amplitude is illustrated in Figure \ref{fig:coherence}, most importantly in the lower left panel which considers a finite continuous source. A finite range of wavelengths will also reduce the fringe amplitude, though in this experiment we will reduce this effect by using filters to restrict the range of wavelengths.
 
+\subsection{Fringe ``visbility''}
+
 In interferometry we are primarily interested in the amplitude of the fringes formed on our detector. We characterise this amplitude with the ``visibility'', which is defined as
-\begin{equation}
+\begin{equation}\label{eq:vis}
     V = \frac{I_{\rm max} - I_{\rm min}}{I_{\rm max} + I_{\rm min}} \, .
 \end{equation}
-Looking at Figure \ref{fig:coherence}, we can see that the fringes in the top left panel have $V=1$ (and in the left panel of Figure \ref{fig:youngs}). For resolved sources the visibility is lower, for example in the lower left panel the value is about 0.6. For the right panel in Figure \ref{fig:youngs} the visibility is zero. Depending on how we measure it, a finite wavelength range will also lower the visiblity, as can be understood from the top right panel in Figure \ref{fig:coherence}.
+Looking at Figure \ref{fig:coherence}, we can see that the fringes in the top left panel have $V=1$ (and in the left panel of Figure \ref{fig:youngs}). For resolved sources the visibility is lower, for example in the lower left panel the value is about 0.6. For the right panel in Figure \ref{fig:youngs} the visibility is zero. Depending on how we measure it, a finite wavelength range will also lower the visibility, as can be understood from the top right panel in Figure \ref{fig:coherence}.
 
 \clearpage
 
 In general, the fringes are an indication of how well ``resolved'' a source is. An unresolved source will have strong fringes and a high visibility, but as the source becomes more extended the fringes weaken and the visibility drops. For continuous sources as we will be considering here, which are analogous to the surface of a star for example, when the source is larger than about $\lambda/(2b)$ the visibility drops to near zero. This can be understood as the image on the detector being the superposition of many fringes that have such a wide range of phases that the average is a constant.
 
-\begin{figure}
-    \centering
-    \includegraphics[width=0.25\textwidth]{sky-fringes.pdf}
-    \caption{Fringes projected on the sky; the fringe amplitude goes from -1 (black) to 1 (white), and $\lambda/(2b)=10$. A single source anywhere will produce a visibility amplitude of 1, but with different phases. A binary with one star at 0,0, and the other at 10,0 will produce a visibility of zero.}
-    \label{fig:sky-fringes}
-\end{figure}
+% \begin{figure}
+%     \centering
+%     \includegraphics[width=0.25\textwidth]{sky-fringes.pdf}
+%     \caption{Fringes projected on the sky; the fringe amplitude goes from -1 (black) to 1 (white), and $\lambda/(2b)=10$. A single source anywhere will produce a visibility amplitude of 1, but with different phases. A binary with one star at 0,0, and the other at 10,0 will produce a visibility of zero.}
+%     \label{fig:sky-fringes}
+% \end{figure}
 
-A more quantitative way to understand the origin of the visibility is that it is equal to the integral of the fringes as projected on the sky multiplied by the source. That is, picture the sky with a two-dimensional sine wave plotted on top, as shown in Figure \ref{fig:sky-fringes}. For the binary example with separation $\lambda/2b$, one source is on the peak of a fringe (0,0), while the other is on a minimum (10,0), so the integral is zero. An extended source, e.g. a star, that spans many fringes (e.g. a diameter $\gtrsim$10) will have a low visibility (i.e. the integral over several cycles of a sinusoid is zero), but one that is smaller than the fringe spacing will have a high visibility.
+% A more quantitative way to understand the origin of the visibility is that it is equal to the integral of the fringes as projected on the sky multiplied by the source. That is, picture the sky with a two-dimensional sine wave plotted on top, as shown in Figure \ref{fig:sky-fringes}. For the binary example with separation $\lambda/2b$, one source is on the peak of a fringe (0,0), while the other is on a minimum (10,0), so the integral is zero. An extended source, e.g. a star, that spans many fringes (e.g. a diameter $\gtrsim$10) will have a low visibility (i.e. the integral over several cycles of a sinusoid is zero), but one that is smaller than the fringe spacing will have a high visibility.
 
-When making a measurement, we normally change the resolution of our instrument (i.e. the fringe spacing), either by changing the wavelength $\lambda$ or the baseline length $b$. This can be pictured as varying the fringe spacing on the sky. A typical measurement therefore consists of making visibility measurements for a range of wavelengths and baseline lengths, and using these to infer spatial information about our source.
+When making a measurement, we normally change the resolution of our instrument (i.e. the fringe spacing), either by changing the wavelength $\lambda$ or the baseline length $b$. A typical measurement therefore consists of making visibility measurements for a range of wavelengths and baseline lengths, and using these to infer spatial information about our source.
 
-Note that one pair of baselines, we are only measuring the source size along an axis parallel with the baseline vector. For sources that are not rotationally symmetric, we can address this by rotating our baselines to a different angle with respect to the source and taking more measurements.
+Note that with one baseline, we are only measuring the source size along an axis parallel with the baseline vector. For sources that are not rotationally symmetric, we can address this by rotating our baselines to a different angle with respect to the source and taking more measurements.
 
 \subsection{Visibility functions}
 
-Mathematically, we can write down the expected behaviour of the visibility as a function of baseline and wavelength for a few different source geometries. Some more detail on where these come from is given in \citet[][e.g. Fig 2.13]{2011psi..book.....G}. Mathematically, the connection between the sky and the visibilities is the ``\href{https://en.wikipedia.org/wiki/Van_Cittert%E2%80%93Zernike_theorem}{van Cittert-Zernike Theorem}'', which states that the Fourier transform of the intensity distribution function of a distant, incoherent source is equal to its complex visibility. With the measurements in this lab, we are sampling the visibility at specific spatial frequencies (i.e. at points in the FT of the sky image that correspond to specific $b/\lambda$).
+We can write down the expected behaviour of the visibility as a function of baseline and wavelength for a few different source geometries. Some more detail on where these come from is given in \citet[][e.g. Fig 2.13]{2011psi..book.....G}. Mathematically, the connection between the sky and the visibilities is the ``\href{https://en.wikipedia.org/wiki/Van_Cittert%E2%80%93Zernike_theorem}{van Cittert-Zernike Theorem}'', which states that the Fourier transform of the intensity distribution function of a distant, incoherent source is equal to its complex visibility. With the measurements in this lab, we are sampling the visibility at specific spatial frequencies (i.e. at points in the FT of the sky image that correspond to specific $b/\lambda$).
 
-The visibility for a binary source is perhaps not too surprising, we saw above that $V=1$ when their separation is zero, and $V=0$ when their separation is $\lambda/(2b)$. Based on the idea of projecting fringes on the sky, $V$ therefore varies sinusoidally in between. For an equal brightness binary with separation $s$, the visibility is
+The visibility for a binary source is perhaps not too surprising, we saw above that $V=1$ when their separation is zero, and $V=0$ when their separation is $\lambda/(2b)$, and $V$ varies sinusoidally in between. For an equal brightness binary with separation $s$, the visibility is
 \begin{equation}
     V^2_{\rm binary} = \frac{1 + \cos ( 2 \pi s b / \lambda )}{2} \, .
 \end{equation}
@@ -142,7 +145,7 @@ where $J_1$ is a first order Bessel function. We take the absolute value because
     \label{fig:uniformvis}
 \end{figure}
 
-Equation (\ref{eq:uniform}) is the visibility function that you will need for this experiment. To visualise either, the independent variable you are controlling is $b/\lambda$, so this should be the x-axis, and visibility is the quantity you are measuring, so this is the y-axis. As described above the uniform source therefore has decreasing visibility with increasing $b/\lambda$.
+Equation (\ref{eq:uniform}) is the visibility function that you will need for this experiment. The independent variable you are controlling is $b/\lambda$, so this should be the x-axis, and visibility is the quantity you are measuring, so this is the y-axis. The uniform source has generally decreasing visibility with increasing $b/\lambda$. The ``wiggles'' that depend on the baseline are caused by the same effect as a binary source, but are less pronounced because the source is smooth rather than two points.
 
 An example visibility curve for a uniform source is shown in Figure \ref{fig:uniformvis}. The y-axis plots the absolute value, as we only measure visibility in this experiment as a positive value (squared visibility is also commonly used). This plot is for a 2\,mm diameter source at 7\,m, which is similar to what you will use for this experiment. Likewise, the baselines are similar to this experiment, e.g. a 1\,mm baseline at 500\,nm is $b/\lambda=2000$.
 
@@ -168,15 +171,15 @@ Another analogue of this lab experiment is even more closely related, called ``a
 This lab has an intentionally simple setup; the goal is to show how one can construct an interferometer from a standard telescope with minor and straightforward modifications. You will also use some software that is outlined below. Some parts are a bit fiddly, this is also intentional; real experiments do require some precision from the scientists! The key physical pieces of equipment are (see the Appendix for some photos):
 \begin{itemize}
     \item The physics lab, which in the microprocessors room you can take to be 992\,cm long wall to wall. You can find the distance between the aperture and the front of the telescope by measuring their distances from the walls with a ruler.
-    \item Telescope, this is a 90mm \href{https://www.celestron.com/products/c90-mak-spotting-scope#description}{Celestron} C90 Maksutov-Cassegrain ``spotter'' telescope, which is mounted to the bench and can be flipped up or down. Down is probably easier, but check the path across the lab is clear.
-    \item CMOS detector and USB cable. Some information on the detector is \href{https://www.qhyccd.com/qhy5l-ii-planetary-guiding-camera/}{here}.
+    \item Telescope, this is a 90mm \href{https://www.celestron.com/products/c90-mak-spotting-scope#description}{Celestron} C90 Maksutov-Cassegrain ``spotter'' telescope, which is mounted to the bench. Check the path across the lab to the source is clear.
+    \item QHY 5L-II-M CMOS detector and USB cable. Some information on the detector is \href{https://www.qhyccd.com/discontinued-products/}{here (scroll down to 5L-II)}.
+    \item An ITS (lab) computer near the telescope, plug the CMOS into this one.
     \item Lens cap with a small hole, this holds the tokens with the pairs of holes (baselines).
     \item Baseline tokens, these have small (0.3\,mm) holes drilled in pairs with a range of separations. These have spacings that are 0.6, 1, 2, 3, and 4\,mm. There is also a 3-hole token, with holes at 0.5 and 1\,mm separation at right angles (so the third baseline is $\sqrt{0.5^2 + 1^2}$\,mm).
-    \item Light source. This is a USB-powered LED, and there are some bike lights as backup. The bike lights are much brighter (i.e. exposure times are shorter), but the batteries do not last very long.
+    \item Light source. This is a USB-powered LED, and there are some bike lights as backup. The bike lights are much brighter, but the batteries do not last very long.
     \item Aperture tokens, these go in front of the light source and are what we observe. The main one for this experiment has a single 2\,mm diameter hole. There is also `Saturn' which has a 4\,mm hole and two 2\,mm holes (outer size $4 \times 6$\,mm).
-    \item Filters, used to change the wavelength of the source. You may take the mean wavelengths of these to be 448, 530, and 638\,nm for B, G, and R respectively. More detailed information on the filter response is \href{https://www.firstlightoptics.com/rgb-filters-filter-sets/zwo-2-lrgb-filter-set.html}{here}.
+    \item Filters, used to change the wavelength of the source. You may take the mean wavelengths of these to be 455, 530, and 615\,nm for B, G, and R respectively. More detailed information on the filter response is \href{https://www.firstlightoptics.com/rgb-filters-filter-sets/zwo-2-lrgb-filter-set.html}{here}, though the given wavelengths also attempt to take the detector quantum efficiency into account.
     \item Miscellaneous fittings to mount the light source, aperture tokens, and filters.
-    \item An ITS (lab) computer near the telescope, plug the CMOS into this one.
 \end{itemize}
 
 \subsection{Image capture software}\label{sec:software}
@@ -204,11 +207,11 @@ There are some options above the image to set how the image is displayed, e.g. z
 
 The other important control is how images are saved (under ``capture''); for this you need to specify a directory in which to save images (if you didn't already at startup), a file format (select ``FIT''), and a number of frames to save under ``limit'' (just one, since you will hit save manually each time you change the baseline token, filter, etc.). You can turn off the default behaviour that files are saved in their own subfolders by opening the `settings' window and un-ticking `Auto-create subfolders'.
 
-You can optionally save a ``dark frame'' (one of the small buttons between the main image and the left column of controls). For this cover the front of the telescope (putting your hand in front of the baseline token would suffice), and \texttt{FireCapture} will take an image that will be subtracted off subsequent images. The goal is that this dark image will contain any ``hot'' (permanently defective) detector pixels and other detector artefacts, and by subtracting them these pixels will not be visible in the final images. Ideally your dark frame will have the same settings as the images it is being subtracted from, as different settings (gain in particular) will result in different artefacts.
+You can optionally save a ``dark frame'' (one of the small buttons between the main image and the left column of controls). For this cover the front of the telescope (putting your hand in front of the baseline token would suffice), and \texttt{FireCapture} will take an image that will be subtracted off subsequent images. The goal is that this dark image will contain any ``hot'' (permanently defective) detector pixels and other detector artefacts, and by subtracting them these pixels will not be visible in the final images. Ideally your dark frame will have the same settings as the images it is being subtracted from, as different settings will result in different artefacts, but in practise one dark frame will likely be OK for all data. If the images look like they have hot pixels after changing the capture settings then you likely need a new dark frame.
 
 \subsection{Python code}
 
-There are a few pieces of python code, \texttt{widget.py} and some jupyter notebooks, to use in this experiment, all of which are on \href{https://github.com/drgmk/px-interferometry}{GitHub}. These are described later.
+There are a few pieces of python code, \texttt{widget.py} and some jupyter notebooks, to use in this experiment, all of which are on \href{https://github.com/drgmk/px-interferometry}{GitHub}. These are not needed until you have actually taken some images, so are described in section \ref{sec:meas}.
 
 \clearpage
 
@@ -265,19 +268,17 @@ There is no ``correct'' method here, and each method has its own problems. The i
 \subsection{Using \texttt{widget.py}}\label{sec:widget}
 
 This code brings up an interactive window that allows a parameterised fit to a detector image, and which will output the model parameters, including the visibility and baseline angle (with respect to the detector, whose orientation depends on how you insert it into the telescope). The code itself exists on github, you can download it from
-\href{https://github.com/drgmk/px-interferometry}{https://github.com/drgmk/px-interferometry}.
+\href{https://github.com/drgmk/px-interferometry}{https://github.com/drgmk/px-interferometry}. It is best to put the code near the data, e.g. unzip the downloaded file in \texttt{H://Interferometry}.
 
-To run the python widget you can use either a system or python terminal (see \ref{sec:widget_ipython} for the latter).
-
-To run the widget from the shell directly, open the \texttt{WinPython PowerShell Prompt} from \texttt{C:}, there should be a \texttt{WinPython} install with a name like \texttt{WinPython-interferometry} (the default one is missing packages and will not work). This should exist on the computer the CMOS is connected to, and the other computer along the same end wall. You can make things easier by then changing directory (e.g. \texttt{cd H:\textbackslash Interferometry\textbackslash Data}) so that you are executing the code somewhere close to the data. To run the widget use something like (assuming here you are in the \texttt{px-interferometry} folder, and there is a data folder one level up)
+To run the python widget you can use either a system or python terminal (see \ref{sec:widget_ipython} for the latter). To run the widget from the shell directly, open the \texttt{WinPython PowerShell Prompt}. There should be a \texttt{WinPython} install in \texttt{C:} with a name like \texttt{WinPython-interferometry} (the default one is missing packages and will not work). This should exist on the computer the CMOS is connected to, and the other computer along the same end wall. You can make things easier by then changing directory (e.g. \texttt{cd H:\textbackslash Interferometry\textbackslash Data}) so that you are executing the code somewhere close to the data. To run the widget use something like (assuming here you are in the downloaded \texttt{px-interferometry} folder, and there is a data folder one level up)
 \begin{verbatim}
-    python widget.py ../data/filename.FIT -n 2
+    python widget.py ../Data/filename.FIT -n 4
 \end{verbatim}
 The paths you enter will depend on where you run the command from, where you put \texttt{widget.py}, and where you save the data. A useful way to type these commands out is to use `tab completion'; start typing the path and hit the TAB key, which will fill out the rest of that part of the path (assuming it exists).
 
-The final argument (here 2) does $2 \times 2$ averaging to make the array for the image smaller so the fitting code runs faster. You could try 4 or higher, but if you average too much the detail in the image will be lost and the fit will be poor. A suggested approach is to use 4, but go to 2 if the fringes are very close together and the fit is not converging as well as you expect.
+The argument \texttt{-n 4} does $4 \times 4$ averaging to make the array for the image smaller so the fitting code runs faster. If you average too much the detail in the image will be lost and the fit will be poor. A suggested approach is to use 4, but go to 2 if the fringes are very close together and the fit is not converging as well as you expect.
 
-On running the widget a window will pop up with the image (FITS file), a model, an image of the residuals (image-model), and a cut through the center of the image perpendicular to the fringes in the model. The model has the three components noted above, with the additional feature that the fringes account for a finite bandwidth so lose coherence away from the center somewhat. It uses a Gaussian instead of a Bessel function for the PSF by default; this is less accurate but much faster to compute. You could try using the Bessell function to improve the fits by adding the argument \texttt{-b}, though the results should be adequate with a Gaussian.
+On running the widget a window will pop up with the image (FITS file), a model, an image of the residuals (image-model), and a cut through the center of the image perpendicular to the fringes in the model. The model has the three components noted above, with the additional feature that the fringes account for a finite bandwidth so lose coherence away from the center somewhat. It uses a Gaussian instead of a Bessel function for the PSF by default; this is less accurate but much faster to compute. You can try using the Bessell function to improve the fits by adding the argument \texttt{-b}.
 \begin{figure}[h!]
     \centering
     \includegraphics[width=1\textwidth]{widget.png}
@@ -285,9 +286,11 @@ On running the widget a window will pop up with the image (FITS file), a model, 
     \label{fig:widget}
 \end{figure}
 
-The code will make an initial attempt to estimate the model parameters, see Figure \ref{fig:widget} for an example. The goal is then to improve the fit, which will almost certainly require some interaction. This works by moving the mouse cursor to a location on the image (top left panel), pressing a key on the keyboard to change some parameter, and repeating until the model is reasonably good. Details regarding keys can be found in the \texttt{widget.py} script and on the GitHub page. The fit can then be minimised (optimised) by pressing the \texttt{m} key. The residual plot may never look perfectly smooth, but the more uniform this image appears, particularly in terms of the residual fringe amplitures, the better the fit. An example of a good fit is shown in Figure \ref{fig:widget2} (which also shows the difference between Gaussian and Bessel functions).
+The code will make an initial attempt to estimate the model parameters, see Figure \ref{fig:widget} for an example. The goal is then to improve the fit, which will almost certainly require some interaction. This works by moving the mouse cursor to a location on the image (top left panel), pressing a key on the keyboard to change some parameter, and repeating until the model is reasonably good. Details regarding keys can be found in the \texttt{widget.py} script and on the GitHub page. The fit can then be minimised (optimised) by pressing the \texttt{m} key.
 
-The results can be saved into a \texttt{numpy} save file with \texttt{S}, but the visibility is also shown as a number in the lower right panel. The advantage of saving your results in a file is that you can speed up the extraction, fitting, and plotting of the results with a text file with the measurement details. See the visibility notebook for an example.
+The residual plot may never look perfectly smooth, but the more uniform this image appears, particularly in terms of the residual fringe amplitudes, the better the fit. An example of a good fit is shown in Figure \ref{fig:widget2} (which also shows the difference between Gaussian and Bessel functions). You should not have negative visibilities; these can be fixed by moving the fringes by half a wavelength and changing the max/min, or if the fit is otherwise good simply removing the negative sign (as suggested by equation \ref{eq:vis}).
+
+The results can be saved into a \texttt{numpy} save file with \texttt{S}, but the visibility is also shown as a number in the lower right panel. The advantage of saving your results in a file is that you can speed up the extraction, fitting, and plotting of the results with a text file with the measurement details. It's also possible to sanity check the results, since the fringe spacings can be predicted given the wavelength and baseline, e.g. if you accidentally assign the wrong baseline to a FITS file this can be spotted. See the visibility notebook for an example.
 
 \begin{figure}[h]
     \centering
@@ -308,7 +311,7 @@ The images obtained in this experiment are relatively simple, in that they have 
     \label{fig:widget-f}
 \end{figure}
 
-The result of Fourier transforming an image is shown in Figure \ref{fig:widget-f}. This version of the window can be obtained with the same call to \texttt{widget.py} or \texttt{widget.fit\_fringes()}, but with an extra argument. In the shell case, adding a \texttt{-f}  will invoke the Fourier panels. In the python terminal, adding \texttt{fourier=True} to \texttt{fit\_fringes()} is needed.
+The result of Fourier transforming an image is shown in Figure \ref{fig:widget-f}. This version of the window can be obtained with the same call to \texttt{widget.py} with the extra argument \texttt{-f}.
 
 The modified image used in the Fourier transform is shown in the top right panel. If the background is low then this image will look identical to the top left one. The lower right panel shows a zoom in of the Fourier transform (the absolute value, here we will not use the phases associated with each frequency). It is an image, because the data are 2d, and the axes are such that the lowest frequencies are represented by pixels at the image center, and more distant pixels are increasingly high frequencies. The highest peak, at the center of the image corresponds to the overall PSF, and the two secondary peaks are the fringes. The orientation of the secondary peaks depends on the angle the fringes are at in the image. The fringes are represented by two peaks because both correspond to the same frequency and orientation.
 
@@ -322,7 +325,11 @@ Practically, visibility measurements with the Fourier method are more susceptibl
 
 \section{Fitting models to visibilities}\label{sec:models}
 
-Given a set of visibilities for a range of baselines and filters, a model (e.g. equation \ref{eq:uniform}) can be fit and a source diameter determined. An example jupyter notebook, which can be run using Noteable (link on moodle page), will guide you through this. For running jupyter notebooks on the lab ITS machines, see section \ref{sec:jupyter_its}, though this is not recommended since uploading images is tedious.
+Given a set of visibilities for a range of baselines and filters, a model (e.g. equation \ref{eq:uniform}) can be fit and a source diameter determined. The best way to do this is to create a text file in the same folder as the data that lists each file, and also notes the wavelength and baseline. The example jupyter notebook (\texttt{visibility.ipynb} in the GitHub repo) shows how to read this text file and extract the fitted parameters automatically.
+
+To run a jupyter notebook on the lab ITS machines, open another `WinPython Powershell Prompt' from the interferometry-specific \texttt{WinPython} install in \texttt{C:}, change directory to \texttt{H:} with \texttt{cd H:}, and run \texttt{jupyter notebook}. A browser window should open, with which you can navigate to the downloaded notebooks.
+
+The notebook can also be run using Noteable (link on moodle page), but for this you will need to enter the visibilities manually, and cannot easily sanity check the fits (which would require uploading all of the images and save files).
 
 \clearpage
 
@@ -340,7 +347,7 @@ Beyond these some possible options are to:
 \begin{itemize}
     \item Try repeating the source size measurement, but using visibilities from the Fourier transform (see section \ref{sec:fourier}). Compare your results from the image-fitting and Fourier methods, if one seems much worse, why?
     \item Use the three-hole baseline token to take some measurements for the 2mm source. This would involve using Fourier transforms as simultaneously fitting multiple fringes will be difficult. See `3\_hole' notebook for some guidance and an example. Once set up this part can be fairly quick, so try again for another source.
-    \item Use the above method to characterise the shape of a non-rotationally symmetric source. This would involve the same method as for the sources above, but in addition rotating the baseline with respect to the source to measure the size as a function of baseline rotation. The `Saturn' source is slightly larger than the LED in the light source, so diffusing the light behind the aperture with the lens cap case will help. You may need to be inventive in how you hold the case in place. It's also likely that the USB-mounted LED is not bright enough; the demonstrator can supply the bike light if necessary, which is much brighter.
+    \item Use the above method to characterise the shape of a non-rotationally symmetric source. This would involve the same method as for the sources above, but in addition rotating the baseline with respect to the source to measure the size as a function of baseline rotation. The `Saturn' source is slightly larger than the LED in the light source, so diffusing the light behind the aperture with the lens cap case will help. You may need to be inventive in how you hold the case in place. It's also likely that the USB-mounted LED is not bright enough; the demonstrator can supply the bike light if necessary.
 \end{itemize}
 
 \subsection{Basic procedure}
@@ -353,7 +360,7 @@ In doing all this you will need to keep track of files, what each was for, etc..
 
 Practically, you may find it expedient to work as a team, with one person changing filters at the source end, one person changing baseline tokens and operating \texttt{FireCapture} to save files in some systematic way, and one person fitting saved images to extract visibilities on another computer (one person can be logged into multiple computers, allowing the second person to access the newly saved files in \texttt{H:} from another lab machine).
 
-The result would typically be a plot of visibility vs. $b/\lambda$, and a fit to the relevant theoretical curve to obtain an estimate of the source aperture size (i.e. similar to Fig. \ref{fig:uniformvis}). An example jupyter notebook for fitting a visibility function to data is included in Noteable, and in the \texttt{px-interferometry} package.
+The result would typically be a plot of visibility vs. $b/\lambda$, and a fit to the relevant theoretical curve to obtain an estimate of the source aperture size (i.e. similar to Fig. \ref{fig:uniformvis}).
 
 You will also need to consider how to incorporate uncertainties on your visibilities. Doing this properly is definitely non-trivial, among other things it would involve observing a very small source to calibrate the setup, since in that case we would know theoretically that the visibility should be 1 even if we measure a smaller value. For your purposes here, one way to estimate uncertainties is to take multiple images for a given baseline/filter, another is to empirically see how the data differ as an ensemble from the best fit model (see notebook for an example).
 
@@ -406,18 +413,18 @@ To run \texttt{widget.py} in a python terminal, you first need to open a termina
 With the \texttt{python} terminal running, you will need to import and then run the code. To import, you need to add the widget location to your path, which if you can do with (adjusting the path as necessary).
 \begin{verbatim}
     import os, sys
-    sys.path.append(os.path.abspath(`C:/px-interferometry'))
+    sys.path.append(os.path.abspath(`H:/Interferometry/px-interferometry'))
 \end{verbatim}
 You can then import and run the widget with
 \begin{verbatim}
     import widget
-    widget.fit_fringes(`Data/FOLDERS/file.FIT',sc=2)
+    widget.fit_fringes(`Data/file.FIT',sc=4)
 \end{verbatim}
-where you will need to enter the correct path to the file you want to extract the visibility for. The option \texttt{sc=2} is the same as the final argument described above.
+where you will need to enter the correct path to the file you want to extract the visibility for. The option \texttt{sc=2} is the same as the \texttt{-n} argument described above.
 
-\subsection{Jupyter notebook on lab ITS machines}\label{sec:jupyter_its}
+% \subsection{Jupyter notebook on lab ITS machines}\label{sec:jupyter_its}
 
-To run a jupyter notebook on the lab ITS machines, open a `WinPython Powershell Prompt' from the interferometry-specific \texttt{WinPython} install in \texttt{C:}, change directory to \texttt{H:} with \texttt{cd H:}, and run \texttt{jupyter notebook}. A browser window should open, with which you can navigate to the downloaded notebooks.
+% To run a jupyter notebook on the lab ITS machines, open a `WinPython Powershell Prompt' from the interferometry-specific \texttt{WinPython} install in \texttt{C:}, change directory to \texttt{H:} with \texttt{cd H:}, and run \texttt{jupyter notebook}. A browser window should open, with which you can navigate to the downloaded notebooks.
 
 \clearpage
 
