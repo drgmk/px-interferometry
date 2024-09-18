@@ -439,11 +439,11 @@ where you will need to enter the correct path to the file you want to extract th
 \subsection{Software}
 
 \begin{itemize}
-    \item To install software in \texttt{C:} on the lab computers one needs to create a new folder and put the software in there. This gets around permission issues. Each machine near a telescope should have \texttt{FireCapture} and \texttt{WinPython} installed.
+    \item To install software in \texttt{C:} on the lab computers one needs to create a new folder and put the software in there. This gets around permission issues. Each machine near a telescope should have \texttt{FireCapture} and \texttt{WinPython} installed. Another nearby machine, typically on the other side of the bay at the same end, should also have \texttt{WinPython} installed.
 
-    \item The default \texttt{WinPython} that appears in \texttt{C:} does not have the necessary packages (i.e. astropy, emcee). If necessary download a new one from \href{https://winpython.github.io/}{https://winpython.github.io/}. For the most recent release, click the Github download link (not a beta release), scroll to the bottom of the page, and download a version with a name like \texttt{WinPython64-X} (not a beta release indicated by a `b').
+    \item The default \texttt{WinPython} that appears in \texttt{C:} does not have the necessary packages (i.e. astropy, emcee). If necessary download a new one from \href{https://winpython.github.io/}{https://winpython.github.io/}. For the most recent release, click the Github download link (not a beta release), scroll to the bottom of the page, and download a version with a name like \texttt{WinPython64-X} (not a beta release indicated by a `b'). If packages are not included (e.g. at the time of writing emcee has been removed) these can be installed by opening the PowerShell prompt and installing them with pip (i.e. \texttt{pip install emcee}).
 
-    \item To use \texttt{FireCapture} with the CMOS detector, the drivers need to be installed. These can be found in Software Center.
+    \item To use \texttt{FireCapture} with the CMOS detector, the QHY drivers need to be installed. These can be found in Software Center.
 \end{itemize}
 
 \clearpage
