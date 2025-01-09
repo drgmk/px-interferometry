@@ -65,14 +65,14 @@ The first use of such an ``interferometer'' in astronomy was to measure the size
 
 % The key thing an interferometer does is allow us to make measurements on small angular scales, without constructing a single-dish telescope that would do so based on Rayleigh's criterion. In this experiment you will use exactly the same methods used in optical interferometry, just on a smaller scale.
 
-As an example, the image on the front page shows a real-world example of an ``aperture mask'', as used by the \href{https://jwst-docs.stsci.edu/jwst-near-infrared-imager-and-slitless-spectrograph/niriss-observing-modes/niriss-aperture-masking-interferometry}{James Webb Space Telescope}. This has seven holes, but works exactly the same as 21 individual double-slit experiments done simultaneously.
+As an example, the image on the front page shows a real-world example of an ``aperture mask'', as used by the \href{https://jwst-docs.stsci.edu/jwst-near-infrared-imager-and-slitless-spectrograph/niriss-observing-modes/niriss-aperture-masking-interferometry}{James Webb Space Telescope}. This has seven holes, but works exactly the same as 21 individual double-slit experiments done simultaneously. This experiment also has a similar aperture mask, albeit with only three holes.
 
 The remainder of this document covers the background theory in a bit more detail (\S \ref{sec:theory}), followed by a quick connection with the real world of interferometry in \S \ref{sec:realworld}. The experimental setup is then described (\S \ref{sec:exp_setup}), and how to measure and model visibilities in sections \ref{sec:meas} and \ref{sec:models}. What you should actually attempt to measure during the lab sessions, and some suggested practical ways to work, are given in section \ref{sec:exp}.
 
 \clearpage
 \section{Theory}\label{sec:theory}
 
-As outlined above, this experiment is little more than an extension of Young's double slit experiment. The only real difference is that we will be using an extended source that is incoherent. Typically the double slit experiment uses a coherent point source (e.g. a laser). Here the slits will also be replaced with pairs of holes, so instead of the usual one-dimensional picture, fringes are spread over a two-dimensional plane with an orientation that depends on the orientation of the holes. 
+As outlined above, this experiment is little more than an extension of Young's double slit experiment. The only real difference is that we will be using an extended source that is incoherent. Here the slits will also be replaced with pairs of holes, so instead of the usual one-dimensional picture, fringes are spread over a two-dimensional plane with an orientation that depends on the orientation of the holes. 
 
 \begin{figure}[h]
     \centering
@@ -87,7 +87,7 @@ To recap the double slit experiment more formally, Figure \ref{fig:youngs} shows
 \end{equation}
 where $I_0$ is the intensity that would have resulted from light passing through a single hole or slit, and where $\delta$ is the phase difference that results from the different path lengths from the slits to a given point on the detector.
 
-Now consider a second source of equal brightness, with an angular separation from the first of $\lambda/(2b)$. The fringes produced by this source will be 180$^\circ$ out of phase compared to the fringes from the first source, so will cancel. Because we are considering an analogy with an astronomical observation, the two sources are expected to be incoherent because their spatial separation will typically be large (e.g. thousands of km apart on the surface of a star) and there is no reason to believe there is any laser-like behaviour that synchronises photon phases, so the phases of two photons coming from the two sources will have random phases with respect to each other. Thus, at any point on the detector we can simply add the intensity from the two independent fringe patterns (there is no sustained interference between the two patterns). For the case with the second source separated by $\lambda/(2b)$, the result is therefore no fringes at all, as shown in the right panel of Figure \ref{fig:youngs}. This disappearance of the fringes is how we define the resolution of an interferometer; for single-dish (normal) telescopes with diameter $D$ it is the Rayleigh criterion of 1.22\,$\lambda/D$, for interferometers it is $\lambda/(2b)$.
+Now consider a second source of equal brightness, with an angular separation from the first of $\lambda/(2b)$. The fringes produced by this source will be 180$^\circ$ out of phase compared to the fringes from the first source, so will add to a constant. Because we are considering an analogy with an astronomical observation, the two sources are expected to be incoherent because their spatial separation will typically be large (e.g. thousands of km apart on the surface of a star) and there is no reason to believe there is any laser-like behaviour that synchronises photon phases, so the phases of two photons coming from the two sources will have random phases with respect to each other. Thus, at any point on the detector we can simply add the intensity from the two independent fringe patterns (there is no sustained interference between the two patterns). For the case with the second source separated by $\lambda/(2b)$, the result is therefore no fringes at all, as shown in the right panel of Figure \ref{fig:youngs}. This disappearance of the fringes is how we define the resolution of an interferometer; for single-dish (normal) telescopes with diameter $D$ it is the Rayleigh criterion of 1.22\,$\lambda/D$, for interferometers it is $\lambda/(2b)$.
 
 \begin{figure}[h!]
     \centering
@@ -96,7 +96,7 @@ Now consider a second source of equal brightness, with an angular separation fro
     \label{fig:coherence}
 \end{figure}
 
-In intermediate cases where a second source is less separated, e.g. at $\lambda/(4b)$, the fringe patterns do not add up to a constant, but the amplitude of the pattern is still reduced. The same behaviour is typically observed when the source is extended, e.g. a uniform disk such as a stellar surface, since this case can be considered as the summation of a series of point sources. This reduction in fringe amplitude is illustrated in Figure \ref{fig:coherence}, most importantly in the lower left panel which considers a finite continuous source. A finite range of wavelengths will also reduce the fringe amplitude, though in this experiment we will reduce this effect by using filters to restrict the range of wavelengths.
+In intermediate cases where a second source is less separated, e.g. at $\lambda/(4b)$, the fringe patterns do not add up to a constant, but the amplitude of the fringes is still reduced. The same behaviour is typically observed when the source is extended, e.g. a uniform disk such as a stellar surface, since this case can be considered as the summation of a series of point sources. This reduction in fringe amplitude is illustrated in Figure \ref{fig:coherence}, most importantly in the lower left panel which considers a finite continuous source. A finite range of wavelengths will also reduce the fringe amplitude, though in this experiment we will reduce this effect by using filters to restrict the range of wavelengths.
 
 \subsection{Fringe ``visbility''}
 
@@ -125,7 +125,7 @@ Note that with one baseline, we are only measuring the source size along an axis
 
 \subsection{Visibility functions}
 
-We can write down the expected behaviour of the visibility as a function of baseline and wavelength for a few different source geometries. Some more detail on where these come from is given in \citet[][e.g. Fig 2.13]{2011psi..book.....G}. Mathematically, the connection between the sky and the visibilities is the ``\href{https://en.wikipedia.org/wiki/Van_Cittert%E2%80%93Zernike_theorem}{van Cittert-Zernike Theorem}'', which states that the Fourier transform of the intensity distribution function of a distant, incoherent source is equal to its complex visibility. With the measurements in this lab, we are sampling the visibility at specific spatial frequencies (i.e. at points in the FT of the sky image that correspond to specific $b/\lambda$).
+We can write down the expected behaviour of the visibility as a function of baseline and wavelength for a few different source geometries. Some more detail on where these come from is given in \citet[][e.g. Fig 2.13]{2011psi..book.....G}. Mathematically, the connection between the sky and the visibilities is the ``\href{https://en.wikipedia.org/wiki/Van_Cittert%E2%80%93Zernike_theorem}{van Cittert-Zernike Theorem}'', which states that the Fourier Transform (FT) of the intensity distribution function of a distant, incoherent source is equal to its complex visibility. With the measurements in this lab, we are sampling the visibility at specific spatial frequencies (i.e. at points in the FT of the sky image that correspond to specific $b/\lambda$).
 
 The visibility for a binary source is perhaps not too surprising, we saw above that $V=1$ when their separation is zero, and $V=0$ when their separation is $\lambda/(2b)$, and $V$ varies sinusoidally in between. For an equal brightness binary with separation $s$, the visibility is
 \begin{equation}
@@ -136,7 +136,7 @@ For an extended uniform circular source of diameter $\theta$ as a function of ba
 \begin{equation}\label{eq:uniform}
     V_{\rm uniform} =  \left\vert \frac{2 J_1(\pi \theta b / \lambda)}{\pi \theta b / \lambda} \right\vert \, ,
 \end{equation}
-where $J_1$ is a first order Bessel function. We take the absolute value because here we are not concerned with the phases (i.e. a negative visibility corresponds to a 180$^\circ$ difference in phase compared to a positive one). Connecting this result to the van Cittert-Zernike theorem, recall that the Fourier transform of a 1d top hat function is $\sin(x)/x$; equation (\ref{eq:uniform}) is simply the same result in 2d.
+where $J_1$ is a first order Bessel function. We take the absolute value because here we are not concerned with the phases (i.e. a negative visibility corresponds to a 180$^\circ$ difference in phase compared to a positive one). Connecting this result to the van Cittert-Zernike theorem, recall that the Fourier Transform of a 1d top hat function is $\sin(x)/x$; equation (\ref{eq:uniform}) is simply the same result in 2d.
 
 \begin{figure}
     \centering
@@ -163,23 +163,23 @@ CHARA has measured the diameter and shape of \href{https://www.chara.gsu.edu/sci
     \label{fig:ami}
 \end{figure}
 
-Another analogue of this lab experiment is even more closely related, called ``aperture masking''. In this case, an optical element with a number of holes (the ``mask'') is placed in the optical path. The light passes through these holes and interferes, creating a fringe pattern that can be interpreted with a Fourier transform. That is, with this lab you are doing aperture masking, with the only difference being that the masks used for astrophysics have a greater number of holes and the telescopes are bigger. One example is the \href{https://jwst-docs.stsci.edu/jwst-near-infrared-imager-and-slitless-spectrograph/niriss-observing-modes/niriss-aperture-masking-interferometry}{James Webb Space Telescope}, for which one of the instruments uses aperture masking. An example mask is shown in Figure \ref{fig:ami}. This mask is ``non-redundant'', meaning that no two of the 21 baselines are the same.
+Another analogue of this lab experiment is even more closely related, called ``aperture masking''. In this case, an optical element with a number of holes (the ``mask'') is placed in the optical path. The light passes through these holes and interferes, creating a fringe pattern that can be interpreted with a Fourier Transform. That is, with this lab you are doing aperture masking, with the only difference being that the masks used for astrophysics have a greater number of holes and the telescopes are bigger. One example is the \href{https://jwst-docs.stsci.edu/jwst-near-infrared-imager-and-slitless-spectrograph/niriss-observing-modes/niriss-aperture-masking-interferometry}{James Webb Space Telescope}, for which one of the instruments uses aperture masking. An example mask is shown in Figure \ref{fig:ami}. This mask is ``non-redundant'', meaning that no two of the 21 baselines are the same.
 
 \clearpage
 \section{Experimental setup}\label{sec:exp_setup}
 
 This lab has an intentionally simple setup; the goal is to show how one can construct an interferometer from a standard telescope with minor and straightforward modifications. You will also use some software that is outlined below. Some parts are a bit fiddly, this is also intentional; real experiments do require some precision from the scientists! The key physical pieces of equipment are (see the Appendix for some photos):
 \begin{itemize}
-    \item The physics lab, which in the microprocessors room you can take to be 992\,cm long wall to wall. You can find the distance between the aperture and the front of the telescope by measuring their distances from the walls with a ruler.
+    \item The physics lab. The microprocessors room is 992\,cm long wall to wall, and in the other the bench top is XXX\,cm (ask your demonstrator, it has not been measured yet!). You can find the distance between the aperture and the front of the telescope by measuring their distances from the walls/bench ends with a ruler.
     \item Telescope, this is a 90mm \href{https://www.celestron.com/products/c90-mak-spotting-scope#description}{Celestron} C90 Maksutov-Cassegrain ``spotter'' telescope, which is mounted to the bench. Check the path across the lab to the source is clear.
     \item QHY 5L-II-M CMOS detector and USB cable. Some information on the detector is \href{https://www.qhyccd.com/discontinued-products/}{here (scroll down to 5L-II)}.
-    \item An ITS (lab) computer near the telescope, plug the CMOS into this one.
+    \item An ITS (lab) computer near the telescope, plug the CMOS into this.
     \item Lens cap with a small hole, this holds the tokens with the pairs of holes (baselines).
     \item Baseline tokens, these have small (0.3\,mm) holes drilled in pairs with a range of separations. These have spacings that are 0.6, 1, 2, 3, and 4\,mm. There is also a 3-hole token, with holes at 0.5 and 1\,mm separation at right angles (so the third baseline is $\sqrt{0.5^2 + 1^2}$\,mm).
     \item Light source. This is a USB-powered LED, and there are some bike lights as backup. The bike lights are much brighter, but the batteries do not last very long.
     \item Aperture tokens, these go in front of the light source and are what we observe. The main one for this experiment has a single 2\,mm diameter hole. There is also `Saturn' which has a 4\,mm hole and two 2\,mm holes (outer size $4 \times 6$\,mm).
     \item Filters, used to change the wavelength of the source. You may take the mean wavelengths of these to be 455, 530, and 615\,nm for B, G, and R respectively. More detailed information on the filter response is \href{https://www.firstlightoptics.com/rgb-filters-filter-sets/zwo-2-lrgb-filter-set.html}{here}, though the given wavelengths also attempt to take the detector quantum efficiency into account.
-    \item Miscellaneous fittings to mount the light source, aperture tokens, and filters.
+    \item Miscellaneous fittings to mount the light, aperture tokens, and filters.
 \end{itemize}
 
 \subsection{Image capture software}\label{sec:software}
@@ -217,9 +217,9 @@ There are a few pieces of python code, \texttt{widget.py} and some jupyter noteb
 
 \subsection{Setup}\label{sec:setup}
 
-Setting up the experiment is reasonably simple but takes some finesse, the aim being to have the telescope pointed at the aperture and the light source carefully aligned behind it. You will may find the setup quite difficult the first time, but typically the second time is many times faster!
+Setting up the experiment is reasonably simple but takes some finesse, the aim being to have the telescope pointed at the aperture and the light source carefully aligned behind it. You will may find the setup quite difficult the first time, but typically the second time is many times faster! 
 
-Photos of the setup at either end of the lab are in the Appendix. While having the telescope properly focused will aid the setup, it's not actually critical for observing the fringes. A suggested series of steps to get your first set up fringes is as follows:
+Photos of the setup at either end of the lab are in the Appendix. While having the telescope properly focused will aid the setup, it's not actually critical for observing the fringes. A suggested series of steps to get your first set up fringes is below. There is also a good chance that the setup is actually quite close to ready from previous users, so not all of these steps will be necessary:
 
 \begin{enumerate}
     % \item Plug the light source in to charge. The battery should last for a few hours, so it's best to turn it off and charge it when you're not using it.
@@ -232,8 +232,8 @@ Photos of the setup at either end of the lab are in the Appendix. While having t
     \item You may find it useful to orient the detector correctly, e.g. by placing a piece of paper near the source with an upwards pointing arrow on it, and rotating the detector so that the image on screen matches it. The orientation does not matter for rotationally symmetric sources.
     % \item Check the light source has a reasonably uniform surface brightness. You can test this by turning the light on and taking very short exposure images (perhaps with a filter to avoid saturation), and moving the source to get a reasonably uniformly bright disc.
     \item Now set up the aperture token with further mounting kit, ensuring the the surface normal of the token is pointing towards the telescope. You may find it helpful to note where in the image the center of the light is in \texttt{FireCapture} with the mouse cursor, and to then place the center of the aperture at this pixel.
-    \item You can further check the aperture/source alignment by turning the light on and decreasing the exposure time enough to see the source without too much saturation, and verify that the source is centered behind the aperture and that the aperture is illuminated uniformly. Some examples are shown in Figure \ref{fig:img_setup}. Non-uniform illumination can result in unexpected results because the source size is not actually the size of the aperture, so this step is very important! You can  put the lens cap on the telescope with no baseline token to decrease the flux enough to image the aperture without saturation.
-    \item Insert one of the baseline tokens into the lens cap, preferably one of the shorter baselines. You should now see fringes on the detector with an image similar to Figure \ref{fig:det-img}, though may need to alter the exposure time. A few seconds should be enough, though this will depend on gain and the light source. The fringes do not need to be perfectly centered on the detector; as long as the visible PSF is within the image the results will be OK.
+    \item You can further check the aperture/source alignment by turning the light on and decreasing the exposure time enough to see the source without too much saturation, and verify that the source is centered behind the aperture and that the aperture is illuminated uniformly. Some examples are shown in Figure \ref{fig:img_setup}. \textbf{Non-uniform illumination can result in unexpected results because the source size is not actually the size of the aperture, so this step is very important!} You can put the lens cap on the telescope with no baseline token, and insert one of the filters, to decrease the flux enough to image the aperture without saturation.
+    \item Insert one of the baseline tokens into the lens cap, preferably one of the shorter baselines. You should now see fringes on the detector with an image similar to Figure \ref{fig:det-img}, though may need to alter the exposure time. A second or so should be enough, though this will depend on gain and the light source. The fringes do not need to be perfectly centered on the detector; as long as the visible PSF is within the image the results will be OK.
     \item Finally, you can sanity check your setup by trying several different baseline tokens. Figure \ref{fig:uniformvis} shows an example visibility curve for parameters that are similar to the 2\,mm aperture; you can test whether you are likely to get a sensible aperture diameter by doing a quick visibility estimate for a few baselines/filters (i.e. $b/\lambda$) using the on-screen cursor to measure peak/trough counts.
 \end{enumerate}
 
@@ -261,7 +261,7 @@ The goal in making a measurement is to subtract (or otherwise account for) the b
 
 The simplest method for obtaining a visibility measurement would be to use the cursor in \texttt{FireCapture} to measure the background level somewhere away from the PSF, take peak and trough measurements for the fringes, subtract the background level from these, and then compute the visibility.
 
-A more complex, but more reliable method, is to use the supplied python widget (\texttt{widget.py}); this code models the above components of the detector image to come up with a parameterised fit to the data, from which the visibility can be extracted. It can also make a visibility measurement using a Fourier transform.
+A more complex, but more reliable method, is to use the supplied python widget (\texttt{widget.py}); this code models the above components of the detector image to come up with a parameterised fit to the data, from which the visibility can be extracted. It can also make a visibility measurement using a Fourier Transform.
 
 There is no ``correct'' method here, and each method has its own problems. The image model can fit poorly and not minimise well for longer baselines, and so be tedious to tune. The Fourier method can be less reliable and is influenced by various factors, e.g. noisy images and image size (see Fourier example notebook). You should experiment, for example making measurements with all three methods and comparing the results. You should also consider how to incorporate uncertainties.
 
@@ -329,7 +329,7 @@ Given a set of visibilities for a range of baselines and filters, a model (e.g. 
 
 To run a jupyter notebook on the lab ITS machines, open another `WinPython Powershell Prompt' from the interferometry-specific \texttt{WinPython} install in \texttt{C:}, change directory to \texttt{H:} with \texttt{cd H:}, and run \texttt{jupyter notebook}. A browser window should open, with which you can navigate to the downloaded notebooks.
 
-The notebook can also be run using Noteable (link on moodle page), but for this you will need to enter the visibilities manually, and cannot easily sanity check the fits (which would require uploading all of the images and save files).
+The notebooks can in principle be run using Noteable (link on moodle page), but this would require uploading images and/or save files, so is not recommended.
 
 \clearpage
 
@@ -346,7 +346,7 @@ There are many possible measurements that could be made with this experimental s
 Beyond these some possible options are to:
 \begin{itemize}
     \item Try repeating the source size measurement, but using visibilities from the Fourier transform (see section \ref{sec:fourier}). Compare your results from the image-fitting and Fourier methods, if one seems much worse, why?
-    \item Use the three-hole baseline token to take some measurements for the 2mm source. This would involve using Fourier transforms as simultaneously fitting multiple fringes will be difficult. See `3\_hole' notebook for some guidance and an example. Once set up this part can be fairly quick, so try again for another source.
+    \item Use the three-hole baseline token to take some measurements for the 2mm source. This would involve using Fourier transforms as simultaneously fitting multiple fringes will be difficult. See `3\_hole' notebook for some guidance and an example.
     \item Use the above method to characterise the shape of a non-rotationally symmetric source. This would involve the same method as for the sources above, but in addition rotating the baseline with respect to the source to measure the size as a function of baseline rotation. The `Saturn' source is slightly larger than the LED in the light source, so diffusing the light behind the aperture with the lens cap case will help. You may need to be inventive in how you hold the case in place. It's also likely that the USB-mounted LED is not bright enough; the demonstrator can supply the bike light if necessary.
 \end{itemize}
 
