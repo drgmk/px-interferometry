@@ -15,7 +15,7 @@ Upon running, a plot window appears, interact by moving mouse to an appropriate 
 in one of the upper image windows and hit a key.
 
 - c - set PSF center at cursor location
-- g - set PSF width as cursor distance from center
+- g - set PSF width (Gaussian sigma) as cursor distance from center
 - b - set background from cursor location
 - p - set image peak from cursor location (use brightest fringe)
 - t - set image trough from cursor location (use first dark fringe)
