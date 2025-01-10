@@ -170,12 +170,12 @@ Another analogue of this lab experiment is even more closely related, called ``a
 
 This lab has an intentionally simple setup; the goal is to show how one can construct an interferometer from a standard telescope with minor and straightforward modifications. You will also use some software that is outlined below. Some parts are a bit fiddly, this is also intentional; real experiments do require some precision from the scientists! The key physical pieces of equipment are (see the Appendix for some photos):
 \begin{itemize}
-    \item The physics lab. The microprocessors room is 992\,cm long wall to wall, and in the other the bench top is XXX\,cm (ask your demonstrator, it has not been measured yet!). You can find the distance between the aperture and the front of the telescope by measuring their distances from the walls/bench ends with a ruler.
+    \item The physics lab. The microprocessors room is 992\,cm long wall to wall, and in the other the bench top is 601\,cm. You can find the distance between the aperture and the front of the telescope by measuring their distances from the walls/bench ends with a ruler.
     \item Telescope, this is a 90mm \href{https://www.celestron.com/products/c90-mak-spotting-scope#description}{Celestron} C90 Maksutov-Cassegrain ``spotter'' telescope, which is mounted to the bench. Check the path across the lab to the source is clear.
     \item QHY 5L-II-M CMOS detector and USB cable. Some information on the detector is \href{https://www.qhyccd.com/discontinued-products/}{here (scroll down to 5L-II)}.
     \item An ITS (lab) computer near the telescope, plug the CMOS into this.
     \item Lens cap with a small hole, this holds the tokens with the pairs of holes (baselines).
-    \item Baseline tokens, these have small (0.3\,mm) holes drilled in pairs with a range of separations. These have spacings that are 0.6, 1, 2, 3, and 4\,mm. There is also a 3-hole token, with holes at 0.5 and 1\,mm separation at right angles (so the third baseline is $\sqrt{0.5^2 + 1^2}$\,mm).
+    \item Baseline tokens, these have small (0.3\,mm) holes drilled in pairs with a range of separations. These have spacings that are 0.6, 1, 2, 3, and 4\,mm (as labelled). There is also a 3-hole token, with holes at 0.5 and 1\,mm separation at right angles (so the third baseline is $\sqrt{0.5^2 + 1^2}$\,mm).
     \item Light source. This is a USB-powered LED, and there are some bike lights as backup. The bike lights are much brighter, but the batteries do not last very long.
     \item Aperture tokens, these go in front of the light source and are what we observe. The main one for this experiment has a single 2\,mm diameter hole. There is also `Saturn' which has a 4\,mm hole and two 2\,mm holes (outer size $4 \times 6$\,mm).
     \item Filters, used to change the wavelength of the source. You may take the mean wavelengths of these to be 455, 530, and 615\,nm for B, G, and R respectively. More detailed information on the filter response is \href{https://www.firstlightoptics.com/rgb-filters-filter-sets/zwo-2-lrgb-filter-set.html}{here}, though the given wavelengths also attempt to take the detector quantum efficiency into account.
@@ -270,7 +270,7 @@ There is no ``correct'' method here, and each method has its own problems. The i
 This code brings up an interactive window that allows a parameterised fit to a detector image, and which will output the model parameters, including the visibility and baseline angle (with respect to the detector, whose orientation depends on how you insert it into the telescope). The code itself exists on github, you can download it from
 \href{https://github.com/drgmk/px-interferometry}{https://github.com/drgmk/px-interferometry}. It is best to put the code near the data, e.g. unzip the downloaded file in \texttt{H://Interferometry}.
 
-To run the python widget you can use either a system or python terminal (see \ref{sec:widget_ipython} for the latter). To run the widget from the shell directly, open the \texttt{WinPython PowerShell Prompt}. There should be a \texttt{WinPython} install in \texttt{C:} with a name like \texttt{WinPython-interferometry} (the default one is missing packages and will not work). This should exist on the computer the CMOS is connected to, and the other computer along the same end wall. You can make things easier by then changing directory (e.g. \texttt{cd H:\textbackslash Interferometry\textbackslash Data}) so that you are executing the code somewhere close to the data. To run the widget use something like (assuming here you are in the downloaded \texttt{px-interferometry} folder, and there is a data folder one level up)
+To run the python widget you can use either a system or python terminal (see \ref{sec:widget_ipython} for the latter). To run the widget from the shell directly, go to the \texttt{C:} drive, into the \texttt{WinPython-interferometry} folder, and run the \texttt{WinPython PowerShell Prompt}. This should exist on the computer the CMOS is connected to, and the other computer along the same end wall. You can make things easier by then changing directory (e.g. \texttt{cd H:\textbackslash Interferometry\textbackslash Data}) so that you are executing the code somewhere close to the data. To run the widget use something like (assuming here you are in the downloaded \texttt{px-interferometry} folder, and there is a data folder one level up)
 \begin{verbatim}
     python widget.py ../Data/filename.FIT -n 4
 \end{verbatim}
@@ -327,9 +327,9 @@ Practically, visibility measurements with the Fourier method are more susceptibl
 
 Given a set of visibilities for a range of baselines and filters, a model (e.g. equation \ref{eq:uniform}) can be fit and a source diameter determined. The best way to do this is to create a text file in the same folder as the data that lists each file, and also notes the wavelength and baseline. The example jupyter notebook (\texttt{visibility.ipynb} in the GitHub repo) shows how to read this text file and extract the fitted parameters automatically.
 
-To run a jupyter notebook on the lab ITS machines, open another `WinPython Powershell Prompt' from the interferometry-specific \texttt{WinPython} install in \texttt{C:}, change directory to \texttt{H:} with \texttt{cd H:}, and run \texttt{jupyter notebook}. A browser window should open, with which you can navigate to the downloaded notebooks.
+To run a jupyter notebook on the lab ITS machines, open another `WinPython Powershell Prompt' from \texttt{C:\textbackslash WinPython-interferometry}, change directory to \texttt{H:} with \texttt{cd H:}, and run \texttt{jupyter notebook}. A browser window should open, with which you can navigate to the downloaded notebooks.
 
-The notebooks can in principle be run using Noteable (link on moodle page), but this would require uploading images and/or save files, so is not recommended.
+% The notebooks can in principle be run using Noteable (link on moodle page), but this would require uploading images and/or save files, so is not recommended.
 
 \clearpage
 
